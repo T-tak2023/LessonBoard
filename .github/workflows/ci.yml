@@ -12,8 +12,10 @@ jobs:
         ports:
           - 3306:3306
         env:
-          MYSQL_ROOT_PASSWORD: <%= ENV['DATABASE_PASSWORD'] %>
-          MYSQL_DATABASE: lesson_board_test
+          MYSQL_ROOT_PASSWORD: ${{ secrets.MYSQL_ROOT_PASSWORD }}
+          MYSQL_DATABASE: lesson_board_development
+          MYSQL_USER: ${{ secrets.DATABASE_USERNAME }}
+          MYSQL_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
         options: >-
           --health-cmd "mysqladmin ping --silent"
           --health-interval 10s
