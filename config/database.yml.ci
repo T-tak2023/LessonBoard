@@ -4,4 +4,4 @@ test:
   username: ${{ secrets.DATABASE_USERNAME }}
   password: ${{ secrets.DATABASE_PASSWORD }}
   host: 127.0.0.1
-  database: lessonboard_test
+  database: lesson_board_test
