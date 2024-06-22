@@ -1,0 +1,46 @@
+name: CI
+
+on: [push, pull_request]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    services:
+      db:
+        image: mysql:8.0
+        ports:
+          - 3306:3306
+        env:
+          MYSQL_ROOT_PASSWORD: <%= ENV['DATABASE_PASSWORD'] %>
+          MYSQL_DATABASE: lesson_board_test
+        options: >-
+          --health-cmd "mysqladmin ping --silent"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 3
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up Ruby
+        uses: actions/setup-ruby@v1
+        with:
+          ruby-version: 3.2.4
+
+      - name: Install dependencies
+        run: |
+          gem update --system
+          bundle update --bundler
+          bundle install --jobs 4 --retry 3
+
+      - name: Set up the database
+        run: |
+          bin/rails db:create RAILS_ENV=test
+          bin/rails db:schema:load RAILS_ENV=test
+
+      - name: Run tests
+        run: bundle exec rspec
+
+      - name: Run linters
+        run: bundle exec rubocop
