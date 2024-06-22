@@ -51,5 +51,5 @@ test:
 production:
   <<: *default
   database: lesson_board_production
-  username: <%= ENV['LESSON_BOARD_DB_USERNAME'] %>
+  username: <%= ENV["LESSON_BOARD_DB_USERNAME"] %>
   password: <%= ENV["LESSON_BOARD_DB_PASSWORD"] %>

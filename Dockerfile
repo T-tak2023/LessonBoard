@@ -1,4 +1,4 @@
-FROM ruby:3.3.1
+FROM ruby:3.2.4
 
 RUN mkdir /lesson_board
 WORKDIR /lesson_board
