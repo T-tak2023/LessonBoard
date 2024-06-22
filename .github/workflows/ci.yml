@@ -23,12 +23,14 @@ jobs:
           --health-retries 3
 
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
       - name: Set up Ruby
-        uses: actions/setup-ruby@v1
+        uses: ruby/setup-ruby@v1
         with:
-          ruby-version: 3.2.4
+          ruby-version: '3.2.4'
+          bundler-cache: true
 
       - name: Install dependencies
         run: |
