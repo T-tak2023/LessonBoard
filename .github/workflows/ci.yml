@@ -6,46 +6,27 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
-    services:
-      db:
-        image: mysql:8.0
-        ports:
-          - 3306:3306
-        env:
-          MYSQL_ROOT_PASSWORD: ${{ secrets.MYSQL_ROOT_PASSWORD }}
-          MYSQL_DATABASE: lesson_board_development
-          MYSQL_USER: ${{ secrets.DATABASE_USERNAME }}
-          MYSQL_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
-        options: >-
-          --health-cmd "mysqladmin ping --silent"
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 3
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Set up Ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: '3.2.4'
-          bundler-cache: true
-
-      - name: Install dependencies
+      - name: Set up Docker Compose
         run: |
-          gem update --system
-          bundle update --bundler
-          bundle install --jobs 4 --retry 3
+          sudo apt-get update
+          sudo apt-get install -y docker-compose
+
+      - name: Build and start containers
+        run: |
+          docker-compose up -d --build
+          docker-compose exec web sleep 30 # Wait for services to be fully up
 
       - name: Set up the database
         run: |
-          cp config/database.yml.ci config/database.yml
-          bundle exec rails db:create RAILS_ENV=test
-          bundle exec rails db:migrate RAILS_ENV=test
+          docker-compose exec web bundle exec rails db:create RAILS_ENV=test
+          docker-compose exec web bundle exec rails db:migrate RAILS_ENV=test
 
       - name: Run tests
-        run: bundle exec rspec
+        run: docker-compose exec web bundle exec rspec
 
       - name: Run linters
-        run: bundle exec rubocop
+        run: docker-compose exec web bundle exec rubocop
