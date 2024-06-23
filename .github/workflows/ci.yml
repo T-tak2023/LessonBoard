@@ -22,11 +22,11 @@ jobs:
 
       - name: Set up the database
         run: |
-          docker-compose exec web bundle exec rails db:create RAILS_ENV=test
-          docker-compose exec web bundle exec rails db:migrate RAILS_ENV=test
+          docker-compose exec -T web bundle exec rails db:create RAILS_ENV=test
+          docker-compose exec -T web bundle exec rails db:migrate RAILS_ENV=test
 
       - name: Run tests
-        run: docker-compose exec web bundle exec rspec
+        run: docker-compose exec -T web bundle exec rspec
 
       - name: Run linters
-        run: docker-compose exec web bundle exec rubocop
+        run: docker-compose exec -T web bundle exec rubocop
