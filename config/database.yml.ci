@@ -3,5 +3,5 @@ test:
   encoding: utf8
   username: ${{ secrets.DATABASE_USERNAME }}
   password: ${{ secrets.DATABASE_PASSWORD }}
-  host: 127.0.0.1
+  host: db
   database: lesson_board_test

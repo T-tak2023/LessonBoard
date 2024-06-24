@@ -22,6 +22,7 @@ jobs:
 
       - name: Set up the database
         run: |
+          cp config/database.yml.ci config/database.yml
           docker-compose exec -T web bundle exec rails db:create RAILS_ENV=test
           docker-compose exec -T web bundle exec rails db:migrate RAILS_ENV=test
 
