@@ -2,10 +2,7 @@ services:
   db:
     image: mysql:8.0
     environment:
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
-      MYSQL_DATABASE: lesson_board_development
-      MYSQL_USER: ${DATABASE_USERNAME}
-      MYSQL_PASSWORD: ${DATABASE_PASSWORD}
+      MYSQL_ROOT_PASSWORD: rootpass
     ports:
       - "3306:3306"
     volumes:
@@ -13,7 +10,7 @@ services:
     networks:
       - default
 
-  web:
+  app:
     build: .
     command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
     volumes:
@@ -21,11 +18,12 @@ services:
     ports:
       - "3000:3000"
     depends_on:
-      - db
+      db:
+        condition: service_started
     environment:
-      DATABASE_USERNAME: ${DATABASE_USERNAME}
-      DATABASE_PASSWORD: ${DATABASE_PASSWORD}
-      RAILS_ENV: development
+      MYSQL_DATABASE: lesson_board
+      MYSQL_USER: myuser
+      MYSQL_PASSWORD: password
     networks:
       - default
 
