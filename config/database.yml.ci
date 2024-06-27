@@ -1,7 +1,7 @@
 test:
   adapter: mysql2
   encoding: utf8
-  username: myuser
-  password: password
+  username: root
+  password: rootpass
   host: db
   database: lesson_board_test
