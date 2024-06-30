@@ -1,0 +1,33 @@
+name: CI
+
+on: [push, pull_request]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Compose
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y docker-compose
+
+      - name: Build and start containers
+        run: |
+          docker-compose up -d --build
+          docker-compose exec -T web sleep 30
+
+      - name: Set up the database
+        run: |
+          cp config/database.yml.ci config/database.yml
+          docker-compose exec -T web bundle exec rails db:create RAILS_ENV=test
+          docker-compose exec -T web bundle exec rails db:migrate RAILS_ENV=test
+
+      - name: Run tests
+        run: docker-compose exec -T web bundle exec rspec
+
+      - name: Run linters
+        run: docker-compose exec -T web bundle exec rubocop

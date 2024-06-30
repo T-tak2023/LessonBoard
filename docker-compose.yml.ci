@@ -2,7 +2,10 @@ services:
   db:
     image: mysql:8.0
     environment:
-      MYSQL_ROOT_PASSWORD: rootpass
+      MYSQL_ROOT_PASSWORD: ${{ secrets.MYSQL_ROOT_PASSWORD }}
+      MYSQL_DATABASE: lesson_board_development
+      MYSQL_USER: ${{ secrets.DATABASE_USERNAME }}
+      MYSQL_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
     ports:
       - "3306:3306"
     volumes:
@@ -20,9 +23,9 @@ services:
     depends_on:
       - db
     environment:
-      MYSQL_DATABASE: lesson_board
-      MYSQL_USER: myuser
-      MYSQL_PASSWORD: password
+      DATABASE_USERNAME: ${{ secrets.DATABASE_USERNAME }}
+      DATABASE_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
+      RAILS_ENV: development
     networks:
       - default
 
