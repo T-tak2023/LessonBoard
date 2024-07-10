@@ -1,2 +1,12 @@
 <h1>Welcome to LessonBoard!</h1>
 <p>This is a placeholder for the home page.</p>
+<% if instructor_signed_in? %>
+      <p>
+        <%= link_to 'Logout', destroy_instructor_session_path, data: { turbo_method: :delete } %>
+      </p>
+    <% else %>
+      <p>
+        <%= link_to 'Login', new_instructor_session_path %>
+        <%= link_to "講師新規登録", new_instructor_registration_path %>
+      </p>
+    <% end %>
