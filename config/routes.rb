@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   devise_for :instructors
+  get "instructors/profile" => "instructors#profile"
   root 'home#index'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

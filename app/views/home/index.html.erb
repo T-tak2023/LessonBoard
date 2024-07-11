@@ -2,6 +2,7 @@
 <p>This is a placeholder for the home page.</p>
 <% if instructor_signed_in? %>
       <p>
+        <%= link_to 'マイページ', instructors_profile_path %>
         <%= link_to 'ログアウト', destroy_instructor_session_path, data: { turbo_method: :delete } %>
       </p>
     <% else %>
