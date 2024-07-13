@@ -3,6 +3,10 @@
   <%= form_with(model: @instructor, url: instructor_profile_edit_path, local:true) do |f| %>
     <table>
       <tr>
+        <th><%= f.label :icon_image,"アイコン画像" %></th>
+        <td><%= f.file_field :icon_image %></td>
+      </tr>
+      <tr>
         <th><%= f.label :instructor_name,"名前" %></th>
         <td><%= f.text_field :instructor_name %></td>
       </tr>

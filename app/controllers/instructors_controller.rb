@@ -19,10 +19,10 @@ class InstructorsController < ApplicationController
   private
 
   def configure_permitted_parameters
-    devise_parameter_sanitizer.permit(:profile_update, keys: [:instructor_name, :course])
+    devise_parameter_sanitizer.permit(:profile_update, keys: [:icon_image, :instructor_name, :course])
   end
 
   def profile_params
-    params.require(:instructor).permit(:instructor_name, :course)
+    params.require(:instructor).permit(:icon_image, :instructor_name, :course)
   end
 end

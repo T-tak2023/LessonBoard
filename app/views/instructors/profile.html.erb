@@ -1,5 +1,10 @@
 <h1>プロフィール</h1>
-
+<h3>アイコン画像</h3>
+  <% if @instructor.icon_image? %>
+    <%= image_tag @instructor.icon_image.url, size:"100x100" %>
+  <% else %>
+    <%= image_tag '/assets/default_icon.png', :alt => 'ユーザーアイコン', size:"100x100" %>
+  <% end %>
 <h3>名前</h3>
 <%= @instructor.instructor_name %>
 <h3>メールアドレス</h3>
