@@ -3,9 +3,9 @@ Rails.application.routes.draw do
 
   get "instructors/profile" => "instructors#profile", as: :instructor_profile
   get "instructors/profile/edit" => "instructors#profile_edit", as: :instructor_profile_edit
-  patch 'instructors/profile/edit' => 'instructors#profile_update'
+  patch "instructors/profile/edit" => "instructors#profile_update"
 
-  root 'home#index'
+  root "home#index"
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
