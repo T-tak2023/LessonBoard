@@ -1,0 +1,23 @@
+<div>
+  <h3>プロフィール編集</h3>
+  <%= form_with(model: @instructor, url: instructor_profile_edit_path, local:true) do |f| %>
+    <table>
+      <tr>
+        <th><%= f.label :icon_image,"アイコン画像" %></th>
+        <td><%= f.file_field :icon_image %></td>
+      </tr>
+      <tr>
+        <th><%= f.label :instructor_name,"名前" %></th>
+        <td><%= f.text_field :instructor_name %></td>
+      </tr>
+      <tr>
+        <th><%= f.label :course,"担当コース/楽器" %></th>
+        <td><%= f.text_area :course %></td>
+      </tr>
+    </table>
+    <div>
+      <%= f.submit "編集を完了する" %>
+    </div>
+  <% end %>
+  <%= link_to '戻る', :back %>
+</div>

@@ -3,6 +3,9 @@ services:
     image: mysql:8.0
     environment:
       MYSQL_ROOT_PASSWORD: rootpass
+      MYSQL_DATABASE: lesson_board
+      MYSQL_USER: myuser
+      MYSQL_PASSWORD: mypassword
     ports:
       - "3306:3306"
     volumes:
@@ -19,10 +22,6 @@ services:
       - "3000:3000"
     depends_on:
       - db
-    environment:
-      MYSQL_DATABASE: lesson_board
-      MYSQL_USER: myuser
-      MYSQL_PASSWORD: password
     networks:
       - default
 
