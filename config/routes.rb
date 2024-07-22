@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
-  devise_for :students
+  devise_for :students, controllers: {
+    registrations: 'students/registrations'
+  }
   devise_for :instructors
 
   get "instructors/profile" => "instructors#profile", as: :instructor_profile
