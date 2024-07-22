@@ -1,9 +1,18 @@
 Rails.application.routes.draw do
+  get 'students/index'
+  devise_for :students, controllers: {
+    registrations: 'students/registrations'
+  }
+  resources :students, only: [:index]
   devise_for :instructors
 
   get "instructors/profile" => "instructors#profile", as: :instructor_profile
   get "instructors/profile/edit" => "instructors#profile_edit", as: :instructor_profile_edit
   patch "instructors/profile/edit" => "instructors#profile_update"
+
+  get "students/profile" => "students#profile", as: :student_profile
+  get "students/profile/edit" => "students#profile_edit", as: :student_profile_edit
+  patch "students/profile/edit" => "students#profile_update"
 
   root "home#index"
 
