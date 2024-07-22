@@ -10,6 +10,10 @@ Rails.application.routes.draw do
   get "instructors/profile/edit" => "instructors#profile_edit", as: :instructor_profile_edit
   patch "instructors/profile/edit" => "instructors#profile_update"
 
+  get "students/profile" => "students#profile", as: :student_profile
+  get "students/profile/edit" => "students#profile_edit", as: :student_profile_edit
+  patch "students/profile/edit" => "students#profile_update"
+
   root "home#index"
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

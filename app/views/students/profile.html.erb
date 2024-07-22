@@ -1,0 +1,15 @@
+<h1>プロフィール</h1>
+<h3>アイコン画像</h3>
+  <% if @student.icon_image.present? %>
+    <%= image_tag @student.icon_image.url, size: "100x100" %>
+  <% else %>
+    <%= image_tag '/assets/default_icon.png', alt: 'ユーザーアイコン', size: "100x100" %>
+  <% end %>
+<h3>名前</h3>
+<%= @student.student_name %>
+<h3>メールアドレス</h3>
+<%= @student.email %>
+<h3>コース</h3>
+<%= @student.course %>
+
+<p><%= link_to 'プロフィール編集', student_profile_edit_path %></p>

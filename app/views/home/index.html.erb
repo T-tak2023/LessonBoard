@@ -1,16 +1,34 @@
 <h1>Welcome to LessonBoard!</h1>
 <p>This is a placeholder for the home page.</p>
+
 <% if instructor_signed_in? %>
-      <p>
-        <%= link_to 'マイページ', instructor_profile_path %>
-        <%= link_to 'アカウント', edit_instructor_registration_path %>
-        <%= link_to '生徒新規登録', new_student_registration_path %>
-        <%= link_to '生徒一覧', students_index_path %>
-        <%= link_to 'ログアウト', destroy_instructor_session_path, data: { turbo_method: :delete } %>
-      </p>
-    <% else %>
-      <p>
-        <%= link_to 'ログイン', new_instructor_session_path %>
-        <%= link_to "講師新規登録", new_instructor_registration_path %>
-      </p>
-    <% end %>
+  <p><%= current_instructor.instructor_name %>さん、こんにちは！</p>
+  <div>
+    <%= link_to 'マイページ', instructor_profile_path %>
+    <%= link_to 'アカウント', edit_instructor_registration_path %>
+  </div>
+  <div>
+    <%= link_to '生徒新規登録', new_student_registration_path %>
+    <%= link_to '生徒一覧', students_index_path %>
+  </div>
+  <div>
+    <%= link_to 'ログアウト', destroy_instructor_session_path, data: { turbo_method: :delete } %>
+  </div>
+<% elsif student_signed_in? %>
+  <p><%= current_student.student_name %>さん、こんにちは！</p>
+  <div>
+    <%= link_to 'マイページ', student_profile_path %>
+    <%= link_to 'アカウント', edit_student_registration_path %>
+  </div>
+  <div>
+    <%= link_to 'ログアウト', destroy_student_session_path, data: { turbo_method: :delete } %>
+  </div>
+<% else %>
+  <div>
+    <%= link_to '講師新規登録', new_instructor_registration_path %>
+  </div>
+  <div>
+    <%= link_to '講師ログイン', new_instructor_session_path %>
+    <%= link_to '生徒ログイン', new_student_session_path %>
+  </div>
+<% end %>
