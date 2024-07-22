@@ -1,0 +1,34 @@
+<h1>生徒一覧</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>アイコン画像</th>
+      <th>名前</th>
+      <th>メールアドレス</th>
+      <th>コース</th>
+      <th>入会日</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @students.each do |student| %>
+      <tr>
+        <td><%= student.id %></td>
+        <td>
+          <% if student.icon_image.present? %>
+            <%= image_tag student.icon_image.url, size: "100x100" %>
+          <% else %>
+            <%= image_tag '/assets/default_icon.png', alt: 'ユーザーアイコン', size: "100x100" %>
+          <% end %>
+        </td>
+        <td><%= student.student_name %></td>
+        <td><%= student.email %></td>
+        <td><%= student.course %></td>
+        <td><%= student.enrollment_date %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<p><%= link_to 'ホームに戻る', root_path %></p>
