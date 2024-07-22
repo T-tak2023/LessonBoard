@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_07_22_073440) do
+ActiveRecord::Schema[7.1].define(version: 2024_07_22_125009) do
   create_table "active_storage_attachments", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -54,6 +54,18 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_22_073440) do
     t.index ["reset_password_token"], name: "index_instructors_on_reset_password_token", unique: true
   end
 
+  create_table "lessons", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.datetime "start_time"
+    t.datetime "end_time"
+    t.bigint "instructor_id", null: false
+    t.bigint "student_id", null: false
+    t.string "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["instructor_id"], name: "index_lessons_on_instructor_id"
+    t.index ["student_id"], name: "index_lessons_on_student_id"
+  end
+
   create_table "students", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -73,4 +85,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_22_073440) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "lessons", "instructors"
+  add_foreign_key "lessons", "students"
 end
