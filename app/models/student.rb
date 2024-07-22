@@ -1,6 +1,7 @@
 class Student < ApplicationRecord
   belongs_to :instructor
   before_create :set_enrollment_date
+  validates :student_name, presence: true
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,

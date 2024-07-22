@@ -4,8 +4,13 @@
   <%= render "students/shared/error_messages", resource: resource %>
 
   <div class="field">
+    <%= f.label :student_name %><br />
+    <%= f.text_field :student_name, autofocus: true, autocomplete: "name" %>
+  </div>
+
+  <div class="field">
     <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+    <%= f.email_field :email, autocomplete: "email" %>
   </div>
 
   <div class="field">
