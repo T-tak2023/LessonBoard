@@ -1,9 +1,9 @@
 FactoryBot.define do
   factory :lesson do
-    start_time { "2024-07-22 12:50:09" }
-    end_time { "2024-07-22 12:50:09" }
-    instructor { nil }
-    student { nil }
-    status { "MyString" }
+    start_time { Time.now }
+    end_time { Time.now + 1.hour }
+    student
+    instructor
+    status { "Scheduled" }
   end
 end

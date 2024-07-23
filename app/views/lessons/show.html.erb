@@ -1,0 +1,30 @@
+<h1>レッスン詳細</h1>
+
+<p>
+  <strong>開始時間:</strong>
+  <%= @lesson.start_time %>
+</p>
+
+<p>
+  <strong>終了時間:</strong>
+  <%= @lesson.end_time %>
+</p>
+
+<p>
+  <strong>講師:</strong>
+  <%= @lesson.instructor.instructor_name %>
+</p>
+
+<p>
+  <strong>生徒:</strong>
+  <%= @lesson.student.student_name %>
+</p>
+
+<p>
+  <strong>ステータス:</strong>
+  <%= @lesson.status %>
+</p>
+
+<%= link_to '編集', edit_lesson_path(@lesson) %> |
+<%= button_to "削除", "#button", method: "delete", form: { data: { turbo_confirm: "削除しますか？" } } %>
+<%= link_to '戻る', lessons_path %>

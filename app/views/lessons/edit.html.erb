@@ -1,0 +1,41 @@
+<h1>レッスン編集</h1>
+
+<%= form_with(model: @lesson, local: true) do |form| %>
+  <% if @lesson.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@lesson.errors.count, "件のエラー") %> が原因でこのレッスンは保存できませんでした:</h2>
+
+      <ul>
+        <% @lesson.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :start_time, '開始時間' %>
+    <%= form.datetime_select :start_time %>
+  </div>
+
+  <div class="field">
+    <%= form.label :end_time, '終了時間' %>
+    <%= form.datetime_select :end_time %>
+  </div>
+
+  <div class="field">
+    <%= form.label :student_id, '生徒' %>
+    <%= form.collection_select :student_id, Student.all, :id, :student_name, { prompt: '生徒を選択' } %>
+  </div>
+
+  <div class="field">
+    <%= form.label :status, 'ステータス' %>
+    <%= form.text_field :status %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit '更新' %>
+  </div>
+<% end %>
+
+<%= link_to '戻る', lesson_path(@lesson) %>
