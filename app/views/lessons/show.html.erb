@@ -2,12 +2,12 @@
 
 <p>
   <strong>開始時間:</strong>
-  <%= @lesson.start_time %>
+  <%= @lesson.start_time.strftime('%Y-%m-%d %H:%M') %>
 </p>
 
 <p>
   <strong>終了時間:</strong>
-  <%= @lesson.end_time %>
+  <%= @lesson.end_time.strftime('%Y-%m-%d %H:%M') %>
 </p>
 
 <p>

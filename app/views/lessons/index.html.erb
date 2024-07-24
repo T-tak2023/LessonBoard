@@ -7,20 +7,18 @@
       <th>終了時間</th>
       <th>生徒</th>
       <th>ステータス</th>
-      <th>操作</th>
+      <th></th>
     </tr>
   </thead>
 
   <tbody>
     <% @lessons.each do |lesson| %>
       <tr>
-        <td><%= lesson.start_time %></td>
-        <td><%= lesson.end_time %></td>
+        <td><%= lesson.start_time.strftime('%Y-%m-%d %H:%M') %></td>
+        <td><%= lesson.end_time.strftime('%Y-%m-%d %H:%M') %></td>
         <td><%= lesson.student.student_name %></td>
         <td><%= lesson.status %></td>
-        <td>
-          <%= link_to '詳細', lesson_path(lesson) %> |
-        </td>
+        <td><%= link_to '詳細', lesson_path(lesson) %></td>
       </tr>
     <% end %>
   </tbody>
