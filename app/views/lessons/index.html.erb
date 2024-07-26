@@ -1,0 +1,28 @@
+<h1>レッスン一覧</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>開始時間</th>
+      <th>終了時間</th>
+      <th>生徒</th>
+      <th>ステータス</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @lessons.each do |lesson| %>
+      <tr>
+        <td><%= lesson.start_time.strftime('%Y-%m-%d %H:%M') %></td>
+        <td><%= lesson.end_time.strftime('%Y-%m-%d %H:%M') %></td>
+        <td><%= lesson.student.student_name %></td>
+        <td><%= lesson.status %></td>
+        <td><%= link_to '詳細', lesson_path(lesson) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to '新しいレッスンを作成', new_lesson_path %>
+<%= link_to '戻る', root_path %>

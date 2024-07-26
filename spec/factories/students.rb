@@ -5,5 +5,6 @@ FactoryBot.define do
     password { "password" }
     course { "Course" }
     enrollment_date { Date.today }
+    association :instructor
   end
 end

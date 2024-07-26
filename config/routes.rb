@@ -14,6 +14,8 @@ Rails.application.routes.draw do
   get "students/profile/edit" => "students#profile_edit", as: :student_profile_edit
   patch "students/profile/edit" => "students#profile_update"
 
+  resources :lessons
+
   root "home#index"
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
