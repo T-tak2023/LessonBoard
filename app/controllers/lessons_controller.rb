@@ -3,7 +3,17 @@ class LessonsController < ApplicationController
   before_action :set_lesson, only: %i(show edit update destroy)
 
   def index
-    @lessons = Lesson.where(instructor_id: current_instructor.id) # Show only lessons for the current instructor
+    @lessons = Lesson.where(instructor_id: current_instructor.id)
+
+    respond_to do |format|
+      format.html
+      format.json do
+        render json: @lessons.as_json(
+          only: [:id, :start_time, :end_time, :status, :instructor_id, :student_id],
+          methods: [:student_name]
+        )
+      end
+    end
   end
 
   def show
@@ -18,9 +28,15 @@ class LessonsController < ApplicationController
     @lesson = Lesson.new(lesson_params)
     @lesson.instructor = current_instructor
     if @lesson.save
-      redirect_to @lesson, notice: 'Lesson was successfully created.'
+      render json: {
+        success: true,
+        lesson: @lesson.as_json(
+          only: [:id, :start_time, :end_time, :status, :instructor_id, :student_id],
+          methods: [:student_name]
+        ),
+      }
     else
-      render :new
+      render json: { success: false, errors: @lesson.errors.full_messages }
     end
   end
 
@@ -47,6 +63,6 @@ class LessonsController < ApplicationController
   end
 
   def lesson_params
-    params.require(:lesson).permit(:start_time, :end_time, :student_id, :status)
+    params.require(:lesson).permit(:start_time, :end_time, :instructor_id, :student_id, :status)
   end
 end

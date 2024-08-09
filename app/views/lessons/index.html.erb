@@ -1,28 +1,19 @@
-<h1>レッスン一覧</h1>
+<h1>レッスンカレンダー</h1>
+
 <div id='calendar'></div>
-<table>
-  <thead>
-    <tr>
-      <th>開始時間</th>
-      <th>終了時間</th>
-      <th>生徒</th>
-      <th>ステータス</th>
-      <th></th>
-    </tr>
-  </thead>
 
-  <tbody>
-    <% @lessons.each do |lesson| %>
-      <tr>
-        <td><%= lesson.start_time.strftime('%Y-%m-%d %H:%M') %></td>
-        <td><%= lesson.end_time.strftime('%Y-%m-%d %H:%M') %></td>
-        <td><%= lesson.student.student_name %></td>
-        <td><%= lesson.status %></td>
-        <td><%= link_to '詳細', lesson_path(lesson) %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<%= link_to '新しいレッスンを作成', new_lesson_path %>
-<%= link_to '戻る', root_path %>
+<div id="eventModal" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%, -50%); background:white; padding:20px; border:1px solid black; z-index: 1000;">
+  <form id="eventForm">
+    <label for="start_time">Start Time:</label>
+    <input type="datetime-local" id="start_time" name="start_time" required><br>
+    <label for="end_time">End Time:</label>
+    <input type="datetime-local" id="end_time" name="end_time" required><br>
+    <label for="student_id">Student ID:</label>
+    <input type="number" id="student_id" name="student_id" required><br>
+    <label for="status">Status:</label>
+    <input type="text" id="status" name="status" required><br>
+    <input type="hidden" id="instructor_id" name="instructor_id" value="<%= current_instructor.id %>"><br>
+    <button type="submit">Save</button>
+    <button type="button" id="cancelBtn">Cancel</button>
+  </form>
+</div>
