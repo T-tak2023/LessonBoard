@@ -11,7 +11,7 @@
     <%= link_to '生徒一覧', students_index_path %>
   </div>
   <div>
-    <%= link_to 'レッスンカレンダー', lessons_path %>
+  <%= link_to 'レッスンカレンダー', lessons_path, data: { turbo: false } %>
   </div>
   <div>
     <%= link_to 'ログアウト', destroy_instructor_session_path, data: { turbo_method: :delete } %>

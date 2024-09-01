@@ -8,117 +8,11 @@
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js'></script>
-    <script>
-
-      document.addEventListener('turbo:load', function() {
-        var calendarEl = document.getElementById('calendar');
-        var calendar = new FullCalendar.Calendar(calendarEl, {
-          initialView: 'dayGridMonth',
-            headerToolbar: {
-            left: 'prev,next today',
-            center: 'title',
-            right: 'dayGridMonth,timeGridWeek,timeGridDay'
-          },
-          locale: 'ja',
-          timeZone: 'Asia/Tokyo',
-          selectable: true,
-          select: function(info) {
-            // フォームを表示
-            document.getElementById('eventModal').style.display = 'block';
-            // 選択された時間範囲をフォームに設定
-            document.getElementById('start_time').value = new Date(info.start).toISOString().slice(0, 16);
-            document.getElementById('end_time').value = new Date(info.end).toISOString().slice(0, 16);
-          },
-          events: function(fetchInfo, successCallback, failureCallback) {
-            fetch('/lessons.json')
-              .then(response => response.json())
-              .then(data => {
-                console.log('Fetched lessons:', data); // ここで取得したデータをログに出力
-                successCallback(data.map(lesson => ({
-                  id: lesson.id,
-                  title: lesson.student_name || 'No name',
-                  start: lesson.start_time,
-                  end: lesson.end_time,
-                  allDay: false,
-                  extendedProps: {
-                    status: lesson.status,
-                    instructor_id: lesson.instructor_id,
-                    student_id: lesson.student_id
-                  }
-                })));
-              })
-              .catch(error => {
-                console.error('Error fetching events:', error);
-                failureCallback(error);
-              });
-          },
-          editable: true,
-          eventClick: function(info) {
-            console.log('Event clicked:', info.event);
-          },
-          eventDrop: function(info) {
-            console.log('Event dropped:', info.event);
-          }
-        });
-        calendar.render();
-
-        // フォーム送信時の処理
-        document.getElementById('eventForm').addEventListener('submit', function(event) {
-          event.preventDefault();
-          var formData = new FormData(event.target);
-          var data = {
-            start_time: formData.get('start_time'),
-            end_time: formData.get('end_time'),
-            student_id: formData.get('student_id'),
-            status: formData.get('status'),
-            instructor_id: formData.get('instructor_id')
-          };
-          fetch('/lessons', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-              'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-            },
-            body: JSON.stringify({ lesson: data })
-          })
-          .then(response => response.json())
-          .then(data => {
-            if (data.success) {
-              calendar.addEvent({
-                id: data.lesson.id,
-                title: data.lesson.student_name,
-                start: data.lesson.start_time,
-                end: data.lesson.end_time,
-                extendedProps: {
-                  status: data.lesson.status,
-                  start_time: data.lesson.start_time,
-                  end_time: data.lesson.end_time,
-                  instructor_id: data.lesson.instructor_id,
-                  student_id: data.lesson.student_id
-                }
-              });
-              alert('Event added successfully!');
-            } else {
-              alert('Failed to add event: ' + data.errors.join(', '));
-            }
-          })
-          .catch(error => console.error('Error:', error));
-
-          // フォームを非表示にする
-          document.getElementById('eventModal').style.display = 'none';
-        });
-
-        // キャンセルボタンの処理
-        document.getElementById('cancelBtn').addEventListener('click', function() {
-          document.getElementById('eventModal').style.display = 'none';
-        });
-      });
-    </script>
   </head>
 
   <body>
     <header>
-      <h1><%= link_to 'LessonBoard', root_path %></h1>
+      <h1><%= link_to 'LessonBoard', root_path, data: { turbo: false } %></h1>
     </header>
 
     <%= yield %>
@@ -129,5 +23,8 @@
     <script src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.min.js"></script>
     <script src="https://unpkg.com/tippy.js@6/dist/tippy-bundle.umd.js"></script>
 
+    <% if current_page?(lessons_path) %>
+      <%= javascript_include_tag 'lessons' %>
+    <% end %>
   </body>
 </html>
