@@ -22,4 +22,14 @@
   </form>
 </div>
 
+<div id="eventDetailModal" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%, -50%); background:white; padding:20px; border:1px solid black; z-index: 1000;">
+  <h2 id="eventTitle"></h2>
+  <p>開始時刻: <span id="eventStartTime"></span></p>
+  <p>終了時刻: <span id="eventEndTime"></span></p>
+  <p>ステータス: <span id="eventStatus"></span></p>
+  <p>講師: <span id="eventInstructor"></span></p>
+  <p>生徒: <span id="eventStudent"></span></p>
+  <button id="closeDetailBtn">閉じる</button>
+</div>
+
 <%= javascript_include_tag 'lessons' %>

@@ -5,8 +5,14 @@ class Lesson < ApplicationRecord
   validates :start_time, :end_time, :instructor, :student, :status, presence: true
 end
 
-# rubocop:disable Airbnb/ModuleMethodInWrongFile
 def student_name
   student.student_name # student インスタンスから名前を取得
 end
+
+def instructor_name
+  instructor.instructor_name
+end
+
+# rubocop:disable Airbnb/ModuleMethodInWrongFile
+
 # rubocop:enable Airbnb/ModuleMethodInWrongFile

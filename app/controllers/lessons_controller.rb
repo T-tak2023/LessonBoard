@@ -10,7 +10,7 @@ class LessonsController < ApplicationController
       format.json do
         render json: @lessons.as_json(
           only: [:id, :start_time, :end_time, :status, :instructor_id, :student_id],
-          methods: [:student_name]
+          methods: [:student_name, :instructor_name]
         )
       end
     end

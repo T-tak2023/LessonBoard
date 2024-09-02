@@ -32,7 +32,9 @@ document.addEventListener('turbo:load', function() {
             extendedProps: {
               status: lesson.status,
               instructor_id: lesson.instructor_id,
-              student_id: lesson.student_id
+              student_id: lesson.student_id,
+              instructor_name: lesson.instructor_name,
+              student_name: lesson.student_name
             }
           })));
         })
@@ -43,7 +45,18 @@ document.addEventListener('turbo:load', function() {
     },
     editable: true,
     eventClick: function(info) {
-      console.log('Event clicked:', info.event);
+      console.log('Event clicked:', info.event.extendedProps);
+
+      // イベントの詳細をモーダルに設定
+      document.getElementById('eventTitle').textContent = info.event.title;
+      document.getElementById('eventStartTime').textContent = new Date(info.event.start).toLocaleString();
+      document.getElementById('eventEndTime').textContent = new Date(info.event.end).toLocaleString();
+      document.getElementById('eventStatus').textContent = info.event.extendedProps.status;
+      document.getElementById('eventInstructor').textContent = info.event.extendedProps.instructor_name;
+      document.getElementById('eventStudent').textContent = info.event.extendedProps.student_name;
+
+      // モーダルを表示
+      document.getElementById('eventDetailModal').style.display = 'block';
     },
     eventDrop: function(info) {
       console.log('Event dropped:', info.event);
@@ -96,6 +109,11 @@ document.addEventListener('turbo:load', function() {
 
     // フォームを非表示にする
     document.getElementById('eventModal').style.display = 'none';
+  });
+
+  // モーダルのクローズボタン処理
+  document.getElementById('closeDetailBtn').addEventListener('click', function() {
+    document.getElementById('eventDetailModal').style.display = 'none';
   });
 
   // キャンセルボタンの処理
