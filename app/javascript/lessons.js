@@ -10,6 +10,13 @@ document.addEventListener('turbo:load', function() {
     },
     locale: 'ja',
     timeZone: 'Asia/Tokyo',
+    businessHours: true,
+    eventDisplay: 'block',
+    eventTimeFormat: {
+      hour: 'numeric',
+      minute: '2-digit',
+      meridiem: false
+    },
     selectable: true,
     select: function(info) {
       // フォームを表示
