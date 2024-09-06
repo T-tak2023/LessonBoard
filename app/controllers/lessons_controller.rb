@@ -58,8 +58,11 @@ class LessonsController < ApplicationController
   end
 
   def destroy
-    @lesson.destroy
-    redirect_to lessons_url, notice: 'Lesson was successfully destroyed.'
+    if @lesson.destroy
+      render json: { success: true }
+    else
+      render json: { success: false, errors: @lesson.errors.full_messages }
+    end
   end
 
   private

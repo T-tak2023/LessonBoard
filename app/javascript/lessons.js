@@ -111,7 +111,7 @@ document.addEventListener('turbo:load', function() {
     };
 
     fetch('/lessons/' + data.event_id, {
-      method: 'PATCH', // 編集なので PATCH メソッドを使用
+      method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
         'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
@@ -147,6 +147,49 @@ document.addEventListener('turbo:load', function() {
       console.error('Error:', error);
       alert('Failed to update event. Please try again.');
     });
+  });
+
+  document.getElementById('deleteEventBtn').addEventListener('click', function() {
+    console.log('delete button clicked');
+    if (confirm('本当に削除しますか？')) {
+      if (currentEvent) {
+        fetch('/lessons/' + currentEvent.id, {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+          }
+        })
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          return response.json();
+        })
+        .then(responseData => {
+          if (responseData.success) {
+            // イベントをカレンダーから削除
+            var event = calendar.getEventById(currentEvent.id);
+            if (event) {
+              event.remove();
+            }
+
+            // モーダルを非表示にする
+            document.getElementById('eventDetailModal').style.display = 'none';
+            alert('削除が完了しました');
+          } else {
+            alert('削除に失敗しました' + responseData.errors.join(', '));
+          }
+        })
+        .catch(error => {
+          console.error('Error:', error);
+          alert('Failed to delete event. Please try again.');
+        });
+      }
+    } else {
+      // ユーザーがキャンセルした場合
+      console.log('Event deletion canceled');
+    }
   });
 
   // フォーム送信時の処理
