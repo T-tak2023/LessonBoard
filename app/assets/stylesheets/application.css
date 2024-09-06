@@ -26,6 +26,10 @@
   margin: 40px auto;
 }
 
+.pending-status {
+  background-color: rgb(252, 176, 96) !important;
+}
+
 #eventModal #eventDetailModal {
   display: none;
   position: fixed;

@@ -80,6 +80,14 @@ document.addEventListener('turbo:load', function() {
           failureCallback(error);
         });
     },
+
+    eventClassNames: function(arg) {
+      if (arg.event.extendedProps.status === '保留') {
+        return ['pending-status'];
+      }
+      return [];
+    },
+
     eventClick: function(info) {
       console.log('Event clicked:', info.event.extendedProps);
       currentEvent = info.event;

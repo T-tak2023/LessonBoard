@@ -14,8 +14,10 @@
         <option value="<%= student.id %>"><%= student.student_name %></option>
       <% end %>
     </select><br>
-    <label for="status">Status:</label>
-    <input type="text" id="status" name="status" required><br>
+    <select name="status" id="status" required>
+      <option value="確定">確定</option>
+      <option value="保留">保留</option>
+    </select><br>
     <input type="hidden" id="instructor_id" name="instructor_id" value="<%= current_instructor.id %>"><br>
     <button type="submit">Save</button>
     <button type="button" id="cancelBtn">Cancel</button>
@@ -48,7 +50,10 @@
       <% end %>
     </select><br>
     <label for="edit_status">Status:</label>
-    <input type="text" id="edit_status" name="status" required><br>
+    <select name="status" id="edit_status" required>
+      <option value="確定">確定</option>
+      <option value="保留">保留</option>
+    </select>
     <input type="hidden" id="edit_instructor_id" name="instructor_id" value="<%= current_instructor.id %>"><br>
     <input type="hidden" id="edit_event_id" name="event_id"><br>
     <button type="submit">Save</button>
