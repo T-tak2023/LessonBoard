@@ -1,5 +1,12 @@
 document.addEventListener('turbo:load', function() {
   console.log('Turbo load event fired');
+
+  function formatDateToLocal(date) {
+    const offset = date.getTimezoneOffset();
+    const localDate = new Date(date.getTime() - offset * 60000);
+    return localDate.toISOString().slice(0, 16);
+  }
+
   var calendarEl = document.getElementById('calendar');
   var calendar = new FullCalendar.Calendar(calendarEl, {
     initialView: 'dayGridMonth',
@@ -22,11 +29,6 @@ document.addEventListener('turbo:load', function() {
       // フォームを表示
       document.getElementById('eventModal').style.display = 'block';
 
-      const formatDateToLocal = (date) => {
-        const offset = date.getTimezoneOffset();
-        const localDate = new Date(date.getTime() - offset * 60000);
-        return localDate.toISOString().slice(0, 16);
-      };
       // 選択された時間範囲をフォームに設定
       document.getElementById('start_time').value = formatDateToLocal(info.start);
       document.getElementById('end_time').value = formatDateToLocal(info.end);
@@ -56,11 +58,10 @@ document.addEventListener('turbo:load', function() {
           failureCallback(error);
         });
     },
-    editable: true,
     eventClick: function(info) {
       console.log('Event clicked:', info.event.extendedProps);
+      currentEvent = info.event;
 
-      // イベントの詳細をモーダルに設定
       document.getElementById('eventTitle').textContent = info.event.title;
       document.getElementById('eventStartTime').textContent = info.event.start.toLocaleString();
       document.getElementById('eventEndTime').textContent = info.event.end.toLocaleString();
@@ -68,15 +69,85 @@ document.addEventListener('turbo:load', function() {
       document.getElementById('eventInstructor').textContent = info.event.extendedProps.instructor_name;
       document.getElementById('eventStudent').textContent = info.event.extendedProps.student_name;
 
-      // モーダルを表示
       document.getElementById('eventDetailModal').style.display = 'block';
     },
+    editable: true,
     eventDrop: function(info) {
       console.log('Event dropped:', info.event);
     }
   });
 
   calendar.render();
+
+  document.getElementById('editEventBtn').addEventListener('click', function() {
+    console.log('Edit button clicked');
+    if (currentEvent) {
+      document.getElementById('edit_start_time').value = formatDateToLocal(currentEvent.start);
+      document.getElementById('edit_end_time').value = formatDateToLocal(currentEvent.end);
+      document.getElementById('edit_status').value = currentEvent.extendedProps.status;
+      document.getElementById('edit_student_id').value = currentEvent.extendedProps.student_id;
+      document.getElementById('edit_event_id').value = currentEvent.id;
+
+      document.getElementById('eventDetailModal').style.display = 'none';
+      document.getElementById('eventEditModal').style.display = 'block';
+    }
+  });
+
+  document.getElementById('cancelEditBtn').addEventListener('click', function() {
+    document.getElementById('eventEditModal').style.display = 'none';
+  });
+
+  document.getElementById('eventEditForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    var formData = new FormData(event.target);
+    var data = {
+      start_time: formData.get('start_time'),
+      end_time: formData.get('end_time'),
+      student_id: formData.get('student_id'),
+      status: formData.get('status'),
+      instructor_id: formData.get('instructor_id'),
+      event_id: formData.get('event_id')
+    };
+
+    fetch('/lessons/' + data.event_id, {
+      method: 'PATCH', // 編集なので PATCH メソッドを使用
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+      },
+      body: JSON.stringify({ lesson: data })
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
+    })
+    .then(responseData => {
+      if (responseData.success) {
+        // イベントをカレンダーに反映
+        var event = calendar.getEventById(responseData.lesson.id);
+        if (event) {
+          event.setProp('title', responseData.lesson.student_name);
+          event.setStart(responseData.lesson.start_time);
+          event.setEnd(responseData.lesson.end_time);
+          event.setExtendedProp('status', responseData.lesson.status);
+          event.setExtendedProp('student_id', responseData.lesson.student_id);
+        }
+
+        // モーダルを非表示にする
+        document.getElementById('eventEditModal').style.display = 'none';
+        alert('Event updated successfully!');
+      } else {
+        alert('Failed to update event: ' + responseData.errors.join(', '));
+      }
+    })
+    .catch(error => {
+      console.error('Error:', error);
+      alert('Failed to update event. Please try again.');
+    });
+  });
 
   // フォーム送信時の処理
   document.getElementById('eventForm').addEventListener('submit', function(event) {

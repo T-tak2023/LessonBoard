@@ -45,9 +45,15 @@ class LessonsController < ApplicationController
 
   def update
     if @lesson.update(lesson_params)
-      redirect_to @lesson, notice: 'Lesson was successfully updated.'
+      render json: {
+        success: true,
+        lesson: @lesson.as_json(
+          only: [:id, :start_time, :end_time, :status, :instructor_id, :student_id],
+          methods: [:student_name]
+        ),
+      }
     else
-      render :edit
+      render json: { success: false, errors: @lesson.errors.full_messages }
     end
   end
 

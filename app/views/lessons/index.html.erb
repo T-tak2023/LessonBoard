@@ -29,7 +29,30 @@
   <p>ステータス: <span id="eventStatus"></span></p>
   <p>講師: <span id="eventInstructor"></span></p>
   <p>生徒: <span id="eventStudent"></span></p>
+  <button id="editEventBtn">編集</button>
   <button id="closeDetailBtn">閉じる</button>
+</div>
+
+<div id="eventEditModal" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%, -50%); background:white; padding:20px; border:1px solid black; z-index: 1000;">
+  <h2>編集</h2>
+  <form id="eventEditForm">
+    <label for="edit_start_time">Start Time:</label>
+    <input type="datetime-local" id="edit_start_time" name="start_time" required><br>
+    <label for="edit_end_time">End Time:</label>
+    <input type="datetime-local" id="edit_end_time" name="end_time" required><br>
+    <label for="edit_student_id">生徒:</label>
+    <select name="student_id" id="edit_student_id" required>
+      <% current_instructor.students.each do |student| %>
+        <option value="<%= student.id %>"><%= student.student_name %></option>
+      <% end %>
+    </select><br>
+    <label for="edit_status">Status:</label>
+    <input type="text" id="edit_status" name="status" required><br>
+    <input type="hidden" id="edit_instructor_id" name="instructor_id" value="<%= current_instructor.id %>"><br>
+    <input type="hidden" id="edit_event_id" name="event_id"><br>
+    <button type="submit">Save</button>
+    <button type="button" id="cancelEditBtn">Cancel</button>
+  </form>
 </div>
 
 <%= javascript_include_tag 'lessons' %>
