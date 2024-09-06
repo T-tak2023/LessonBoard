@@ -31,22 +31,29 @@ document.addEventListener('turbo:load', function() {
     weekNumbers: true,
     selectable: true,
     select: function(info) {
+      var detailModal = document.getElementById('eventDetailModal');
+      var editModal = document.getElementById('eventEditModal');
+
+      // モーダルが表示されていない場合のみ、新規登録モーダルを表示
+      if ((detailModal && detailModal.style.display === 'none') &&
+          (editModal && editModal.style.display === 'none')) {
       // フォームを表示
-      document.getElementById('eventModal').style.display = 'block';
+        document.getElementById('eventModal').style.display = 'block';
 
-      var startDate = info.start;
-      var endDate = info.end;
+        var startDate = info.start;
+        var endDate = info.end;
 
-      // 月表示の場合（時刻が未指定の場合）にデフォルトの時間を設定
-      if (startDate.getHours() === 0 && endDate.getHours() === 0) {
-        startDate.setHours(9, 0);
-        endDate = new Date(startDate);
-        endDate.setHours(10, 0);
+        // 月表示の場合（時刻が未指定の場合）にデフォルトの時間を設定
+        if (startDate.getHours() === 0 && endDate.getHours() === 0) {
+          startDate.setHours(9, 0);
+          endDate = new Date(startDate);
+          endDate.setHours(10, 0);
+        }
+
+        // 選択された時間範囲をフォームに設定
+        document.getElementById('start_time').value = formatDateToLocal(startDate);
+        document.getElementById('end_time').value = formatDateToLocal(endDate);
       }
-
-      // 選択された時間範囲をフォームに設定
-      document.getElementById('start_time').value = formatDateToLocal(startDate);
-      document.getElementById('end_time').value = formatDateToLocal(endDate);
     },
     events: function(fetchInfo, successCallback, failureCallback) {
       fetch('/lessons.json')
