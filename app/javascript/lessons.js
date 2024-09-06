@@ -9,7 +9,7 @@ document.addEventListener('turbo:load', function() {
       right: 'dayGridMonth,timeGridWeek,timeGridDay'
     },
     locale: 'ja',
-    timeZone: 'Asia/Tokyo',
+    timeZone: 'local',
     businessHours: true,
     eventDisplay: 'block',
     eventTimeFormat: {
@@ -21,9 +21,15 @@ document.addEventListener('turbo:load', function() {
     select: function(info) {
       // フォームを表示
       document.getElementById('eventModal').style.display = 'block';
+
+      const formatDateToLocal = (date) => {
+        const offset = date.getTimezoneOffset();
+        const localDate = new Date(date.getTime() - offset * 60000);
+        return localDate.toISOString().slice(0, 16);
+      };
       // 選択された時間範囲をフォームに設定
-      document.getElementById('start_time').value = new Date(info.start).toISOString().slice(0, 16);
-      document.getElementById('end_time').value = new Date(info.end).toISOString().slice(0, 16);
+      document.getElementById('start_time').value = formatDateToLocal(info.start);
+      document.getElementById('end_time').value = formatDateToLocal(info.end);
     },
     events: function(fetchInfo, successCallback, failureCallback) {
       fetch('/lessons.json')
@@ -56,8 +62,8 @@ document.addEventListener('turbo:load', function() {
 
       // イベントの詳細をモーダルに設定
       document.getElementById('eventTitle').textContent = info.event.title;
-      document.getElementById('eventStartTime').textContent = new Date(info.event.start).toLocaleString();
-      document.getElementById('eventEndTime').textContent = new Date(info.event.end).toLocaleString();
+      document.getElementById('eventStartTime').textContent = info.event.start.toLocaleString();
+      document.getElementById('eventEndTime').textContent = info.event.end.toLocaleString();
       document.getElementById('eventStatus').textContent = info.event.extendedProps.status;
       document.getElementById('eventInstructor').textContent = info.event.extendedProps.instructor_name;
       document.getElementById('eventStudent').textContent = info.event.extendedProps.student_name;
