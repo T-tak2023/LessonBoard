@@ -17,21 +17,36 @@ document.addEventListener('turbo:load', function() {
     },
     locale: 'ja',
     timeZone: 'local',
-    businessHours: true,
+    businessHours: {
+      startTime: '00:00',
+      endTime: '24:00',
+    },
     eventDisplay: 'block',
     eventTimeFormat: {
       hour: 'numeric',
       minute: '2-digit',
       meridiem: false
     },
+    navLinks: true,
+    weekNumbers: true,
     selectable: true,
     select: function(info) {
       // フォームを表示
       document.getElementById('eventModal').style.display = 'block';
 
+      var startDate = info.start;
+      var endDate = info.end;
+
+      // 月表示の場合（時刻が未指定の場合）にデフォルトの時間を設定
+      if (startDate.getHours() === 0 && endDate.getHours() === 0) {
+        startDate.setHours(9, 0);
+        endDate = new Date(startDate);
+        endDate.setHours(10, 0);
+      }
+
       // 選択された時間範囲をフォームに設定
-      document.getElementById('start_time').value = formatDateToLocal(info.start);
-      document.getElementById('end_time').value = formatDateToLocal(info.end);
+      document.getElementById('start_time').value = formatDateToLocal(startDate);
+      document.getElementById('end_time').value = formatDateToLocal(endDate);
     },
     events: function(fetchInfo, successCallback, failureCallback) {
       fetch('/lessons.json')
