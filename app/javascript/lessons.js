@@ -254,7 +254,9 @@ document.addEventListener('turbo:load', function() {
             start_time: data.lesson.start_time,
             end_time: data.lesson.end_time,
             instructor_id: data.lesson.instructor_id,
-            student_id: data.lesson.student_id
+            student_id: data.lesson.student_id,
+            instructor_name: data.lesson.instructor_name,
+            student_name: data.lesson.student_name
           }
         });
         alert('Event added successfully!');
