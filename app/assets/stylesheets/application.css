@@ -26,12 +26,7 @@
   margin: 40px auto;
 }
 
-.pending-status {
-  background-color: rgb(252, 176, 96) !important;
-}
-
-#eventModal #eventDetailModal {
-  display: none;
+.modal {
   position: fixed;
   top: 50%;
   left: 50%;
@@ -39,16 +34,25 @@
   background: white;
   padding: 20px;
   border: 1px solid black;
-  z-index: 1000; /* フォームをカレンダーの前面に表示 */
+  z-index: 1000; /* モーダルをカレンダーの前面に表示 */
 }
 
-#eventForm {
+.modal h2 {
+  margin-top: 0;
+}
+
+.modal form {
   display: flex;
   flex-direction: column;
 }
 
-#eventForm label,
-#eventForm input,
-#eventForm button {
+.modal label,
+.modal input,
+.modal button,
+.modal select {
   margin-bottom: 10px;
+}
+
+.pending-status {
+  background-color: rgb(252, 176, 96) !important;
 }
