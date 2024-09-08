@@ -5,6 +5,14 @@ class Lesson < ApplicationRecord
   validates :start_time, :end_time, :instructor, :student, :status, presence: true
   validate :end_time_after_start_time
 
+  def student_name
+    student.student_name
+  end
+
+  def instructor_name
+    instructor.instructor_name
+  end
+
   private
 
   def end_time_after_start_time
@@ -13,13 +21,3 @@ class Lesson < ApplicationRecord
     end
   end
 end
-
-# rubocop:disable Airbnb/ModuleMethodInWrongFile
-def student_name
-  student.student_name
-end
-
-def instructor_name
-  instructor.instructor_name
-end
-# rubocop:enable Airbnb/ModuleMethodInWrongFile
