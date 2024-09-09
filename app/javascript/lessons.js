@@ -90,16 +90,22 @@ document.addEventListener('turbo:load', function() {
 
     eventClick: function(info) {
       console.log('Event clicked:', info.event.extendedProps);
-      currentEvent = info.event;
+      // モーダルが表示されていない場合のみ、詳細モーダルを表示
+      var createModal = document.getElementById('eventModal');
+      var editModal = document.getElementById('eventEditModal');
 
-      document.getElementById('eventTitle').textContent = info.event.title;
-      document.getElementById('eventStartTime').textContent = info.event.start.toLocaleString();
-      document.getElementById('eventEndTime').textContent = info.event.end.toLocaleString();
-      document.getElementById('eventStatus').textContent = info.event.extendedProps.status;
-      document.getElementById('eventInstructor').textContent = info.event.extendedProps.instructor_name;
-      document.getElementById('eventStudent').textContent = info.event.extendedProps.student_name;
+      if (createModal.style.display === 'none' && editModal.style.display === 'none'){
+        currentEvent = info.event;
 
-      document.getElementById('eventDetailModal').style.display = 'block';
+        document.getElementById('eventTitle').textContent = info.event.title;
+        document.getElementById('eventStartTime').textContent = info.event.start.toLocaleString();
+        document.getElementById('eventEndTime').textContent = info.event.end.toLocaleString();
+        document.getElementById('eventStatus').textContent = info.event.extendedProps.status;
+        document.getElementById('eventInstructor').textContent = info.event.extendedProps.instructor_name;
+        document.getElementById('eventStudent').textContent = info.event.extendedProps.student_name;
+
+        document.getElementById('eventDetailModal').style.display = 'block';
+      }
     },
     editable: true,
     eventDrop: function(info) {
@@ -243,6 +249,8 @@ document.addEventListener('turbo:load', function() {
     })
     .then(response => response.json())
     .then(data => {
+      console.log(data);
+
       if (data.success) {
         calendar.addEvent({
           id: data.lesson.id,

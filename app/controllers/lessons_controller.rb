@@ -32,7 +32,7 @@ class LessonsController < ApplicationController
         success: true,
         lesson: @lesson.as_json(
           only: [:id, :start_time, :end_time, :status, :instructor_id, :student_id],
-          methods: [:student_name]
+          methods: [:student_name, :instructor_name]
         ),
       }
     else
