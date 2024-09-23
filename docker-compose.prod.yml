@@ -1,25 +1,11 @@
 services:
-  db:
-    image: mysql:8.0
-    environment:
-      MYSQL_ROOT_PASSWORD: rootpass
-      MYSQL_DATABASE: prod_lesson_board
-      MYSQL_USER: ${PROD_DATABASE_USERNAME}
-      MYSQL_PASSWORD: ${PROD_DATABASE_PASSWORD}
-    ports:
-      - "3306:3306"
-    volumes:
-      - ./tmp/db:/var/lib/mysql
-    networks:
-      - default
-
   web:
     build: .
     command: bash -c "bundle exec rails db:create RAILS_ENV=production && bundle exec rails db:migrate RAILS_ENV=production && bundle exec rails assets:precompile && bundle exec rails s -e production -b '0.0.0.0'"
     env_file:
       - .env
     ports:
-    - "3000:3000"
+    - "80:3000"
 
 networks:
   default:

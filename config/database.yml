@@ -16,7 +16,7 @@ default: &default
   username: <%= ENV["DATABASE_USERNAME"] %>
   password: <%= ENV["DATABASE_PASSWORD"] %>
   host: db
-  ports: 3306
+  port: 3306
 
 development:
   <<: *default
@@ -51,6 +51,7 @@ test:
 #
 production:
   <<: *default
-  database: lesson_board_production
-  username: <%= ENV["PROD_DATABASE_USERNAME"] %>
-  password: <%= ENV["PROD_DATABASE_PASSWORD"] %>
+  database: <%= ENV['RDS_DATABASE'] %>
+  host: <%= ENV['RDS_HOST'] %>
+  username: <%= ENV['RDS_USERNAME'] %>
+  password: <%= ENV['RDS_PASSWORD'] %>
