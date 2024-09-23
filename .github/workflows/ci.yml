@@ -1,4 +1,4 @@
-name: CI
+name: CICD
 
 on: [push, pull_request]
 
@@ -31,3 +31,25 @@ jobs:
 
       - name: Run linters
         run: docker-compose exec -T web bundle exec rubocop
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: test
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Deploy to EC2
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_PRIVATE_KEY }}
+          EC2_HOST: ${{ secrets.EC2_HOST }}
+          EC2_USER: ${{ secrets.EC2_USER }}
+        run: |
+          echo "${SSH_PRIVATE_KEY}" > private_key.pem
+          chmod 600 private_key.pem
+          ssh -o StrictHostKeyChecking=no -i private_key.pem ${EC2_USER}@${EC2_HOST} << 'EOF'
+            cd /path/to/your/app
+            git pull origin HEAD  # すべてのプッシュに対応
+            docker-compose -f docker-compose.prod.yml up -d --build
+          EOF
