@@ -48,8 +48,12 @@ jobs:
         run: |
           echo "${SSH_PRIVATE_KEY}" > private_key.pem
           chmod 600 private_key.pem
-          ssh -o StrictHostKeyChecking=no -i private_key.pem ${EC2_USER}@${EC2_HOST} << 'EOF'
-            cd /path/to/your/app
-            git pull origin HEAD  # すべてのプッシュに対応
-            docker-compose -f docker-compose.prod.yml up -d --build
-          EOF
+          ssh -t -o StrictHostKeyChecking=no -i private_key.pem ${EC2_USER}@${EC2_HOST} << 'EOF'
+          set -e  # エラーが発生した場合、スクリプトを終了
+          echo "Changing directory to app"
+          cd /path/to/your/app || { echo "Failed to cd"; exit 1; }
+          echo "Pulling latest code"
+          git pull origin HEAD || { echo "Failed to pull code"; exit 1; }
+          echo "Starting Docker containers"
+          docker-compose -f docker-compose.prod.yml up -d --build || { echo "Failed to start containers"; exit 1; }
+        EOF
