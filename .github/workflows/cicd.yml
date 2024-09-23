@@ -40,6 +40,25 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Install AWS CLI
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y awscli
+
+      - name: Configure AWS CLI
+        run: |
+          aws configure set aws_access_key_id ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws configure set default.region ap-northeast-1
+
+      - name: Get public IP address
+        id: ip
+        run: echo "::set-output name=value::$(curl -s http://checkip.amazonaws.com)"
+
+      - name: Update security group
+        run: |
+          aws ec2 authorize-security-group-ingress --group-id sg-09f3ce907a9d2f0ca --protocol tcp --port 22 --cidr ${{ steps.ip.outputs.value }}/32
+
       - name: Deploy to EC2
         env:
           SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_PRIVATE_KEY }}
@@ -51,7 +70,7 @@ jobs:
           ssh -t -o StrictHostKeyChecking=no -i private_key.pem ${EC2_USER}@${EC2_HOST} << 'EOF'
           set -e  # エラーが発生した場合、スクリプトを終了
           echo "Changing directory to app"
-          cd /path/to/your/app || { echo "Failed to cd"; exit 1; }
+          cd /lesson_board || { echo "Failed to cd"; exit 1; }
           echo "Pulling latest code"
           git pull origin HEAD || { echo "Failed to pull code"; exit 1; }
           echo "Starting Docker containers"
