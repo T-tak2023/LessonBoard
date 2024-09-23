@@ -19,7 +19,7 @@
           <% if student.icon_image.present? %>
             <%= image_tag student.icon_image.url, size: "100x100" %>
           <% else %>
-            <%= image_tag '/assets/default_icon.png', alt: 'ユーザーアイコン', size: "100x100" %>
+            <%= image_tag 'default_icon.png', alt: 'ユーザーアイコン', size: "100x100" %>
           <% end %>
         </td>
         <td><%= student.student_name %></td>
