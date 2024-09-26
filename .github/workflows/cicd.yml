@@ -64,11 +64,12 @@ jobs:
           aws ec2 authorize-security-group-ingress --group-id ${{ secrets.EC2_SECURITY_GROUP_ID }} --protocol tcp --port 22 --cidr ${{ steps.ip.outputs.value }}/32
 
       - name: Deploy to EC2
-        env:
-          EC2_SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_PRIVATE_KEY }}
-          EC2_HOST: ${{ secrets.EC2_HOST }}
-          EC2_USER: ${{ secrets.EC2_USER }}
+        # env:
+        #   EC2_SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_PRIVATE_KEY }}
+        #   EC2_HOST: ${{ secrets.EC2_HOST }}
+        #   EC2_USER: ${{ secrets.EC2_USER }}
         run: |
+
           # echo "${EC2_SSH_PRIVATE_KEY}" > private_key.pem
           # chmod 600 private_key.pem
           # ssh -t -o StrictHostKeyChecking=no -i private_key.pem ${EC2_USER}@${EC2_HOST} << 'EOF'
@@ -81,10 +82,8 @@ jobs:
           # docker-compose -f docker-compose.prod.yml up -d --build || { echo "Failed to start containers"; exit 1; }
           # EOF
 
-         # SSH接続して、git pullする
-         echo "${{ EC2_SSH_PRIVATE_KEY }}" > private_key
-         chmod 600 private_key
-         ssh -oStrictHostKeyChecking=no ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} -i private_key "cd /LessonBoard && git pull origin HEAD"
-
-         # SSHのセキュリティグループを閉じる
-         aws ec2 revoke-security-group-ingress --group-id ${{ secrets.EC2_SECURITY_GROUP_ID }} --protocol tcp --port 22 --cidr ${{ steps.ip.outputs.ipv4 }}/32
+          echo "${{ EC2_SSH_PRIVATE_KEY }}" > private_key
+          chmod 600 private_key
+          ssh -oStrictHostKeyChecking=no ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} -i private_key "cd /LessonBoard && git pull origin HEAD"
+          docker-compose -f docker-compose.prod.yml up -d --build
+          aws ec2 revoke-security-group-ingress --group-id ${{ secrets.EC2_SECURITY_GROUP_ID }} --protocol tcp --port 22 --cidr ${{ steps.ip.outputs.ipv4 }}/32
