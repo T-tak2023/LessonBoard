@@ -48,6 +48,6 @@ jobs:
           username: ${{ secrets.EC2_USER }}
           key: ${{ secrets.EC2_SSH_PRIVATE_KEY }}
           script: |
-            cd /LessonBoard
-            git pull origin main
+            cd ~/LessonBoard
+            git pull origin HEAD
             docker-compose -f docker-compose.prod.yml up -d --build
