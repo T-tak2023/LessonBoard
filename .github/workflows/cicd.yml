@@ -66,21 +66,16 @@ jobs:
           host: ${{ secrets.EC2_HOST }}
           username: ${{ secrets.EC2_USER }}
           key: ${{ secrets.EC2_SSH_PRIVATE_KEY }}
-
-      - name: Checkout and pull
-        run: |
-          cd ~/LessonBoard
-          if [[ "${{ github.event_name }}" == "push" ]]; then
-            git checkout ${GITHUB_REF#refs/heads/}
-            git pull origin ${GITHUB_REF#refs/heads/}
-          elif [[ "${{ github.event_name }}" == "pull_request" && "${{ github.event.action }}" == "closed" && "${{ github.event.pull_request.merged }}" == "true" ]]; then
-            git checkout ${{ github.event.pull_request.base.ref }}
-            git pull origin ${{ github.event.pull_request.base.ref }}
-          fi
-
-      - name: Docker Compose
-        run: |
-          docker-compose -f docker-compose.prod.yml up -d --build
+          script: |
+            cd ~/LessonBoard
+            if [[ "${{ github.event_name }}" == "push" ]]; then
+                git checkout ${GITHUB_REF#refs/heads/}
+                git pull origin ${GITHUB_REF#refs/heads/}
+            elif [[ "${{ github.event_name }}" == "pull_request" && "${{ github.event.action }}" == "closed" && "${{ github.event.pull_request.merged }}" == "true" ]]; then
+                git checkout ${{ github.event.pull_request.base.ref }}
+                git pull origin ${{ github.event.pull_request.base.ref }}
+            fi
+            docker-compose -f docker-compose.prod.yml up -d --build
 
       - name: Remove IP from EC2 security group
         run: |
