@@ -71,8 +71,6 @@ jobs:
             git fetch origin
             echo "Fetching branches from origin..."
             git branch -r  # リモートブランチの確認
-
-          # GITHUB_REFを出力して確認
             echo "GITHUB_REF: ${GITHUB_REF}"
 
             if [[ "${{ github.event_name }}" == "push" ]]; then
