@@ -54,8 +54,7 @@ jobs:
 
       - name: Add IP to EC2 security group
         run: |
-          aws ec2 authorize-security-group-ingress --group-id ${{ secrets.EC2_SECURITY_GROUP_ID }} \
-          --protocol tcp --port 22 --cidr ${{ steps.ip.outputs.ip }}/32
+          aws ec2 authorize-security-group-ingress --group-id ${{ secrets.EC2_SECURITY_GROUP_ID }} --protocol tcp --port 22 --cidr ${{ steps.ip.outputs.ipv4 }}/32
 
       - name: Deploy to EC2
         uses: appleboy/ssh-action@master
