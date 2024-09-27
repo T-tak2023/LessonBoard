@@ -66,3 +66,7 @@ jobs:
             cd ~/LessonBoard
             git pull origin HEAD
             docker-compose -f docker-compose.prod.yml up -d --build
+
+      - name: Remove IP to EC2 security group
+        run: |
+          aws ec2 revoke-security-group-ingress --group-id ${{ secrets.EC2_SECURITY_GROUP_ID }} --protocol tcp --port 22 --cidr ${{ steps.ip.outputs.ipv4 }}/32
