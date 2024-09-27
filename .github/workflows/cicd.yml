@@ -69,14 +69,19 @@ jobs:
           script: |
             cd ~/LessonBoard
             git fetch origin
+            echo "Fetching branches from origin..."
+            git branch -r  # リモートブランチの確認
+
             if [[ "${{ github.event_name }}" == "push" ]]; then
+                echo "Event name: push"
+                echo "Checking out branch: ${GITHUB_REF#refs/heads/}"
                 git checkout ${GITHUB_REF#refs/heads/}
                 git pull origin ${GITHUB_REF#refs/heads/}
-                echo "プッシュトリガーで${GITHUB_REF#refs/heads/}にチェックアウト&プル"
             elif [[ "${{ github.event_name }}" == "pull_request" && "${{ github.event.action }}" == "closed" && "${{ github.event.pull_request.merged }}" == "true" ]]; then
+                echo "Event name: pull_request"
+                echo "Checking out base branch: ${{ github.event.pull_request.base.ref }}"
                 git checkout ${{ github.event.pull_request.base.ref }}
                 git pull origin ${{ github.event.pull_request.base.ref }}
-                echo "プルリクエストトリガーで${{ github.event.pull_request.base.ref }}にチェックアウト&プル"
             fi
             echo "Current branch: $(git branch --show-current)"
             docker-compose -f docker-compose.prod.yml up -d --build
