@@ -64,7 +64,8 @@ jobs:
           key: ${{ secrets.EC2_SSH_PRIVATE_KEY }}
           script: |
             cd ~/LessonBoard
-            git pull origin HEAD
+            git checkout ${GITHUB_REF#refs/heads/}
+            git pull origin ${GITHUB_REF#refs/heads/}
             docker-compose -f docker-compose.prod.yml up -d --build
 
       - name: Remove IP from EC2 security group
