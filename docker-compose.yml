@@ -15,9 +15,11 @@ services:
 
   web:
     build: .
+    image: takt2023/lesson_board
     command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
     volumes:
       - .:/lesson_board
+    working_dir: /lesson_board
     ports:
       - "3000:3000"
     depends_on:

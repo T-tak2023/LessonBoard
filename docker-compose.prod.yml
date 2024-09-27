@@ -1,0 +1,11 @@
+services:
+  web:
+    build: .
+    command: bash -c "bundle exec rails db:create RAILS_ENV=production && bundle exec rails db:migrate RAILS_ENV=production && bundle exec rails assets:precompile && bundle exec rails s -e production -b '0.0.0.0'"
+    env_file:
+      - .env
+    ports:
+    - "80:3000"
+
+networks:
+  default:
