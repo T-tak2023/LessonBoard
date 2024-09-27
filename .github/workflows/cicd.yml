@@ -75,6 +75,7 @@ jobs:
                 git checkout ${{ github.event.pull_request.base.ref }}
                 git pull origin ${{ github.event.pull_request.base.ref }}
             fi
+            echo "Current branch: $(git branch --show-current)"
             docker-compose -f docker-compose.prod.yml up -d --build
 
       - name: Remove IP from EC2 security group
