@@ -1,6 +1,10 @@
 name: CICD
 
-on: [push, pull_request]
+on:
+  push:
+  pull_request:
+    types:
+      - closed
 
 jobs:
   test:
@@ -56,6 +60,20 @@ jobs:
         run: |
           aws ec2 authorize-security-group-ingress --group-id ${{ secrets.EC2_SECURITY_GROUP_ID }} --protocol tcp --port 22 --cidr ${{ steps.ip.outputs.ipv4 }}/32
 
+      - name: Set branch name
+        id: set_branch
+        run: |
+          if [[ "${{ github.event_name }}" == "push" ]]; then
+            branch_name=${GITHUB_REF#refs/heads/}
+          elif [[ "${{ github.event_name }}" == "pull_request" && "${{ github.event.action }}" == "closed" && "${{ github.event.pull_request.merged }}" == "true" ]]; then
+            branch_name=${{ github.event.pull_request.base.ref }}
+          else
+            echo "No valid branch name found"
+            exit 1
+          fi
+          echo "Branch name after assignment: ${branch_name}"
+          echo "branch_name=${branch_name}" >> $GITHUB_OUTPUT
+
       - name: Deploy to EC2
         uses: appleboy/ssh-action@master
         with:
@@ -64,8 +82,15 @@ jobs:
           key: ${{ secrets.EC2_SSH_PRIVATE_KEY }}
           script: |
             cd ~/LessonBoard
-            git checkout ${GITHUB_REF#refs/heads/}
-            git pull origin ${GITHUB_REF#refs/heads/}
+            git fetch origin
+            echo "Fetching branches from origin..."
+            git branch -r  # リモートブランチの確認
+
+            echo "Checking out branch: ${{ steps.set_branch.outputs.branch_name }}"
+            git checkout ${{ steps.set_branch.outputs.branch_name }}
+            git pull origin ${{ steps.set_branch.outputs.branch_name }}
+
+            echo "Current branch: $(git branch --show-current)"
             docker-compose -f docker-compose.prod.yml up -d --build
 
       - name: Remove IP from EC2 security group
