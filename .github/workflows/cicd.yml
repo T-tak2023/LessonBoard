@@ -71,19 +71,29 @@ jobs:
             git fetch origin
             echo "Fetching branches from origin..."
             git branch -r  # リモートブランチの確認
-            echo $GITHUB_REF
 
             if [[ "${{ github.event_name }}" == "push" ]]; then
                 echo "Event name: push"
-                echo "Checking out branch: ${GITHUB_REF#refs/heads/}"
-                git checkout ${GITHUB_REF#refs/heads/}
-                git pull origin ${GITHUB_REF#refs/heads/}
+                branch_name=${GITHUB_REF#refs/heads/}
+                echo "Checking out branch: ${branch_name}"
+
+                if ! git show-ref --verify --quiet refs/heads/$branch_name; then
+                    echo "Creating new local branch: $branch_name"
+                    git checkout -b $branch_name origin/$branch_name
+                else
+                    echo "Switching to existing branch: $branch_name"
+                    git checkout $branch_name
+                fi
+                git pull origin $branch_name
+
             elif [[ "${{ github.event_name }}" == "pull_request" && "${{ github.event.action }}" == "closed" && "${{ github.event.pull_request.merged }}" == "true" ]]; then
                 echo "Event name: pull_request"
-                echo "Checking out base branch: ${{ github.event.pull_request.base.ref }}"
-                git checkout ${{ github.event.pull_request.base.ref }}
-                git pull origin ${{ github.event.pull_request.base.ref }}
+                base_branch=${{ github.event.pull_request.base.ref }}
+                echo "Checking out base branch: $base_branch"
+                git checkout $base_branch
+                git pull origin $base_branch
             fi
+
             echo "Current branch: $(git branch --show-current)"
             docker-compose -f docker-compose.prod.yml up -d --build
 
