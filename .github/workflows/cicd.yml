@@ -75,7 +75,7 @@ jobs:
             if [[ "${{ github.event_name }}" == "push" ]]; then
                 echo "Event name: push"
                 branch_name=${GITHUB_REF#refs/heads/}
-                echo "Checking out branch: ${branch_name}"
+                echo "Checking out branch: $branch_name"
 
                 if ! git show-ref --verify --quiet refs/heads/$branch_name; then
                     echo "Creating new local branch: $branch_name"
