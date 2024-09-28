@@ -60,6 +60,19 @@ jobs:
         run: |
           aws ec2 authorize-security-group-ingress --group-id ${{ secrets.EC2_SECURITY_GROUP_ID }} --protocol tcp --port 22 --cidr ${{ steps.ip.outputs.ipv4 }}/32
 
+      - name: Set branch name
+        id: set_branch
+        run: |
+          if [[ "${{ github.event_name }}" == "push" ]]; then
+            branch_name=${GITHUB_REF#refs/heads/}
+          elif [[ "${{ github.event_name }}" == "pull_request" && "${{ github.event.action }}" == "closed" && "${{ github.event.pull_request.merged }}" == "true" ]]; then
+            branch_name=${{ github.event.pull_request.base.ref }}
+          else
+            echo "No valid branch name found"
+            exit 1
+          fi
+          echo "branch_name=${branch_name}" >> $GITHUB_OUTPUT
+
       - name: Deploy to EC2
         uses: appleboy/ssh-action@master
         with:
@@ -74,7 +87,6 @@ jobs:
 
             if [[ "${{ github.event_name }}" == "push" ]]; then
                 echo "Event name: push"
-                branch_name=${GITHUB_REF#refs/heads/}
                 echo "Checking out branch: $branch_name"
 
                 if ! git show-ref --verify --quiet refs/heads/$branch_name; then
