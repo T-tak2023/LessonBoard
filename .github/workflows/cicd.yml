@@ -63,6 +63,7 @@ jobs:
       - name: Set branch name
         id: set_branch
         run: |
+          cd ~/LessonBoard
           if [[ "${{ github.event_name }}" == "push" ]]; then
             branch_name=${GITHUB_REF#refs/heads/}
           elif [[ "${{ github.event_name }}" == "pull_request" && "${{ github.event.action }}" == "closed" && "${{ github.event.pull_request.merged }}" == "true" ]]; then
@@ -71,6 +72,7 @@ jobs:
             echo "No valid branch name found"
             exit 1
           fi
+          echo "Branch name after assignment: ${branch_name}"
           echo "branch_name=${branch_name}" >> $GITHUB_OUTPUT
 
       - name: Deploy to EC2
@@ -85,26 +87,9 @@ jobs:
             echo "Fetching branches from origin..."
             git branch -r  # リモートブランチの確認
 
-            if [[ "${{ github.event_name }}" == "push" ]]; then
-                echo "Event name: push"
-                echo "Checking out branch: $branch_name"
-
-                if ! git show-ref --verify --quiet refs/heads/$branch_name; then
-                    echo "Creating new local branch: $branch_name"
-                    git checkout -b $branch_name origin/$branch_name
-                else
-                    echo "Switching to existing branch: $branch_name"
-                    git checkout $branch_name
-                fi
-                git pull origin $branch_name
-
-            elif [[ "${{ github.event_name }}" == "pull_request" && "${{ github.event.action }}" == "closed" && "${{ github.event.pull_request.merged }}" == "true" ]]; then
-                echo "Event name: pull_request"
-                base_branch=${{ github.event.pull_request.base.ref }}
-                echo "Checking out base branch: $base_branch"
-                git checkout $base_branch
-                git pull origin $base_branch
-            fi
+            echo "Checking out branch: ${{ steps.set_branch.outputs.branch_name }}"
+            git checkout ${{ steps.set_branch.outputs.branch_name }}
+            git pull origin ${{ steps.set_branch.outputs.branch_name }}
 
             echo "Current branch: $(git branch --show-current)"
             docker-compose -f docker-compose.prod.yml up -d --build
