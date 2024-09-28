@@ -63,7 +63,6 @@ jobs:
       - name: Set branch name
         id: set_branch
         run: |
-          cd ~/LessonBoard
           if [[ "${{ github.event_name }}" == "push" ]]; then
             branch_name=${GITHUB_REF#refs/heads/}
           elif [[ "${{ github.event_name }}" == "pull_request" && "${{ github.event.action }}" == "closed" && "${{ github.event.pull_request.merged }}" == "true" ]]; then
