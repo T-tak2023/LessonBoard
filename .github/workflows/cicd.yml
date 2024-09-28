@@ -84,7 +84,7 @@ jobs:
             cd ~/LessonBoard
             git fetch origin
             echo "Fetching branches from origin..."
-            git branch -r  # リモートブランチの確認
+            git branch -r
 
             echo "Checking out branch: ${{ steps.set_branch.outputs.branch_name }}"
             git checkout ${{ steps.set_branch.outputs.branch_name }}
