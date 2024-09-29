@@ -24,6 +24,20 @@ class LessonLogsController < ApplicationController
     @lesson_log = LessonLog.find(params[:id])
   end
 
+  def edit
+    @lesson_log = LessonLog.find(params[:id])
+    @students = Student.where(instructor_id: current_instructor.id)
+  end
+
+  def update
+    @lesson_log = LessonLog.find(params[:id])
+    if @lesson_log.update(lesson_log_params)
+      redirect_to lesson_logs_path, notice: 'レッスンログが更新されました。'
+    else
+      render :edit
+    end
+  end
+
   private
 
   def lesson_log_params
