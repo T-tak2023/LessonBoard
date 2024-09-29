@@ -29,7 +29,11 @@
 
 <p>
   <strong>動画資料:</strong>
-  <%= @lesson_log.video_material %>
+  <% if @lesson_log.video_material.present? %>
+    <div class="video-container">
+      <%= @lesson_log.video_material.html_safe %>
+    </div>
+  <% end %>
 </p>
 
 <p>
