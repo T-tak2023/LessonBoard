@@ -23,6 +23,14 @@ class LessonLogsController < ApplicationController
   private
 
   def lesson_log_params
-    params.require(:lesson_log).permit(:student_id, :lesson_date, :content, :instructor_memo, :image_material, :video_material, :log_status)
+    params.require(:lesson_log).permit(
+      :student_id,
+      :lesson_date,
+      :content,
+      :instructor_memo,
+      :image_material,
+      :video_material,
+      :log_status
+    )
   end
 end
