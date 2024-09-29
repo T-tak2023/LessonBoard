@@ -40,8 +40,11 @@ class LessonLogsController < ApplicationController
 
   def destroy
     @lesson_log = LessonLog.find(params[:id])
-    @lesson_log.destroy
-    redirect_to lesson_logs_path, notice: 'レッスンログが削除されました。'
+    if @lesson_log.destroy
+      redirect_to lesson_logs_path, notice: 'レッスンログが削除されました。'
+    else
+      redirect_to lesson_logs_path, alert: 'レッスンログの削除に失敗しました。'
+    end
   end
 
   private
