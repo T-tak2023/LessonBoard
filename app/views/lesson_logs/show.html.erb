@@ -31,8 +31,10 @@
   <strong>動画資料:</strong>
   <% if @lesson_log.video_material.present? %>
     <div class="video-container">
-      <%= @lesson_log.video_material.html_safe %>
+      <iframe width="560" height="315" src="<%= @lesson_log.video_material %>" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
     </div>
+  <% else %>
+    <p>動画資料はありません。</p>
   <% end %>
 </p>
 

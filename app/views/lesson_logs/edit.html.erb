@@ -20,8 +20,8 @@
     <%= form.file_field :image_material %>
   </div>
   <div>
-    <%= form.label :video_material, "動画資料 (YouTube)" %>
-    <%= form.text_field :video_material %>
+    <%= form.label :video_material, "動画資料 (YouTube URL)" %>
+    <%= form.text_field :video_material, placeholder: "YouTubeの動画URLを入力してください", value: @lesson_log.video_material %>
   </div>
   <div>
     <%= form.label :log_status, "ログの状態" %>

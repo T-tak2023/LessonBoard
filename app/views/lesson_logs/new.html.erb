@@ -17,8 +17,8 @@
     <%= form.file_field :image_material %>
   </div>
   <div>
-    <%= form.label :video_material, "動画資料 (YouTube 埋め込みコード)" %>
-    <%= form.text_area :video_material, rows: 5, placeholder: 'YouTubeの埋め込みコードをここに貼り付けてください' %>
+    <%= form.label :video_material, "動画資料 (YouTube URL)" %>
+    <%= form.text_field :video_material, placeholder: "YouTubeの動画URLを入力してください" %>
   </div>
   <div>
     <%= form.label :log_status, "ログの状態" %>
