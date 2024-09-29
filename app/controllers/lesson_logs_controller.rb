@@ -2,7 +2,7 @@ class LessonLogsController < ApplicationController
   before_action :authenticate_instructor!
 
   def index
-    @lesson_logs = LessonLog.all
+    @lesson_logs = LessonLog.where(instructor_id: current_instructor.id)
   end
 
   def new
@@ -28,6 +28,7 @@ class LessonLogsController < ApplicationController
 
   def lesson_log_params
     params.require(:lesson_log).permit(
+      :instructor_id,
       :student_id,
       :lesson_date,
       :content,
