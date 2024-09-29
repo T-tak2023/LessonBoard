@@ -38,6 +38,12 @@ class LessonLogsController < ApplicationController
     end
   end
 
+  def destroy
+    @lesson_log = LessonLog.find(params[:id])
+    @lesson_log.destroy
+    redirect_to lesson_logs_path, notice: 'レッスンログが削除されました。'
+  end
+
   private
 
   def lesson_log_params
