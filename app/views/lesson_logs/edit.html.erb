@@ -14,7 +14,10 @@
   </div>
   <div>
     <%= form.label :image_material, "画像資料" %>
-    <%= form.text_field :image_material %>
+    <% if @lesson_log.image_material? %>
+      <%= image_tag @lesson_log.image_material.url, style: "max-width: 200px; height: auto;" %>
+    <% end %>
+    <%= form.file_field :image_material %>
   </div>
   <div>
     <%= form.label :video_material, "動画資料 (YouTube)" %>

@@ -32,7 +32,7 @@ class LessonLogsController < ApplicationController
   def update
     @lesson_log = LessonLog.find(params[:id])
     if @lesson_log.update(lesson_log_params)
-      redirect_to lesson_logs_path, notice: 'レッスンログが更新されました。'
+      redirect_to @lesson_log, notice: 'レッスンログが更新されました。'
     else
       render :edit
     end
