@@ -1,0 +1,34 @@
+<h1>レッスンログ作成</h1>
+<%= form_with model: @lesson_log do |form| %>
+  <div>
+    <%= form.label :lesson_date, 'レッスン日時' %>
+    <%= form.datetime_field :lesson_date %>
+</div>
+  <div>
+    <%= form.label :content, "レッスン内容" %>
+    <%= form.text_area :content %>
+  </div>
+  <div>
+    <%= form.label :instructor_memo, "講師用メモ" %>
+    <%= form.text_area :instructor_memo %>
+  </div>
+  <div>
+    <%= form.label :image_material, "画像資料" %>
+    <%= form.text_field :image_material %>
+  </div>
+  <div>
+    <%= form.label :video_material, "動画資料 (YouTube)" %>
+    <%= form.text_field :video_material %>
+  </div>
+  <div>
+    <%= form.label :log_status, "ログの状態" %>
+    <%= form.select :log_status, ['完了', 'キャンセル'] %>
+  </div>
+  <div>
+    <%= form.hidden_field :instructor_id, value: current_instructor.id %>
+    <%= form.label :student_id, "生徒選択" %>
+    <%= form.collection_select :student_id, @students, :id, :student_name %>
+  </div>
+    <%= form.submit "作成" %>
+  </div>
+<% end %>
