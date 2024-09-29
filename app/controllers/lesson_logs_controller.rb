@@ -66,7 +66,11 @@ class LessonLogsController < ApplicationController
 
   def handle_video_material(material)
     if material.present? && material.include?("youtube.com")
-      youtube_id = material.split("v=")[1].split("&")[0] rescue nil
+      begin
+        youtube_id = material.split("v=")[1].split("&")[0]
+      rescue NoMethodError, IndexError
+        nil
+      end
       return "https://www.youtube.com/embed/#{youtube_id}" if youtube_id
     elsif material.present? && material.include?("youtu.be")
       youtube_id = material.split("/").last
