@@ -14,7 +14,7 @@ class LessonLogsController < ApplicationController
     @lesson_log = LessonLog.new(lesson_log_params)
     @lesson_log.instructor = current_instructor
     if @lesson_log.save
-      redirect_to lesson_logs_path, notice: 'レッスンログが作成されました。'
+      redirect_to @lesson_log, notice: 'レッスンログが作成されました。'
     else
       render :new
     end
