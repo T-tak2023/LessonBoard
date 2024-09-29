@@ -20,6 +20,10 @@ class LessonLogsController < ApplicationController
     end
   end
 
+  def show
+    @lesson_log = LessonLog.find(params[:id])
+  end
+
   private
 
   def lesson_log_params

@@ -16,6 +16,9 @@
         <td><%= lesson_log.lesson_date.strftime('%Y-%m-%d %H:%M') %></td>
         <td><%= lesson_log.content %></td>
         <td><%= lesson_log.log_status %></td>
+        <td>
+          <%= link_to '詳細', lesson_log_path(lesson_log) %>
+        </td>
       </tr>
     <% end %>
   </tbody>
