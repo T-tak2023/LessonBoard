@@ -22,7 +22,9 @@
 
 <p>
   <strong>画像資料:</strong>
-  <%= @lesson_log.image_material %>
+  <% if @lesson_log.image_material? %>
+    <%= image_tag @lesson_log.image_material.url, style: "max-width: 200px; height: auto;" %>
+  <% end %>
 </p>
 
 <p>
