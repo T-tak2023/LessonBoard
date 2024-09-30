@@ -17,6 +17,7 @@ class LessonLogsController < ApplicationController
     if @lesson_log.save
       redirect_to @lesson_log, notice: 'レッスンログが作成されました。'
     else
+      @students = Student.where(instructor_id: current_instructor.id)
       render :new
     end
   end
