@@ -1,5 +1,6 @@
 <h1>レッスンログ編集</h1>
 <%= form_with model: @lesson_log do |form| %>
+  <%= render 'shared/error_messages', object: form.object %>
   <div>
     <%= form.label :lesson_date, 'レッスン日時' %>
     <%= form.datetime_field :lesson_date %>

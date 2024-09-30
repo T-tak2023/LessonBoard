@@ -13,7 +13,6 @@ class LessonLogsController < ApplicationController
   def create
     @lesson_log = LessonLog.new(lesson_log_params)
     @lesson_log.instructor = current_instructor
-    @lesson_log.video_material = handle_video_material(@lesson_log.video_material)
     if @lesson_log.save
       redirect_to @lesson_log, notice: 'レッスンログが作成されました。'
     else
@@ -24,6 +23,7 @@ class LessonLogsController < ApplicationController
 
   def show
     @lesson_log = LessonLog.find(params[:id])
+    @embed_url = generate_embed_url(@lesson_log.video_material)
   end
 
   def edit
@@ -33,10 +33,10 @@ class LessonLogsController < ApplicationController
 
   def update
     @lesson_log = LessonLog.find(params[:id])
-    new_video_material = handle_video_material(params[:lesson_log][:video_material])
-    if @lesson_log.update(lesson_log_params.merge(video_material: new_video_material))
+    if @lesson_log.update(lesson_log_params)
       redirect_to @lesson_log, notice: 'レッスンログが更新されました。'
     else
+      @students = Student.where(instructor_id: current_instructor.id)
       render :edit
     end
   end
@@ -65,18 +65,21 @@ class LessonLogsController < ApplicationController
     )
   end
 
-  def handle_video_material(material)
-    if material.present? && material.include?("youtube.com")
+  def generate_embed_url(material)
+    return nil if material.blank?
+
+    if material.include?("youtube.com")
       begin
-        youtube_id = material.split("v=")[1].split("&")[0]
+        youtube_id = material.split("v=").last.split("&").first
       rescue NoMethodError, IndexError
         nil
       end
       return "https://www.youtube.com/embed/#{youtube_id}" if youtube_id
-    elsif material.present? && material.include?("youtu.be")
+    elsif material.include?("youtu.be")
       youtube_id = material.split("/").last
-      return "https://www.youtube.com/embed/#{youtube_id}" if youtube_id
+      return "https://www.youtube.com/embed/#{youtube_id}" if youtube_id.present?
     end
+
     nil
   end
 end
