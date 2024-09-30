@@ -2,7 +2,7 @@ class LessonLogsController < ApplicationController
   before_action :authenticate_instructor!
 
   def index
-    @lesson_logs = LessonLog.where(instructor_id: current_instructor.id)
+    @lesson_logs = LessonLog.where(instructor_id: current_instructor.id).order(lesson_date: :desc)
   end
 
   def new
