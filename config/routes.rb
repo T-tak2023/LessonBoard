@@ -15,7 +15,7 @@ Rails.application.routes.draw do
   patch "students/profile/edit" => "students#profile_update"
 
   resources :lessons
-
+  resources :lesson_logs
   root "home#index"
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

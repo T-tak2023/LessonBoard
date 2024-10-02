@@ -1,0 +1,2 @@
+module LessonLogsHelper
+end
