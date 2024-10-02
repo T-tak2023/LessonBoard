@@ -14,7 +14,12 @@ Rails.application.routes.draw do
   get "students/profile/edit" => "students#profile_edit", as: :student_profile_edit
   patch "students/profile/edit" => "students#profile_update"
 
-  resources :lessons
+  resources :lessons do
+    collection do
+      get 'student_index', to: 'lessons#student_index'
+    end
+  end
+
   resources :lesson_logs
   root "home#index"
 

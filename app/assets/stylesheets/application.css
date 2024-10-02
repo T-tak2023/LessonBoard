@@ -56,3 +56,35 @@ html, body {
 .pending-status {
   background-color: rgb(252, 176, 96) !important;
 }
+
+.lesson-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.lesson-card {
+  background-color: #f5f5f5;
+  border: 1px solid #ccc;
+  padding: 15px;
+  border-radius: 8px;
+  width: 300px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  min-height: 250px;
+}
+
+.lesson-card h2 {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.lesson-card p {
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+
+.lesson-card.next-lesson {
+  background-color: #d4f1f4;
+  border: 2px solid #0e76a8;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}

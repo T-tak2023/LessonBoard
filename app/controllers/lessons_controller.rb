@@ -1,5 +1,6 @@
 class LessonsController < ApplicationController
-  before_action :authenticate_instructor! # Ensure the user is logged in as an instructor
+  before_action :authenticate_instructor!, except: [:student_index]
+  before_action :authenticate_student!, only: [:student_index]
   before_action :set_lesson, only: %i(show edit update destroy)
 
   def index
@@ -14,6 +15,11 @@ class LessonsController < ApplicationController
         )
       end
     end
+  end
+
+  def student_index
+    @lessons = Lesson.where(student_id: current_student.id).
+      where('start_time >= ?', Time.current.beginning_of_day)
   end
 
   def show
