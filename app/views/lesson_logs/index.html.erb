@@ -13,7 +13,7 @@
     <% @lesson_logs.each do |lesson_log| %>
       <tr>
         <td><%= lesson_log.student_name %></td>
-        <td><%= lesson_log.lesson_date.strftime('%Y-%m-%d %H:%M') %></td>
+        <td><%= lesson_log.lesson_date.strftime('%Y-%m-%d') %></td>
         <td><%= lesson_log.content %></td>
         <td><%= lesson_log.log_status %></td>
         <td>
