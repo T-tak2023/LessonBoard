@@ -1,5 +1,6 @@
 class Instructors::LessonLogsController < ApplicationController
   before_action :authenticate_instructor!
+  before_action :set_lesson_log, only: [:show, :edit, :update, :destroy]
 
   def index
     @lesson_logs = LessonLog.where(instructor_id: current_instructor.id).order(lesson_date: :desc)
@@ -22,17 +23,14 @@ class Instructors::LessonLogsController < ApplicationController
   end
 
   def show
-    @lesson_log = LessonLog.find(params[:id])
     @embed_url = generate_embed_url(@lesson_log.video_material)
   end
 
   def edit
-    @lesson_log = LessonLog.find(params[:id])
     @students = Student.where(instructor_id: current_instructor.id)
   end
 
   def update
-    @lesson_log = LessonLog.find(params[:id])
     if @lesson_log.update(lesson_log_params)
       redirect_to instructors_lesson_log_path(@lesson_log), notice: 'レッスンログが更新されました。'
     else
@@ -42,7 +40,6 @@ class Instructors::LessonLogsController < ApplicationController
   end
 
   def destroy
-    @lesson_log = LessonLog.find(params[:id])
     if @lesson_log.destroy
       redirect_to instructors_lesson_logs_path, notice: 'レッスンログが削除されました。'
     else
@@ -52,17 +49,14 @@ class Instructors::LessonLogsController < ApplicationController
 
   private
 
-  def lesson_log_params
-    params.require(:lesson_log).permit(
-      :instructor_id,
-      :student_id,
-      :lesson_date,
-      :content,
-      :instructor_memo,
-      :image_material,
-      :video_material,
-      :log_status
-    )
+  def set_lesson_log
+    @lesson_log = LessonLog.find_by(id: params[:id])
+
+    if @lesson_log.nil?
+      redirect_to instructors_lesson_logs_path, alert: '指定されたレッスンログは存在しません。'
+    elsif @lesson_log.instructor_id != current_instructor.id
+      redirect_to instructors_lesson_logs_path, alert: '指定されたレッスンログにはアクセスできません。'
+    end
   end
 
   def generate_embed_url(material)
@@ -81,5 +75,18 @@ class Instructors::LessonLogsController < ApplicationController
     end
 
     nil
+  end
+
+  def lesson_log_params
+    params.require(:lesson_log).permit(
+      :instructor_id,
+      :student_id,
+      :lesson_date,
+      :content,
+      :instructor_memo,
+      :image_material,
+      :video_material,
+      :log_status
+    )
   end
 end
