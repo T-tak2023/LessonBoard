@@ -10,6 +10,20 @@ class Students::LessonLogsController < ApplicationController
     @embed_url = generate_embed_url(@lesson_log.video_material)
   end
 
+  def edit
+    @lesson_log = LessonLog.find(params[:id])
+  end
+
+  def update
+    @lesson_log = LessonLog.find(params[:id])
+
+    if @lesson_log.update(lesson_log_params)
+      redirect_to students_lesson_log_path(@lesson_log), notice: 'メモが更新されました。'
+    else
+      render :edit
+    end
+  end
+
   private
 
   def generate_embed_url(material)
@@ -28,5 +42,9 @@ class Students::LessonLogsController < ApplicationController
     end
 
     nil
+  end
+
+  def lesson_log_params
+    params.require(:lesson_log).permit(:student_memo)
   end
 end

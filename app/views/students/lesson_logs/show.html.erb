@@ -2,11 +2,11 @@
 
 <p>
   <strong>講師:</strong>
-  <%= @lesson_log.instructor.instructor_name %>
+  <%= @lesson_log.instructor.instructor_name %> 先生
 </p>
 
 <p>
-  <strong>レッスン日:</strong>
+  <strong>レッスン日時:</strong>
   <%= @lesson_log.lesson_date.strftime("%Y年%m月%d日 %H:%M") %>
 </p>
 
@@ -14,6 +14,12 @@
   <strong>レッスン内容:</strong>
   <%= @lesson_log.content %>
 </p>
+
+<p>
+  <strong>メモ:</strong>
+  <%= @lesson_log.student_memo %>
+</p>
+<%= link_to 'メモを入力', edit_students_lesson_log_path(@lesson_log) %>
 
 <p>
   <strong>画像資料:</strong>

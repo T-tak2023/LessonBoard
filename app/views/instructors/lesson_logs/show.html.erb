@@ -6,13 +6,18 @@
 </p>
 
 <p>
-  <strong>レッスン日:</strong>
+  <strong>レッスン日時:</strong>
   <%= @lesson_log.lesson_date.strftime("%Y年%m月%d日 %H:%M") %>
 </p>
 
 <p>
   <strong>レッスン内容:</strong>
   <%= @lesson_log.content %>
+</p>
+
+<p>
+  <strong>生徒用メモ:</strong>
+  <%= @lesson_log.student_memo %>
 </p>
 
 <p>
@@ -39,7 +44,7 @@
 </p>
 
 <p>
-  <strong>ログの状態:</strong>
+  <strong>ステータス:</strong>
   <%= @lesson_log.log_status %>
 </p>
 
