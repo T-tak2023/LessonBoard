@@ -6,7 +6,16 @@ class Students::LessonLogsController < ApplicationController
   end
 
   def show
-    @lesson_log = LessonLog.find(params[:id])
+    @lesson_log = LessonLog.find_by(id: params[:id])
+
+    if @lesson_log.nil?
+      redirect_to students_lesson_logs_path, alert: '指定されたレッスンログは存在しません。'
+      return
+    elsif @lesson_log.student_id != current_student.id
+      redirect_to students_lesson_logs_path, alert: '指定されたレッスンログにはアクセスできません。'
+      return
+    end
+
     @embed_url = generate_embed_url(@lesson_log.video_material)
   end
 
