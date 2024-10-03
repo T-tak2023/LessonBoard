@@ -110,7 +110,7 @@ ja:
         confirm_new_password: 確認用新しいパスワード
         new_password: 新しいパスワード
       new:
-        forgot_your_password: パスワードを忘れましたか？
+        forgot_your_password: パスワードを忘れた場合はこちら
         send_me_reset_password_instructions: パスワードの再設定方法を送信する
       no_token: このページにはアクセスできません。パスワード再設定メールのリンクからアクセスされた場合には、URL をご確認ください。
       send_instructions: パスワードの再設定について数分以内にメールでご連絡いたします。
@@ -148,7 +148,7 @@ ja:
         back: 戻る
         didn_t_receive_confirmation_instructions: アカウント確認のメールを受け取っていませんか？
         didn_t_receive_unlock_instructions: アカウントのロック解除方法のメールを受け取っていませんか？
-        forgot_your_password: パスワードを忘れましたか？
+        forgot_your_password: パスワードを忘れた場合はこちら
         sign_in: ログイン
         sign_in_with_provider: "%{provider}でログイン"
         sign_up: アカウント登録
@@ -224,7 +224,7 @@ ja:
         confirm_new_password: 確認用新しいパスワード
         new_password: 新しいパスワード
       new:
-        forgot_your_password: パスワードを忘れましたか？
+        forgot_your_password: パスワードを忘れた場合はこちら
         send_me_reset_password_instructions: パスワードの再設定方法を送信する
       no_token: このページにはアクセスできません。パスワード再設定メールのリンクからアクセスされた場合には、URL をご確認ください。
       send_instructions: パスワードの再設定について数分以内にメールでご連絡いたします。
@@ -262,7 +262,7 @@ ja:
         back: 戻る
         didn_t_receive_confirmation_instructions: アカウント確認のメールを受け取っていませんか？
         didn_t_receive_unlock_instructions: アカウントのロック解除方法のメールを受け取っていませんか？
-        forgot_your_password: パスワードを忘れましたか？
+        forgot_your_password: パスワードを忘れた場合はこちら
         sign_in: ログイン
         sign_in_with_provider: "%{provider}でログイン"
         sign_up: アカウント登録
