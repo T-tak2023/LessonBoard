@@ -1,31 +1,19 @@
 class Students::LessonLogsController < ApplicationController
   before_action :authenticate_student!
+  before_action :set_lesson_log, only: [:show, :edit, :update]
 
   def index
     @lesson_logs = LessonLog.where(student_id: current_student.id).order(lesson_date: :desc)
   end
 
   def show
-    @lesson_log = LessonLog.find_by(id: params[:id])
-
-    if @lesson_log.nil?
-      redirect_to students_lesson_logs_path, alert: '指定されたレッスンログは存在しません。'
-      return
-    elsif @lesson_log.student_id != current_student.id
-      redirect_to students_lesson_logs_path, alert: '指定されたレッスンログにはアクセスできません。'
-      return
-    end
-
     @embed_url = generate_embed_url(@lesson_log.video_material)
   end
 
   def edit
-    @lesson_log = LessonLog.find(params[:id])
   end
 
   def update
-    @lesson_log = LessonLog.find(params[:id])
-
     if @lesson_log.update(lesson_log_params)
       redirect_to students_lesson_log_path(@lesson_log), notice: 'メモが更新されました。'
     else
@@ -34,6 +22,16 @@ class Students::LessonLogsController < ApplicationController
   end
 
   private
+
+  def set_lesson_log
+    @lesson_log = LessonLog.find_by(id: params[:id])
+
+    if @lesson_log.nil?
+      redirect_to students_lesson_logs_path, alert: '指定されたレッスンログは存在しません。'
+    elsif @lesson_log.student_id != current_student.id
+      redirect_to students_lesson_logs_path, alert: '指定されたレッスンログにはアクセスできません。'
+    end
+  end
 
   def generate_embed_url(material)
     return nil if material.blank?
