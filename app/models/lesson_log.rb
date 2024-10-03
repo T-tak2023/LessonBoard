@@ -16,5 +16,4 @@ class LessonLog < ApplicationRecord
   def instructor_name
     instructor.instructor_name
   end
-
 end
