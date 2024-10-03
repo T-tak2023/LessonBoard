@@ -13,7 +13,7 @@
   </div>
   <div>
   <%= link_to 'レッスンカレンダー', lessons_path %>
-  <%= link_to 'レッスンログ一覧', lesson_logs_path %>
+  <%= link_to 'レッスンログ一覧', instructors_lesson_logs_path %>
   </div>
   <div>
     <%= link_to 'ログアウト', destroy_instructor_session_path, method: :delete, data: { turbo: "true", turbo_method: :delete } %>
@@ -23,6 +23,8 @@
   <div>
     <%= link_to 'マイページ', student_profile_path %>
     <%= link_to 'アカウント', edit_student_registration_path %>
+    <%= link_to 'マイレッスン', student_index_lessons_path %>
+    <%= link_to 'レッスンログ一覧', students_lesson_logs_path %>
   </div>
   <div>
     <%= link_to 'ログアウト', destroy_student_session_path, method: :delete, data: { turbo: "true", turbo_method: :delete } %>

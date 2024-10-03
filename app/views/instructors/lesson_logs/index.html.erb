@@ -17,17 +17,17 @@
         <td><%= lesson_log.content %></td>
         <td><%= lesson_log.log_status %></td>
         <td>
-          <%= link_to '詳細', lesson_log_path(lesson_log) %>
+          <%= link_to '詳細', instructors_lesson_log_path(lesson_log) %>
         </td>
         <td>
-          <%= link_to '編集', edit_lesson_log_path(lesson_log) %>
+          <%= link_to '編集', edit_instructors_lesson_log_path(lesson_log) %>
         </td>
         <td>
-          <%= link_to '削除', lesson_log_path(lesson_log), data: { turbo: "true", turbo_method: :delete, turbo_confirm: '本当に削除しますか？' } %>
+          <%= link_to '削除', instructors_lesson_log_path(lesson_log), data: { turbo: "true", turbo_method: :delete, turbo_confirm: '本当に削除しますか？' } %>
         </td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
-<%= link_to 'レッスンログを作成', new_lesson_log_path %>
+<%= link_to 'レッスンログを作成', new_instructors_lesson_log_path %>

@@ -14,8 +14,20 @@ Rails.application.routes.draw do
   get "students/profile/edit" => "students#profile_edit", as: :student_profile_edit
   patch "students/profile/edit" => "students#profile_update"
 
-  resources :lessons
-  resources :lesson_logs
+  resources :lessons do
+    collection do
+      get 'student_index', to: 'lessons#student_index'
+    end
+  end
+
+  namespace :instructors do
+    resources :lesson_logs
+  end
+
+  namespace :students do
+    resources :lesson_logs, only: [:index, :show, :edit, :update]
+  end
+
   root "home#index"
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

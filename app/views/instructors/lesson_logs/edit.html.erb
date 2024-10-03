@@ -1,5 +1,5 @@
-<h1>レッスンログ作成</h1>
-<%= form_with model: @lesson_log do |form| %>
+<h1>レッスンログ編集</h1>
+<%= form_with model: @lesson_log, url: instructors_lesson_log_path(@lesson_log), method: :patch do |form| %>
   <%= render 'shared/error_messages', object: form.object %>
   <div>
     <%= form.label :lesson_date, 'レッスン日時' %>
@@ -15,11 +15,14 @@
   </div>
   <div>
     <%= form.label :image_material, "画像資料" %>
+    <% if @lesson_log.image_material? %>
+      <%= image_tag @lesson_log.image_material.url, style: "max-width: 200px; height: auto;" %>
+    <% end %>
     <%= form.file_field :image_material %>
   </div>
   <div>
     <%= form.label :video_material, "動画資料 (YouTube URL)" %>
-    <%= form.text_field :video_material, placeholder: "YouTubeの動画URLを入力してください" %>
+    <%= form.text_field :video_material, placeholder: "YouTubeの動画URLを入力してください", value: @lesson_log.video_material %>
   </div>
   <div>
     <%= form.label :log_status, "ログの状態" %>
@@ -30,6 +33,9 @@
     <%= form.label :student_id, "生徒選択" %>
     <%= form.collection_select :student_id, @students, :id, :student_name %>
   </div>
-    <%= form.submit "作成" %>
+  <div>
+    <%= form.submit "更新" %>
   </div>
 <% end %>
+
+<%= link_to '一覧に戻る', instructors_lesson_log_path %>

@@ -1,12 +1,12 @@
 <h1>レッスンログ詳細</h1>
 
 <p>
-  <strong>生徒:</strong>
-  <%= @lesson_log.student.student_name %>
+  <strong>講師:</strong>
+  <%= @lesson_log.instructor.instructor_name %> 先生
 </p>
 
 <p>
-  <strong>レッスン日:</strong>
+  <strong>レッスン日時:</strong>
   <%= @lesson_log.lesson_date.strftime("%Y年%m月%d日 %H:%M") %>
 </p>
 
@@ -16,14 +16,17 @@
 </p>
 
 <p>
-  <strong>講師用メモ:</strong>
-  <%= @lesson_log.instructor_memo %>
+  <strong>メモ:</strong>
+  <%= @lesson_log.student_memo %>
 </p>
+<%= link_to 'メモを入力', edit_students_lesson_log_path(@lesson_log) %>
 
 <p>
   <strong>画像資料:</strong>
   <% if @lesson_log.image_material? %>
     <%= image_tag @lesson_log.image_material.url, style: "max-width: 200px; height: auto;" %>
+  <% else %>
+    <p>画像資料はありません。</p>
   <% end %>
 </p>
 
@@ -39,10 +42,8 @@
 </p>
 
 <p>
-  <strong>ログの状態:</strong>
+  <strong>ステータス:</strong>
   <%= @lesson_log.log_status %>
 </p>
 
-<%= link_to '編集', edit_lesson_log_path(@lesson_log) %>
-
-<%= link_to '戻る', lesson_logs_path %>
+<%= link_to '一覧に戻る', students_lesson_logs_path %>

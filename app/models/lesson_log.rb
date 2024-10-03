@@ -8,8 +8,13 @@ class LessonLog < ApplicationRecord
     with: /\A(https:\/\/)?(www\.)?(youtube\.com\/watch\?v=|youtu\.be\/|m\.youtube\.com\/watch\?v=)[a-zA-Z0-9_-]{11}(\?.*)?\z/,
     message: :invalid_youtube_url,
   }, allow_blank: true
+  validates :student_memo, length: { maximum: 500 }, allow_blank: true
 
   def student_name
     student.student_name
+  end
+
+  def instructor_name
+    instructor.instructor_name
   end
 end
