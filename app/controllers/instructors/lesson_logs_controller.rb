@@ -1,4 +1,4 @@
-class LessonLogsController < ApplicationController
+class Instructors::LessonLogsController < ApplicationController
   before_action :authenticate_instructor!
 
   def index
@@ -14,7 +14,7 @@ class LessonLogsController < ApplicationController
     @lesson_log = LessonLog.new(lesson_log_params)
     @lesson_log.instructor = current_instructor
     if @lesson_log.save
-      redirect_to @lesson_log, notice: 'レッスンログが作成されました。'
+      redirect_to instructors_lesson_log_path(@lesson_log), notice: 'レッスンログが作成されました。'
     else
       @students = Student.where(instructor_id: current_instructor.id)
       render :new
@@ -34,7 +34,7 @@ class LessonLogsController < ApplicationController
   def update
     @lesson_log = LessonLog.find(params[:id])
     if @lesson_log.update(lesson_log_params)
-      redirect_to @lesson_log, notice: 'レッスンログが更新されました。'
+      redirect_to instructors_lesson_log_path(@lesson_log), notice: 'レッスンログが更新されました。'
     else
       @students = Student.where(instructor_id: current_instructor.id)
       render :edit
@@ -44,9 +44,9 @@ class LessonLogsController < ApplicationController
   def destroy
     @lesson_log = LessonLog.find(params[:id])
     if @lesson_log.destroy
-      redirect_to lesson_logs_path, notice: 'レッスンログが削除されました。'
+      redirect_to instructors_lesson_logs_path, notice: 'レッスンログが削除されました。'
     else
-      redirect_to lesson_logs_path, alert: 'レッスンログの削除に失敗しました。'
+      redirect_to instructors_lesson_logs_path, alert: 'レッスンログの削除に失敗しました。'
     end
   end
 

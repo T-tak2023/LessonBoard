@@ -20,7 +20,10 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :lesson_logs
+  namespace :instructors do
+    resources :lesson_logs
+  end
+
   root "home#index"
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
