@@ -12,4 +12,9 @@ class LessonLog < ApplicationRecord
   def student_name
     student.student_name
   end
+
+  def instructor_name
+    instructor.instructor_name
+  end
+
 end
