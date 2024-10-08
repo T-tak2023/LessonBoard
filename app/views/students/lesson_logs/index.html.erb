@@ -1,4 +1,4 @@
-<h1>レッスンログ一覧</h1>
+<h1>レッスンノート一覧</h1>
 
 <table>
   <thead>
@@ -10,14 +10,14 @@
     </tr>
   </thead>
   <tbody>
-    <% @lesson_logs.each do |lesson_log| %>
+    <% @lesson_notes.each do |lesson_note| %>
       <tr>
-        <td><%= lesson_log.instructor_name %></td>
-        <td><%= lesson_log.lesson_date.strftime('%Y-%m-%d') %></td>
-        <td><%= lesson_log.content %></td>
-        <td><%= lesson_log.log_status %></td>
+        <td><%= lesson_note.instructor_name %></td>
+        <td><%= lesson_note.lesson_date.strftime('%Y-%m-%d') %></td>
+        <td><%= lesson_note.content %></td>
+        <td><%= lesson_note.log_status %></td>
         <td>
-          <%= link_to '詳細', students_lesson_log_path(lesson_log) %>
+          <%= link_to '詳細', students_lesson_note_path(lesson_note) %>
         </td>
       </tr>
     <% end %>

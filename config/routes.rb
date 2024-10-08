@@ -21,11 +21,11 @@ Rails.application.routes.draw do
   end
 
   namespace :instructors do
-    resources :lesson_logs
+    resources :lesson_notes
   end
 
   namespace :students do
-    resources :lesson_logs, only: [:index, :show, :edit, :update]
+    resources :lesson_notes, only: [:index, :show, :edit, :update]
   end
 
   root "home#index"
