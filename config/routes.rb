@@ -1,10 +1,9 @@
 Rails.application.routes.draw do
-  get 'students/index'
+  devise_for :instructors
   devise_for :students, controllers: {
     registrations: 'students/registrations'
   }
   resources :students, only: [:index]
-  devise_for :instructors
 
   get "instructors/profile" => "instructors#profile", as: :instructor_profile
   get "instructors/profile/edit" => "instructors#profile_edit", as: :instructor_profile_edit
