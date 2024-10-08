@@ -10,7 +10,7 @@ RSpec.describe "Students", type: :request do
 
   describe "GET /index" do
     it "returns http success" do
-      get "/students/index"
+      get "/students"
       expect(response).to have_http_status(:success)
     end
   end
