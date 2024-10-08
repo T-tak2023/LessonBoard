@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "LessonLogs", type: :request do
+RSpec.describe "LessonNotes", type: :request do
   describe "GET /index" do
     pending "add some examples (or delete) #{__FILE__}"
   end

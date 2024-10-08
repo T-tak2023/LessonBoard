@@ -1,4 +1,4 @@
-class LessonLog < ApplicationRecord
+class LessonNote < ApplicationRecord
   mount_uploader :image_material, ImageMaterialUploader
   belongs_to :instructor
   belongs_to :student

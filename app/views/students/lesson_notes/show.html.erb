@@ -1,30 +1,30 @@
-<h1>レッスンログ詳細</h1>
+<h1>レッスンノート詳細</h1>
 
 <p>
   <strong>講師:</strong>
-  <%= @lesson_log.instructor.instructor_name %> 先生
+  <%= @lesson_note.instructor.instructor_name %> 先生
 </p>
 
 <p>
   <strong>レッスン日時:</strong>
-  <%= @lesson_log.lesson_date.strftime("%Y年%m月%d日 %H:%M") %>
+  <%= @lesson_note.lesson_date.strftime("%Y年%m月%d日 %H:%M") %>
 </p>
 
 <p>
   <strong>レッスン内容:</strong>
-  <%= @lesson_log.content %>
+  <%= @lesson_note.content %>
 </p>
 
 <p>
   <strong>メモ:</strong>
-  <%= @lesson_log.student_memo %>
+  <%= @lesson_note.student_memo %>
 </p>
-<%= link_to 'メモを入力', edit_students_lesson_log_path(@lesson_log) %>
+<%= link_to 'メモを入力', edit_students_lesson_note_path(@lesson_note) %>
 
 <p>
   <strong>画像資料:</strong>
-  <% if @lesson_log.image_material? %>
-    <%= image_tag @lesson_log.image_material.url, style: "max-width: 200px; height: auto;" %>
+  <% if @lesson_note.image_material? %>
+    <%= image_tag @lesson_note.image_material.url, style: "max-width: 200px; height: auto;" %>
   <% else %>
     <p>画像資料はありません。</p>
   <% end %>
@@ -32,7 +32,7 @@
 
 <p>
   <strong>動画資料:</strong>
-  <% if @lesson_log.video_material.present? %>
+  <% if @lesson_note.video_material.present? %>
     <div class="video-container">
       <iframe width="560" height="315" src="<%= @embed_url %>" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
     </div>
@@ -43,7 +43,7 @@
 
 <p>
   <strong>ステータス:</strong>
-  <%= @lesson_log.log_status %>
+  <%= @lesson_note.log_status %>
 </p>
 
-<%= link_to '一覧に戻る', students_lesson_logs_path %>
+<%= link_to '一覧に戻る', students_lesson_notes_path %>

@@ -4,12 +4,12 @@ ja:
       lesson:
         start_time: "開始時間"
         end_time: "終了時間"
-      lesson_log:
+      lesson_note:
         lesson_date: "レッスン日時"
         video_material: "動画資料"
     errors:
       models:
-        lesson_log:
+        lesson_note:
           attributes:
             video_material:
               invalid_youtube_url: "は有効なYouTubeのURLを入力してください。"

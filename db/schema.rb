@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_10_03_043353) do
+ActiveRecord::Schema[7.1].define(version: 2024_10_08_075642) do
   create_table "active_storage_attachments", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -54,7 +54,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_03_043353) do
     t.index ["reset_password_token"], name: "index_instructors_on_reset_password_token", unique: true
   end
 
-  create_table "lesson_logs", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "lesson_notes", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "instructor_id"
     t.bigint "student_id"
     t.datetime "lesson_date"
@@ -66,8 +66,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_03_043353) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.text "student_memo"
-    t.index ["instructor_id"], name: "index_lesson_logs_on_instructor_id"
-    t.index ["student_id"], name: "index_lesson_logs_on_student_id"
+    t.index ["instructor_id"], name: "index_lesson_notes_on_instructor_id"
+    t.index ["student_id"], name: "index_lesson_notes_on_student_id"
   end
 
   create_table "lessons", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -101,8 +101,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_03_043353) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "lesson_logs", "instructors"
-  add_foreign_key "lesson_logs", "students"
+  add_foreign_key "lesson_notes", "instructors"
+  add_foreign_key "lesson_notes", "students"
   add_foreign_key "lessons", "instructors"
   add_foreign_key "lessons", "students"
 end

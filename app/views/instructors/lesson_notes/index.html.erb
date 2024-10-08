@@ -1,0 +1,33 @@
+<h1>レッスンノート一覧</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>生徒名</th>
+      <th>レッスン日</th>
+      <th>レッスン内容</th>
+      <th>状態</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @lesson_notes.each do |lesson_note| %>
+      <tr>
+        <td><%= lesson_note.student_name %></td>
+        <td><%= lesson_note.lesson_date.strftime('%Y-%m-%d') %></td>
+        <td><%= lesson_note.content %></td>
+        <td><%= lesson_note.log_status %></td>
+        <td>
+          <%= link_to '詳細', instructors_lesson_note_path(lesson_note) %>
+        </td>
+        <td>
+          <%= link_to '編集', edit_instructors_lesson_note_path(lesson_note) %>
+        </td>
+        <td>
+          <%= link_to '削除', instructors_lesson_note_path(lesson_note), data: { turbo: "true", turbo_method: :delete, turbo_confirm: '本当に削除しますか？' } %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to 'レッスンノートを作成', new_instructors_lesson_note_path %>
