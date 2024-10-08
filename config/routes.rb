@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   devise_for :students, controllers: {
     registrations: 'students/registrations'
   }
-  resources :students, only: [:index]
+  resources :students, only: [:index, :show, :edit, :update, :destroy]
 
   get "instructors/profile" => "instructors#profile", as: :instructor_profile
   get "instructors/profile/edit" => "instructors#profile_edit", as: :instructor_profile_edit
