@@ -11,7 +11,7 @@
 <p><strong>メールアドレス:</strong> <%= @student.email %></p>
 <p><strong>コース:</strong> <%= @student.course %></p>
 <p><strong>入会日:</strong> <%= @student.enrollment_date %></p>
-<%= link_to '編集', edit_student_path(@student) %>
-<%= link_to '削除', student_path(@student), data: { turbo: "true", turbo_method: :delete, turbo_confirm: '本当に削除しますか？' } %>
+<%= link_to '編集', edit_instructors_student_path(@student) %>
+<%= link_to '削除', instructors_student_path(@student), data: { turbo: "true", turbo_method: :delete, turbo_confirm: '本当に削除しますか？' } %>
 
-<%= link_to '一覧に戻る', students_path %>
+<%= link_to '一覧に戻る', instructors_students_path %>
