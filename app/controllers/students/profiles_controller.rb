@@ -23,5 +23,4 @@ class Students::ProfilesController < ApplicationController
   def profile_params
     params.require(:student).permit(:icon_image)
   end
-
 end
