@@ -1,0 +1,31 @@
+<h1>生徒情報編集</h1>
+
+<%= form_for @student, url: instructors_student_path(@student) do |f| %>
+  <%= render 'shared/error_messages', object: @student %>
+
+  <div class="field">
+    <%= f.label :student_name %>
+    <%= f.text_field :student_name %>
+  </div>
+
+  <div class="field">
+    <%= f.label :email %>
+    <%= f.email_field :email %>
+  </div>
+
+  <div class="field">
+    <%= f.label :course %>
+    <%= f.text_field :course %>
+  </div>
+
+  <div class="field">
+    <%= f.label :enrollment_date %>
+    <%= f.date_select :enrollment_date %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "更新" %>
+  </div>
+<% end %>
+
+<%= link_to '戻る', instructors_students_path %>

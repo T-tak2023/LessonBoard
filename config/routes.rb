@@ -1,18 +1,27 @@
 Rails.application.routes.draw do
-  get 'students/index'
+  devise_for :instructors, path_names: {
+    edit: 'account/edit'
+  }
+
   devise_for :students, controllers: {
     registrations: 'students/registrations'
+  }, path_names: {
+    edit: 'account/edit'
   }
-  resources :students, only: [:index]
-  devise_for :instructors
+
+  namespace :instructors do
+    resources :students, path: 'my-students', only: [:index, :show, :edit, :update, :destroy]
+  end
+
+  namespace :students do
+    get 'profile', to: 'profiles#profile', as: :profile
+    get 'profile/edit', to: 'profiles#profile_edit', as: :profile_edit
+    patch 'profile/edit', to: 'profiles#profile_update'
+  end
 
   get "instructors/profile" => "instructors#profile", as: :instructor_profile
   get "instructors/profile/edit" => "instructors#profile_edit", as: :instructor_profile_edit
   patch "instructors/profile/edit" => "instructors#profile_update"
-
-  get "students/profile" => "students#profile", as: :student_profile
-  get "students/profile/edit" => "students#profile_edit", as: :student_profile_edit
-  patch "students/profile/edit" => "students#profile_update"
 
   resources :lessons do
     collection do

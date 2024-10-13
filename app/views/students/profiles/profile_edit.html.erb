@@ -1,0 +1,31 @@
+<div>
+  <h3>プロフィール編集</h3>
+  <%= form_with(model: @student, url: students_profile_edit_path, local: true) do |f| %>
+    <table>
+      <tr>
+        <th><%= f.label :icon_image, "アイコン画像" %></th>
+        <td>
+          <% if @student.icon_image.present? %>
+            <%= image_tag @student.icon_image.url, size: "100x100" %>
+          <% else %>
+            <%= image_tag '/assets/default_icon.png', alt: 'ユーザーアイコン', size: "100x100" %>
+          <% end %>
+          <br>
+          <%= f.file_field :icon_image %>
+        </td>
+      </tr>
+      <tr>
+        <th>名前</th>
+        <td><%= @student.student_name %></td>
+      </tr>
+      <tr>
+        <th>コース</th>
+        <td><%= @student.course %></td>
+      </tr>
+    </table>
+    <div>
+      <%= f.submit "編集を完了する" %>
+    </div>
+  <% end %>
+  <%= link_to '戻る', :back %>
+</div>

@@ -30,12 +30,14 @@ ja:
         confirmation_sent_at: パスワード確認送信時刻
         confirmation_token: パスワード確認用トークン
         confirmed_at: パスワード確認時刻
+        course: コース
         created_at: 作成日
         current_password: 現在のパスワード
         current_sign_in_at: 現在のログイン時刻
         current_sign_in_ip: 現在のログインIPアドレス
-        email: Eメール
+        email: メールアドレス
         encrypted_password: 暗号化パスワード
+        enrollment_date: 入会日
         failed_attempts: 失敗したログイン試行回数
         instructor_name: 講師名
         last_sign_in_at: 最終ログイン時刻

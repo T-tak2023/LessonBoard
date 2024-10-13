@@ -9,7 +9,7 @@
   </div>
   <div>
     <%= link_to '生徒新規登録', new_student_registration_path %>
-    <%= link_to '生徒一覧', students_index_path %>
+    <%= link_to '生徒一覧', instructors_students_path %>
   </div>
   <div>
   <%= link_to 'レッスンカレンダー', lessons_path %>
@@ -21,7 +21,7 @@
 <% elsif student_signed_in? %>
   <p><%= current_student.student_name %>さん、こんにちは！</p>
   <div>
-    <%= link_to 'マイページ', student_profile_path %>
+    <%= link_to 'マイページ', students_profile_path %>
     <%= link_to 'アカウント', edit_student_registration_path %>
     <%= link_to 'マイレッスン', student_index_lessons_path %>
     <%= link_to 'レッスンノート', students_lesson_notes_path %>

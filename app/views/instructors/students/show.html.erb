@@ -1,0 +1,17 @@
+<h1>生徒詳細</h1>
+<p>
+  <% if @student.icon_image.present? %>
+    <%= image_tag @student.icon_image.url, size: "100x100" %>
+  <% else %>
+    <%= image_tag '/assets/default_icon.png', alt: 'ユーザーアイコン', size: "100x100" %>
+  <% end %>
+</p>
+<p><strong>名前:</strong> <%= @student.student_name %> さん</p>
+<p><strong>ID:</strong> <%= @student.id %></p>
+<p><strong>メールアドレス:</strong> <%= @student.email %></p>
+<p><strong>コース:</strong> <%= @student.course %></p>
+<p><strong>入会日:</strong> <%= @student.enrollment_date %></p>
+<%= link_to '編集', edit_instructors_student_path(@student) %>
+<%= link_to '削除', instructors_student_path(@student), data: { turbo: "true", turbo_method: :delete, turbo_confirm: '本当に削除しますか？' } %>
+
+<%= link_to '一覧に戻る', instructors_students_path %>
