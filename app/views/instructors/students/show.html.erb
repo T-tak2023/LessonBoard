@@ -11,6 +11,28 @@
 <p><strong>メールアドレス:</strong> <%= @student.email %></p>
 <p><strong>コース:</strong> <%= @student.course %></p>
 <p><strong>入会日:</strong> <%= @student.enrollment_date %></p>
+
+<h2>レッスン日程</h2>
+
+<div class="lesson-cards">
+  <% if @lessons.any? %>
+    <% @lessons.each_with_index do |lesson, index| %>
+      <div class="lesson-card <%= 'next-lesson' if index == 0 %>">
+        <h2><strong>日程:</strong> <%= lesson.start_time.strftime("%Y-%m-%d") %></h2>
+        <p><strong>時間:</strong> <%= lesson.start_time.strftime("%H:%M") %> 〜 <%= lesson.end_time.strftime("%H:%M") %></p>
+        <p><strong>講師:</strong> <%= lesson.instructor_name %>先生</p>
+        <p><strong>ステータス:</strong> <%= lesson.status %></p>
+        <p><strong>レッスンID:</strong> <%= lesson.id %></p>
+
+        <%= link_to 'レッスンカレンダーで編集', lessons_path %>
+
+      </div>
+    <% end %>
+  <% else %>
+    <p>この生徒にはまだレッスンが登録されていません。</p>
+  <% end %>
+</div>
+
 <%= link_to '編集', edit_instructors_student_path(@student) %>
 <%= link_to '削除', instructors_student_path(@student), data: { turbo: "true", turbo_method: :delete, turbo_confirm: '本当に削除しますか？' } %>
 
