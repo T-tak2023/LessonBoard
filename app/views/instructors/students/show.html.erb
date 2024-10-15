@@ -59,7 +59,7 @@
       <% end %>
     </div>
 
-    <%= link_to '新しいレッスンノートを作成', new_instructors_lesson_note_path %>
+    <%= link_to '新しいレッスンノートを作成', new_instructors_lesson_note_path(student_id: @student.id) %>
   </div>
 </div>
 <%= link_to '生徒一覧へ', instructors_students_path %>

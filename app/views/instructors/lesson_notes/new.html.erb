@@ -28,7 +28,7 @@
   <div>
     <%= form.hidden_field :instructor_id, value: current_instructor.id %>
     <%= form.label :student_id, "生徒選択" %>
-    <%= form.collection_select :student_id, @students, :id, :student_name %>
+    <%= form.collection_select :student_id, @students, :id, :student_name, { selected: params[:student_id] } %>
   </div>
     <%= form.submit "作成" %>
   </div>
