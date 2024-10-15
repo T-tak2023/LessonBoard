@@ -2,7 +2,8 @@
 
 <p>
   <strong>生徒:</strong>
-  <%= @lesson_note.student.student_name %>
+  <%= @lesson_note.student.student_name %>さん
+  <%= link_to '生徒詳細へ', instructors_student_path(@lesson_note.student_id) %>
 </p>
 
 <p>
@@ -49,5 +50,4 @@
 </p>
 
 <%= link_to '編集', edit_instructors_lesson_note_path(@lesson_note) %>
-
-<%= link_to '一覧に戻る', instructors_lesson_notes_path %>
+<%= link_to '戻る', :back %>
