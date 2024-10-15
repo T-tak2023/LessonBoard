@@ -127,3 +127,7 @@ html, body {
 .tab-pane.active {
   display: block;
 }
+
+.tab-content h2 {
+  display: none;
+}
