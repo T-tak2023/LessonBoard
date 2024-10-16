@@ -6,12 +6,60 @@
     <%= image_tag '/assets/default_icon.png', alt: 'ユーザーアイコン', size: "100x100" %>
   <% end %>
 </p>
+<%= link_to '編集', edit_instructors_student_path(@student) %>
+<%= link_to '削除', instructors_student_path(@student), data: { turbo: "true", turbo_method: :delete, turbo_confirm: '本当に削除しますか？' } %>
+
 <p><strong>名前:</strong> <%= @student.student_name %> さん</p>
 <p><strong>ID:</strong> <%= @student.id %></p>
 <p><strong>メールアドレス:</strong> <%= @student.email %></p>
 <p><strong>コース:</strong> <%= @student.course %></p>
 <p><strong>入会日:</strong> <%= @student.enrollment_date %></p>
-<%= link_to '編集', edit_instructors_student_path(@student) %>
-<%= link_to '削除', instructors_student_path(@student), data: { turbo: "true", turbo_method: :delete, turbo_confirm: '本当に削除しますか？' } %>
 
-<%= link_to '一覧に戻る', instructors_students_path %>
+<!-- タブのヘッダー -->
+<ul class="tabs">
+  <li class="active"><a href="#lessons" data-toggle="tab">今後のレッスン</a></li>
+  <li><a href="#lesson_notes" data-toggle="tab">レッスンノート</a></li>
+</ul>
+
+<!-- タブのコンテンツ -->
+<div class="tab-content">
+  <div id="lessons" class="tab-pane active">
+    <h2>今後のレッスン</h2>
+    <div class="lesson-cards">
+      <% if @lessons.any? %>
+        <% @lessons.each_with_index do |lesson, index| %>
+          <div class="lesson-card <%= 'next-lesson' if index == 0 %>">
+            <p><strong>日程:</strong> <%= lesson.start_time.strftime("%Y-%m-%d") %></p>
+            <p><strong>時間:</strong> <%= lesson.start_time.strftime("%H:%M") %> 〜 <%= lesson.end_time.strftime("%H:%M") %></p>
+            <p><strong>講師:</strong> <%= lesson.instructor_name %>先生</p>
+            <p><strong>ステータス:</strong> <%= lesson.status %></p>
+            <p><strong>レッスンID:</strong> <%= lesson.id %></p>
+            <%= link_to 'レッスンカレンダーで編集', lessons_path %>
+          </div>
+        <% end %>
+      <% else %>
+        <p>この生徒にはまだレッスンが登録されていません。</p>
+      <% end %>
+    </div>
+  </div>
+
+  <div id="lesson_notes" class="tab-pane">
+    <h2>レッスンノート</h2>
+    <div class="lesson-cards">
+      <% @lesson_notes.each do |lesson_note| %>
+        <div class="lesson-card">
+          <p><strong>日程:</strong> <%= lesson_note.lesson_date.strftime("%Y年%m月%d日 %H:%M") %></p>
+          <p><strong>内容:</strong> <%= lesson_note.content %></p>
+          <p><strong>ステータス:</strong> <%= lesson_note.log_status %></p>
+          <div class="lesson-note-actions">
+            <%= link_to '詳細', instructors_lesson_note_path(lesson_note) %> |
+            <%= link_to '編集', edit_instructors_lesson_note_path(lesson_note) %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+
+    <%= link_to '新しいレッスンノートを作成', new_instructors_lesson_note_path(student_id: @student.id) %>
+  </div>
+</div>
+<%= link_to '生徒一覧へ', instructors_students_path %>
