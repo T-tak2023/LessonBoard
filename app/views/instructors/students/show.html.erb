@@ -29,7 +29,7 @@
       <% if @lessons.any? %>
         <% @lessons.each_with_index do |lesson, index| %>
           <div class="lesson-card <%= 'next-lesson' if index == 0 %>">
-            <h2><strong>日程:</strong> <%= lesson.start_time.strftime("%Y-%m-%d") %></h2>
+            <p><strong>日程:</strong> <%= lesson.start_time.strftime("%Y-%m-%d") %></p>
             <p><strong>時間:</strong> <%= lesson.start_time.strftime("%H:%M") %> 〜 <%= lesson.end_time.strftime("%H:%M") %></p>
             <p><strong>講師:</strong> <%= lesson.instructor_name %>先生</p>
             <p><strong>ステータス:</strong> <%= lesson.status %></p>
@@ -48,7 +48,7 @@
     <div class="lesson-cards">
       <% @lesson_notes.each do |lesson_note| %>
         <div class="lesson-card">
-          <h2><strong>日程:</strong> <%= lesson_note.lesson_date.strftime("%Y年%m月%d日 %H:%M") %></h2>
+          <p><strong>日程:</strong> <%= lesson_note.lesson_date.strftime("%Y年%m月%d日 %H:%M") %></p>
           <p><strong>内容:</strong> <%= lesson_note.content %></p>
           <p><strong>ステータス:</strong> <%= lesson_note.log_status %></p>
           <div class="lesson-note-actions">
