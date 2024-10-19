@@ -1,0 +1,31 @@
+<nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="<%= root_path %>">LessonBoard</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarColor01">
+      <ul class="navbar-nav me-auto">
+        <% if instructor_signed_in? %>
+          <li class="nav-item"><%= link_to 'マイページ', instructor_profile_path, class: "nav-link" %></li>
+          <li class="nav-item"><%= link_to 'アカウント', edit_instructor_registration_path, class: "nav-link" %></li>
+          <li class="nav-item"><%= link_to '生徒新規登録', new_student_registration_path, class: "nav-link" %></li>
+          <li class="nav-item"><%= link_to '生徒一覧', instructors_students_path, class: "nav-link" %></li>
+          <li class="nav-item"><%= link_to 'レッスンカレンダー', lessons_path, class: "nav-link" %></li>
+          <li class="nav-item"><%= link_to 'レッスンノート', instructors_lesson_notes_path, class: "nav-link" %></li>
+          <li class="nav-item"><%= link_to 'ログアウト', destroy_instructor_session_path, method: :delete, data: { turbo: "true", turbo_method: :delete }, class: "nav-link" %></li>
+        <% elsif student_signed_in? %>
+          <li class="nav-item"><%= link_to 'マイページ', students_profile_path, class: "nav-link" %></li>
+          <li class="nav-item"><%= link_to 'アカウント', edit_student_registration_path, class: "nav-link" %></li>
+          <li class="nav-item"><%= link_to 'マイレッスン', student_index_lessons_path, class: "nav-link" %></li>
+          <li class="nav-item"><%= link_to 'レッスンノート', students_lesson_notes_path, class: "nav-link" %></li>
+          <li class="nav-item"><%= link_to 'ログアウト', destroy_student_session_path, method: :delete, data: { turbo: "true", turbo_method: :delete }, class: "nav-link" %></li>
+        <% else %>
+          <li class="nav-item"><%= link_to '講師新規登録', new_instructor_registration_path, class: "nav-link" %></li>
+          <li class="nav-item"><%= link_to '講師ログイン', new_instructor_session_path, class: "nav-link" %></li>
+          <li class="nav-item"><%= link_to '生徒ログイン', new_student_session_path, class: "nav-link" %></li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</nav>

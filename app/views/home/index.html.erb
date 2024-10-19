@@ -1,40 +1,35 @@
-<h1>Welcome to LessonBoard!</h1>
-<p>レッスンボードで充実した音楽ライフを楽しみましょう！</p>
+<div class="container text-center mt-5">
+  <h1 class="display-4">Welcome to LessonBoard!</h1>
+  <p class="lead">レッスンボードで充実した音楽ライフを楽しみましょう！</p>
 
-<% if instructor_signed_in? %>
-  <p><%= current_instructor.instructor_name %>先生、こんにちは！</p>
-  <div>
-    <%= link_to 'マイページ', instructor_profile_path %>
-    <%= link_to 'アカウント', edit_instructor_registration_path %>
-  </div>
-  <div>
-    <%= link_to '生徒新規登録', new_student_registration_path %>
-    <%= link_to '生徒一覧', instructors_students_path %>
-  </div>
-  <div>
-  <%= link_to 'レッスンカレンダー', lessons_path %>
-  <%= link_to 'レッスンノート', instructors_lesson_notes_path %>
-  </div>
-  <div>
-    <%= link_to 'ログアウト', destroy_instructor_session_path, method: :delete, data: { turbo: "true", turbo_method: :delete } %>
-  </div>
-<% elsif student_signed_in? %>
-  <p><%= current_student.student_name %>さん、こんにちは！</p>
-  <div>
-    <%= link_to 'マイページ', students_profile_path %>
-    <%= link_to 'アカウント', edit_student_registration_path %>
-    <%= link_to 'マイレッスン', student_index_lessons_path %>
-    <%= link_to 'レッスンノート', students_lesson_notes_path %>
-  </div>
-  <div>
-    <%= link_to 'ログアウト', destroy_student_session_path, method: :delete, data: { turbo: "true", turbo_method: :delete } %>
-  </div>
-<% else %>
-  <div>
-    <%= link_to '講師新規登録', new_instructor_registration_path %>
-  </div>
-  <div>
-    <%= link_to '講師ログイン', new_instructor_session_path %>
-    <%= link_to '生徒ログイン', new_student_session_path %>
-  </div>
-<% end %>
+  <% if instructor_signed_in? %>
+    <div class="alert alert-success">
+      <p><%= current_instructor.instructor_name %>先生、こんにちは！</p>
+    </div>
+  <% elsif student_signed_in? %>
+    <div class="alert alert-info">
+      <p><%= current_student.student_name %>さん、こんにちは！</p>
+    </div>
+  <% else %>
+    <div class="my-4">
+      <div class="mb-2">
+        <a href="<%= new_instructor_registration_path %>" class="btn btn-link w-50">講師アカウント登録</a>
+      </div>
+      <div class="mb-2">
+        <a href="<%= new_instructor_session_path %>" class="btn btn-primary btn-lg w-50">講師ログイン</a>
+      </div>
+      <div class="mb-2">
+        <a href="<%= new_student_session_path %>" class="btn btn-secondary btn-lg w-50">生徒ログイン</a>
+      </div>
+      <div class="dropdown-center mt-5">
+        <button class="btn btn-info dropdown-toggle w-50" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+          ゲストログイン
+        </button>
+        <ul class="dropdown-menu text-center">
+          <li><a class="dropdown-item" href="#">講師ユーザー</a></li>
+          <li><a class="dropdown-item" href="#">生徒ユーザー</a></li>
+        </ul>
+      </div>
+    </div>
+  <% end %>
+</div>
