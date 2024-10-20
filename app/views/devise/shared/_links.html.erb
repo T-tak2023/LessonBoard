@@ -2,7 +2,7 @@
   <%= link_to t(".sign_in"), new_session_path(resource_name) %><br />
 <% end %>
 
-<%- unless request.path == new_student_session_path %>
+<%- unless request.path == new_student_session_path || request.path == new_student_password_path %>
   <%- if devise_mapping.registerable? && controller_name != 'registrations' %>
     <%= link_to t(".sign_up"), new_registration_path(resource_name) %><br />
   <% end %>
