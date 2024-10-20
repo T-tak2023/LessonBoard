@@ -3,13 +3,9 @@
   <p class="lead">レッスンボードで充実した音楽ライフを楽しみましょう！</p>
 
   <% if instructor_signed_in? %>
-    <div class="alert alert-success">
-      <p><%= current_instructor.instructor_name %>先生、こんにちは！</p>
-    </div>
+    <p><%= current_instructor.instructor_name %>先生、こんにちは！</p>
   <% elsif student_signed_in? %>
-    <div class="alert alert-info">
-      <p><%= current_student.student_name %>さん、こんにちは！</p>
-    </div>
+    <p><%= current_student.student_name %>さん、こんにちは！</p>
   <% else %>
     <div class="my-4">
       <div class="mb-2">
