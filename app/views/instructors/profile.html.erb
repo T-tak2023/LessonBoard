@@ -1,17 +1,42 @@
-<h1>プロフィール</h1>
-<h3>アイコン画像</h3>
-  <% if @instructor.icon_image? %>
-    <%= image_tag @instructor.icon_image.url, size:"100x100" %>
-  <% else %>
-    <%= image_tag 'default_icon.png', :alt => 'ユーザーアイコン', size:"100x100" %>
-  <% end %>
-<h3>名前</h3>
-<%= @instructor.instructor_name %>
-<h3>メールアドレス</h3>
-<%= @instructor.email %>
-<h3>担当コース</h3>
-<%= @instructor.course %>
+<div class="mt-5 mx-4">
+  <div class="card border-primary mb-3 mx-auto" style="max-width: 30rem;">
+    <div class="card-header">
+      <h2 class="mb-0">プロフィール</h2>
+    </div>
+    <div class="card-body">
+      <div class="text-center mb-4">
+        <% if @instructor.icon_image? %>
+          <%= image_tag @instructor.icon_image.url, size: "100x100", class: "img-fluid rounded-circle" %>
+        <% else %>
+          <%= image_tag 'default_icon.png', alt: 'ユーザーアイコン', size: "100x100", class: "img-fluid rounded-circle" %>
+        <% end %>
+      </div>
 
-<p><%= link_to 'プロフィール編集', instructor_profile_edit_path %></p>
-<p><%= link_to 'アカウント', edit_instructor_registration_path %></p>
-<p><%= link_to 'ホームに戻る', root_path %></p>
+      <div class="p-3 mb-3 bg-light">
+        <h4 class="card-title">
+          <i class="bi bi-person"></i> 名前
+        </h4>
+        <p class="card-text"><%= @instructor.instructor_name %></p>
+      </div>
+
+      <div class="p-3 mb-3 bg-light">
+        <h4 class="card-title">
+          <i class="bi bi-envelope"></i> メールアドレス
+        </h4>
+        <p class="card-text"><%= @instructor.email %></p>
+      </div>
+
+      <div class="p-3 mb-3 bg-light">
+        <h4 class="card-title">
+          <i class="bi bi-clipboard"></i> 担当コース
+        </h4>
+        <p class="card-text"><%= @instructor.course %></p>
+      </div>
+
+      <div class="d-grid gap-2 mt-3">
+        <%= link_to 'プロフィール編集', instructor_profile_edit_path, class: "btn btn-primary" %>
+        <%= link_to 'アカウント', edit_instructor_registration_path, class: "btn btn-secondary" %>
+      </div>
+    </div>
+  </div>
+</div>
