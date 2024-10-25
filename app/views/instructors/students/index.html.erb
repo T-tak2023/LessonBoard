@@ -9,7 +9,7 @@
         <% if student.icon_image.present? %>
           <%= image_tag student.icon_image.url, class: "rounded-circle me-3", size: "50x50" %>
         <% else %>
-          <%= image_tag 'default_icon.png', alt: 'ユーザーアイコン', class: "rounded-circle me-3", size: "50x50" %>
+          <%= image_tag 'default_icon.svg', alt: 'ユーザーアイコン', class: "rounded-circle me-3", size: "50x50" %>
         <% end %>
         <div>
           <h4 class="mb-1"><%= student.student_name %></h5>

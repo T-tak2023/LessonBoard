@@ -9,7 +9,7 @@
           <% if @instructor.icon_image? %>
             <%= image_tag @instructor.icon_image.url, size: "200x200", class: "img-fluid rounded-circle mb-3" %>
           <% else %>
-            <%= image_tag 'default_icon.png', alt: 'ユーザーアイコン', size: "200x200", class: "img-fluid rounded-circle mb-3" %>
+            <%= image_tag 'default_icon.svg', alt: 'ユーザーアイコン', size: "200x200", class: "img-fluid rounded-circle mb-3" %>
           <% end %>
 
           <h4 class="card-title text-start"><i class="bi bi-image"></i> アイコン画像</h4>
