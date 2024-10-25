@@ -1,36 +1,22 @@
-<h1>生徒一覧</h1>
-<%= link_to '生徒新規登録', new_student_registration_path %>
-
-<table>
-  <thead>
-    <tr>
-      <th>ID</th>
-      <th>アイコン画像</th>
-      <th>名前</th>
-      <th>メールアドレス</th>
-      <th>コース</th>
-      <th>入会日</th>
-    </tr>
-  </thead>
-  <tbody>
+<div class="container" style="max-width: 600px;">
+  <h2 class="mt-4 text-center">生徒一覧</h2>
+  <div class="text-end">
+    <%= link_to '新規登録', new_student_registration_path, class: "btn btn-outline-primary mb-3" %>
+  </div>
+  <div class="list-group">
     <% @students.each do |student| %>
-      <tr>
-        <td><%= student.id %></td>
-        <td>
-          <% if student.icon_image.present? %>
-            <%= image_tag student.icon_image.url, size: "100x100" %>
-          <% else %>
-            <%= image_tag 'default_icon.png', alt: 'ユーザーアイコン', size: "100x100" %>
-          <% end %>
-        </td>
-        <td><%= student.student_name %></td>
-        <td><%= student.email %></td>
-        <td><%= student.course %></td>
-        <td><%= student.enrollment_date %></td>
-        <td><%= link_to '詳細', instructors_student_path(student) %></td>
-      </tr>
+      <%= link_to instructors_student_path(student), class: "list-group-item list-group-item-action d-flex align-items-center" do %>
+        <% if student.icon_image.present? %>
+          <%= image_tag student.icon_image.url, class: "rounded-circle me-3", size: "50x50" %>
+        <% else %>
+          <%= image_tag 'default_icon.png', alt: 'ユーザーアイコン', class: "rounded-circle me-3", size: "50x50" %>
+        <% end %>
+        <div>
+          <h4 class="mb-1"><%= student.student_name %></h5>
+          <p class="mb-0">メール: <%= student.email %></p>
+          <p class="mb-0">コース: <%= student.course %></p>
+        </div>
+      <% end %>
     <% end %>
-  </tbody>
-</table>
-
-<p><%= link_to 'ホームに戻る', root_path %></p>
+  </div>
+</div>
