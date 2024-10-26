@@ -38,7 +38,7 @@ html, body {
   background: white;
   padding: 20px;
   border: 1px solid black;
-  z-index: 1000; /* モーダルをカレンダーの前面に表示 */
+  z-index: 1000;
 }
 
 .modal h2 {
@@ -61,77 +61,36 @@ html, body {
   background-color: rgb(252, 176, 96) !important;
 }
 
-.lesson-cards {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
+.tab-content h2 {
+  display: none;
 }
 
-.lesson-card {
-  background-color: #f5f5f5;
-  border: 1px solid #ccc;
-  padding: 15px;
-  border-radius: 8px;
-  width: 300px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  min-height: 250px;
+.nav-tabs {
+  border-bottom: 1px solid #6cc3d5; /* Mintyのinfoカラー */
 }
 
-.lesson-card h2 {
-  font-size: 18px;
-  margin-bottom: 10px;
-}
-
-.lesson-card p {
-  font-size: 14px;
-  margin-bottom: 8px;
-}
-
-.lesson-card.next-lesson {
-  background-color: #d4f1f4;
-  border: 2px solid #0e76a8;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-}
-
-.tabs {
-  display: flex;
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.tabs li {
+.nav-tabs .nav-item {
   margin-right: 10px;
 }
 
-.tabs li a {
-  text-decoration: none;
-  padding: 10px 15px;
-  background: #f1f1f1;
-  border-radius: 4px;
-  color: #333;
+.nav-tabs .nav-link {
+  background-color: #e7f1f5;
+  color: #6cc3d5;
+  border: 1px solid transparent;
+  border-radius: 0.5rem 0.5rem 0 0;
+  padding: 10px 20px;
+  transition: background-color 0.3s, color 0.3s;
 }
 
-.tabs li.active a {
-  background: #007bff;
-  color: white;
+.nav-tabs .nav-link:hover {
+  background-color: #d5ecef;
+  color: #4da3b0;
+  border-color: #6cc3d5;
 }
 
-.tab-content {
-  border: 1px solid #ccc;
-  padding: 15px;
-  border-radius: 4px;
-  background: #fff;
-}
-
-.tab-pane {
-  display: none;
-}
-
-.tab-pane.active {
-  display: block;
-}
-
-.tab-content h2 {
-  display: none;
+.nav-tabs .nav-link.active {
+  background-color: #6cc3d5;
+  color: #ffffff;
+  border-color: #6cc3d5;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }

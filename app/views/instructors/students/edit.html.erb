@@ -28,4 +28,6 @@
   </div>
 <% end %>
 
+<%= link_to '削除', instructors_student_path(@student), data: { turbo: "true", turbo_method: :delete, turbo_confirm: '本当に削除しますか？' }, class: "btn btn-danger" %>
+
 <%= link_to '戻る', instructors_students_path %>
