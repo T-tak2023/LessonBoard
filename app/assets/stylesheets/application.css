@@ -95,7 +95,7 @@ html, body {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.table-content {
+.lesson-note-table-content {
   height: 5em;
   overflow: hidden;
   display: -webkit-box;
@@ -104,7 +104,7 @@ html, body {
   vertical-align: middle;
 }
 
-td {
+.lesson-note-table td {
   vertical-align: middle;
 }
 
