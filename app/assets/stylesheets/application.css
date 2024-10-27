@@ -94,3 +94,22 @@ html, body {
   border-color: #6cc3d5;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
+
+.table-content {
+  height: 5em;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  vertical-align: middle;
+}
+
+td {
+  vertical-align: middle;
+}
+
+.lesson-note-student-name {
+  word-wrap: break-word;
+  word-break: keep-all;
+  white-space: normal;
+}
