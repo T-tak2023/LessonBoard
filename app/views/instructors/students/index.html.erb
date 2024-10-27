@@ -1,7 +1,7 @@
 <div class="container" style="max-width: 600px;">
   <h2 class="mt-4 text-center">生徒一覧</h2>
   <div class="text-end">
-    <%= link_to '新規登録', new_student_registration_path, class: "btn btn-outline-primary mb-3" %>
+    <%= link_to '生徒を登録する', new_student_registration_path, class: "btn btn-primary mb-3" %>
   </div>
   <% if @students.empty? %>
       <p class="text-center">まだ生徒が登録されていません。</p>
