@@ -32,7 +32,7 @@ class Instructors::LessonNotesController < ApplicationController
 
   def update
     if @lesson_note.update(lesson_note_params)
-      redirect_to instructors_lesson_note_path(@lesson_note), notice: 'レッスンログが更新されました。'
+      redirect_to instructors_lesson_note_path(@lesson_note), notice: 'レッスンノートが更新されました。'
     else
       @students = Student.where(instructor_id: current_instructor.id)
       render :edit
