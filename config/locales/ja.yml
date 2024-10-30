@@ -7,9 +7,20 @@ ja:
       lesson_note:
         lesson_date: "レッスン日時"
         video_material: "動画資料"
+        image_material: "画像資料"
     errors:
       models:
         lesson_note:
           attributes:
             video_material:
               invalid_youtube_url: "は有効なYouTubeのURLを入力してください。"
+  errors:
+    messages:
+      carrierwave_processing_error: "処理できませんでした。"
+      carrierwave_integrity_error: "は許可されていないファイルタイプです。"
+      carrierwave_download_error: "はダウンロードできません。"
+      extension_whitelist_error: "としてアップロードできるファイルタイプは[%{allowed_types}]です。"
+      extension_blacklist_error: "%{extension}ファイルのアップロードは許可されていません。アップロードできないファイルタイプ: %{prohibited_types}"
+      rmagick_processing_error: "rmagickがファイルを処理できませんでした。画像を確認してください。エラーメッセージ: %{e}"
+      mime_types_processing_error: "MIME::Typesのファイルを処理できませんでした。Content-Typeを確認してください。エラーメッセージ: %{e}"
+      mini_magick_processing_error: "MiniMagickがファイルを処理できませんでした。画像を確認してください。エラーメッセージ: %{e}"
