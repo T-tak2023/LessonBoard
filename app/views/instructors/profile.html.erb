@@ -6,9 +6,9 @@
     <div class="card-body">
       <div class="text-center mb-4 py-4 bg-light">
         <% if @instructor.icon_image? %>
-          <%= image_tag @instructor.icon_image.url, size: "200x200", class: "img-fluid rounded-circle" %>
+          <%= image_tag @instructor.icon_image.url, alt: 'ユーザーアイコン', size: "200x200", class: "img-fluid rounded-circle" %>
         <% else %>
-          <%= image_tag 'default_icon.svg', alt: 'ユーザーアイコン', size: "200x200", class: "img-fluid rounded-circle" %>
+          <%= image_tag 'default_icon.svg', alt: 'デフォルトユーザーアイコン', size: "200x200", class: "img-fluid rounded-circle" %>
         <% end %>
       </div>
 

@@ -5,7 +5,7 @@
       <% if @student.icon_image.present? %>
         <%= image_tag @student.icon_image.url, alt: 'ユーザーアイコン', size: "100x100", class: "rounded-circle" %>
       <% else %>
-        <%= image_tag '/assets/default_icon.svg', alt: 'デフォルトユーザーアイコン', size: "100x100", class: "rounded-circle" %>
+        <%= image_tag 'default_icon.svg', alt: 'デフォルトユーザーアイコン', size: "100x100", class: "rounded-circle" %>
       <% end %>
       <h3 class="my-3"><%= @student.student_name %> さん</h3>
     </div>

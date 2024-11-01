@@ -6,9 +6,9 @@
     <div class="card-body">
       <div class="text-center mb-4">
         <% if @student.icon_image.present? %>
-          <%= image_tag @student.icon_image.url, size: "100x100", class: "img-fluid rounded-circle" %>
+          <%= image_tag @student.icon_image.url, alt: 'ユーザーアイコン', size: "100x100", class: "img-fluid rounded-circle" %>
         <% else %>
-          <%= image_tag 'default_icon.png', alt: 'ユーザーアイコン', size: "100x100", class: "img-fluid rounded-circle" %>
+          <%= image_tag 'default_icon.svg', alt: 'デフォルトユーザーアイコン', size: "100x100", class: "img-fluid rounded-circle" %>
         <% end %>
       </div>
 

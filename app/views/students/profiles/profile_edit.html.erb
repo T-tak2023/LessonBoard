@@ -6,9 +6,9 @@
         <th><%= f.label :icon_image, "アイコン画像" %></th>
         <td>
           <% if @student.icon_image.present? %>
-            <%= image_tag @student.icon_image.url, size: "100x100" %>
+            <%= image_tag @student.icon_image.url, alt: 'ユーザーアイコン', size: "100x100" %>
           <% else %>
-            <%= image_tag '/assets/default_icon.png', alt: 'ユーザーアイコン', size: "100x100" %>
+            <%= image_tag 'default_icon.svg', alt: 'デフォルトユーザーアイコン', size: "100x100" %>
           <% end %>
           <br>
           <%= f.file_field :icon_image %>
