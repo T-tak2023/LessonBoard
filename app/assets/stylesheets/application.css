@@ -65,34 +65,17 @@ html, body {
   display: none;
 }
 
-.nav-tabs {
-  border-bottom: 1px solid #6cc3d5; /* Mintyのinfoカラー */
+.navbar-toggler {
+  border-color: white
 }
 
-.nav-tabs .nav-item {
-  margin-right: 10px;
+.navbar-nav .nav-link {
+  color: white;
 }
 
-.nav-tabs .nav-link {
-  background-color: #e7f1f5;
-  color: #6cc3d5;
-  border: 1px solid transparent;
-  border-radius: 0.5rem 0.5rem 0 0;
-  padding: 10px 20px;
-  transition: background-color 0.3s, color 0.3s;
-}
-
-.nav-tabs .nav-link:hover {
-  background-color: #d5ecef;
-  color: #4da3b0;
-  border-color: #6cc3d5;
-}
-
-.nav-tabs .nav-link.active {
-  background-color: #6cc3d5;
-  color: #ffffff;
-  border-color: #6cc3d5;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+.navbar-nav .nav-link:hover {
+  font-weight: bold;
+  text-decoration: underline;
 }
 
 .lesson-note-table-content {
