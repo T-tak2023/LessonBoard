@@ -4,11 +4,11 @@
       <h2 class="mb-0">プロフィール</h2>
     </div>
     <div class="card-body">
-      <div class="text-center mb-4">
+      <div class="text-center mb-3 p-3 bg-light">
         <% if @student.icon_image.present? %>
-          <%= image_tag @student.icon_image.url, alt: 'ユーザーアイコン', size: "100x100", class: "img-fluid rounded-circle" %>
+          <%= image_tag @student.icon_image.url, alt: 'ユーザーアイコン', size: "200x200", class: "img-fluid rounded-circle" %>
         <% else %>
-          <%= image_tag 'default_icon.svg', alt: 'デフォルトユーザーアイコン', size: "100x100", class: "img-fluid rounded-circle" %>
+          <%= image_tag 'default_icon.svg', alt: 'デフォルトユーザーアイコン', size: "200x200", class: "img-fluid rounded-circle" %>
         <% end %>
       </div>
 

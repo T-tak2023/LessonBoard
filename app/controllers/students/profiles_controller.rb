@@ -12,7 +12,7 @@ class Students::ProfilesController < ApplicationController
   def profile_update
     @student = current_student
     if @student.update(profile_params)
-      redirect_to student_profile_path, notice: 'プロフィールが更新されました'
+      redirect_to students_profile_path, notice: 'プロフィールが更新されました'
     else
       render 'profile_edit'
     end
