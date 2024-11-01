@@ -38,7 +38,7 @@
             <h4 class="card-title">
               <i class="bi bi-file-earmark-text"></i> 内容
             </h4>
-            <p class="mb-0"><%= @lesson_note.content %></p>
+            <p class="mb-0"><%= simple_format@lesson_note.content %></p>
           </div>
         </div>
         <div class="col-md-4">
@@ -46,7 +46,7 @@
             <h4 class="card-title">
               <i class="bi bi-sticky-fill"></i> 講師用メモ
             </h4>
-            <p class="mb-0"><%= @lesson_note.instructor_memo %></p>
+            <p class="mb-0"><%= simple_format@lesson_note.instructor_memo %></p>
           </div>
         </div>
         <div class="col-md-4">
@@ -54,7 +54,7 @@
             <h4 class="card-title">
               <i class="bi bi-sticky"></i> 生徒用メモ
             </h4>
-            <p class="mb-0"><%= @lesson_note.student_memo %></p>
+            <p class="mb-0"><%= simple_format@lesson_note.student_memo %></p>
           </div>
         </div>
       </div>

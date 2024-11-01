@@ -37,7 +37,7 @@
             <h4 class="card-title">
               <i class="bi bi-file-earmark-text"></i> 内容
             </h4>
-            <p class="mb-0"><%= @lesson_note.content %></p>
+            <p class="mb-0"><%= simple_format@lesson_note.content %></p>
           </div>
         </div>
 
@@ -51,7 +51,7 @@
                 <%= link_to '<i class="bi bi-pencil"></i> 入力する'.html_safe, edit_students_lesson_note_path(@lesson_note), class: "btn btn-outline-info btn-sm" %>
               </div>
             </div>
-            <p class="mb-0"><%= @lesson_note.student_memo %></p>
+            <p class="mb-0"><%= simple_format@lesson_note.student_memo %></p>
           </div>
         </div>
       </div>
