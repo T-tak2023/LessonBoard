@@ -19,6 +19,7 @@
     <select name="status" id="status" required>
       <option value="確定">確定</option>
       <option value="保留">保留</option>
+      <option value="キャンセル">キャンセル</option>
     </select><br>
     <input type="hidden" id="instructor_id" name="instructor_id" value="<%= current_instructor.id %>"><br>
     <button type="submit">Save</button>
@@ -55,6 +56,7 @@
     <select name="status" id="edit_status" required>
       <option value="確定">確定</option>
       <option value="保留">保留</option>
+      <option value="キャンセル">キャンセル</option>
     </select>
     <input type="hidden" id="edit_instructor_id" name="instructor_id" value="<%= current_instructor.id %>"><br>
     <input type="hidden" id="edit_event_id" name="event_id"><br>

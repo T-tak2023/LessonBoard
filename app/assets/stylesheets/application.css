@@ -61,6 +61,11 @@ html, body {
   background-color: rgb(252, 176, 96) !important;
 }
 
+.cancel-status {
+  background-color: red !important;
+  opacity: 50%;
+}
+
 .tab-content h2 {
   display: none;
 }
