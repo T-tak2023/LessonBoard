@@ -8,4 +8,11 @@ class Instructor < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   validates :instructor_name, presence: true
+
+  def self.guest
+    find_or_create_by!(email: 'guest_instructor@example.com') do |instructor|
+      instructor.password = SecureRandom.urlsafe_base64
+      instructor.instructor_name = 'ゲスト講師'
+    end
+  end
 end

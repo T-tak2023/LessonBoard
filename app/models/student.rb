@@ -10,6 +10,16 @@ class Student < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
+  def self.guest
+    find_or_create_by!(email: 'guest_student@example.com') do |student|
+      student.password = SecureRandom.urlsafe_base64
+      student.student_name = 'ゲスト生徒'
+
+      instructor = Instructor.first || Instructor.create!(instructor_name: 'ゲスト講師', email: 'guest_instructor@example.com')
+      student.instructor = instructor
+    end
+  end
+
   private
 
   def set_enrollment_date

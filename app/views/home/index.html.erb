@@ -23,14 +23,14 @@
         </button>
         <ul class="dropdown-menu text-center">
           <li>
-            <a class="dropdown-item" href="#">
+            <%= link_to instructors_guest_sign_in_path, data: { turbo: "true", turbo_method: :post }, class: "dropdown-item" do %>
               <i class="bi bi-file-person"></i> 講師ユーザー
-            </a>
+            <% end %>
           </li>
           <li>
-            <a class="dropdown-item" href="#">
+            <%= link_to students_guest_sign_in_path, data: { turbo: "true", turbo_method: :post }, class: "dropdown-item" do %>
               <i class="bi bi-file-person-fill"></i> 生徒ユーザー
-            </a>
+            <% end %>
           </li>
         </ul>
       </div>
