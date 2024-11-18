@@ -1,7 +1,7 @@
 class LessonNote < ApplicationRecord
   mount_uploader :image_material, ImageMaterialUploader
   belongs_to :instructor
-  belongs_to :student
+  belongs_to :student, optional: true
 
   validates :lesson_date, presence: true
   validates :video_material, format: {
@@ -11,7 +11,7 @@ class LessonNote < ApplicationRecord
   validates :student_memo, length: { maximum: 500 }, allow_blank: true
 
   def student_name
-    student.student_name
+    student&.student_name || '情報なし'
   end
 
   def instructor_name
