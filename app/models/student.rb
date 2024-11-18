@@ -1,7 +1,7 @@
 class Student < ApplicationRecord
   mount_uploader :icon_image, IconImageUploader
   belongs_to :instructor
-  has_many :lessons
+  has_many :lessons, dependent: :destroy
   has_many :lesson_notes
   before_create :set_enrollment_date
   validates :student_name, presence: true

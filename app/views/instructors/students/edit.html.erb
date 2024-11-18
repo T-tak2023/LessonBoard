@@ -39,7 +39,7 @@
       <div class="my-4 border-top"></div>
 
       <div class="mb-4 text-center">
-        <%= link_to 'アカウントを削除する', instructors_student_path(@student), data: { turbo: "true", turbo_method: :delete, turbo_confirm: '本当に削除しますか？' }, class: "btn btn-danger" %>
+        <%= link_to 'アカウントを削除する', instructors_student_path(@student), data: { turbo: "true", turbo_method: :delete, turbo_confirm: "生徒アカウントを削除してもよろしいですか？\n\n削除すると:\n・この生徒の全てのレッスン予定が削除されます\n・レッスンノートは保持されます\n\nこの操作は取り消せません。" }, class: "btn btn-danger" %>
       </div>
     </div>
   </div>
