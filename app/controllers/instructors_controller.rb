@@ -1,4 +1,6 @@
 class InstructorsController < ApplicationController
+  before_action :ensure_normal_user, only: [:profile_edit, :profile_update]
+
   def profile
     @instructor = current_instructor
   end
@@ -24,5 +26,12 @@ class InstructorsController < ApplicationController
 
   def profile_params
     params.require(:instructor).permit(:icon_image, :instructor_name, :course)
+  end
+
+  def ensure_normal_user
+    if current_instructor.guest_user?
+      flash[:alert] = 'ゲストユーザーは編集できません。'
+      redirect_to instructor_profile_path
+    end
   end
 end

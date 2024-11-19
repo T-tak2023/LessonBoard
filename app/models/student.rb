@@ -20,6 +20,10 @@ class Student < ApplicationRecord
     end
   end
 
+  def guest_user?
+    email == 'guest_student@example.com'
+  end
+
   private
 
   def set_enrollment_date
