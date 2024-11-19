@@ -33,11 +33,15 @@ class ImageMaterialUploader < CarrierWave::Uploader::Base
   #   process resize_to_fit: [50, 50]
   # end
 
+  def size_range
+    1.byte..2.megabytes
+  end
+
   # Add an allowlist of extensions which are allowed to be uploaded.
   # For images you might use something like this:
-  # def extension_allowlist
-  #   %w(jpg jpeg gif png)
-  # end
+  def extension_allowlist
+    %w(jpg jpeg gif png)
+  end
 
   # Override the filename of the uploaded files:
   # Avoid using model.id or version_name here, see uploader/store.rb for details.

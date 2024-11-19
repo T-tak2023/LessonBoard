@@ -1,23 +1,46 @@
-<div>
-  <h3>プロフィール編集</h3>
-  <%= form_with(model: @instructor, url: instructor_profile_edit_path, local:true) do |f| %>
-    <table>
-      <tr>
-        <th><%= f.label :icon_image,"アイコン画像" %></th>
-        <td><%= f.file_field :icon_image %></td>
-      </tr>
-      <tr>
-        <th><%= f.label :instructor_name,"名前" %></th>
-        <td><%= f.text_field :instructor_name %></td>
-      </tr>
-      <tr>
-        <th><%= f.label :course,"担当コース/楽器" %></th>
-        <td><%= f.text_area :course %></td>
-      </tr>
-    </table>
-    <div>
-      <%= f.submit "編集を完了する" %>
+<div class="mt-5 mx-4">
+  <div class="card border-primary mb-3 mx-auto" style="max-width: 30rem;">
+    <div class="card-header">
+      <h2 class="mb-0"><i class="bi bi-pencil-square"></i> プロフィール編集</h2>
     </div>
-  <% end %>
-  <%= link_to '戻る', :back %>
+    <div class="card-body">
+      <%= form_with(model: @instructor, url: instructor_profile_edit_path, local: true) do |form| %>
+        <%= render 'shared/error_messages', object: form.object %>
+
+        <div class="p-3 mb-3 bg-light text-center">
+          <% if @instructor.icon_image? %>
+            <%= image_tag @instructor.icon_image.url, alt: 'ユーザーアイコン', size: "200x200", class: "img-fluid rounded-circle mb-3" %>
+          <% else %>
+            <%= image_tag 'default_icon.svg', alt: 'デフォルトユーザーアイコン', size: "200x200", class: "img-fluid rounded-circle mb-3" %>
+          <% end %>
+
+          <h4 class="card-title text-start"><i class="bi bi-image"></i> アイコン画像</h4>
+          <div class="bg-white p-2 rounded">
+            <%= form.file_field :icon_image, class: "form-control" %>
+          </div>
+          <div class="text-end text-muted">
+            ※ jpg/jpeg/png/gif がアップロード可能です
+          </div>
+        </div>
+
+        <div class="p-3 mb-3 bg-light">
+          <h4 class="card-title"><i class="bi bi-person"></i> 名前</h4>
+          <%= form.text_field :instructor_name, class: "form-control" %>
+        </div>
+
+        <div class="p-3 mb-3 bg-light">
+          <h4 class="card-title"><i class="bi bi-clipboard"></i> 担当コース</h4>
+          <%= form.text_area :course, class: "form-control" %>
+        </div>
+
+        <div class="d-grid gap-2">
+          <%= form.submit "編集を完了する", class: "btn btn-primary" %>
+        </div>
+      <% end %>
+
+      <div class="mt-3 text-end">
+        <%= link_to '戻る', :back, class: "btn btn-secondary" %>
+      </div>
+    </div>
+  </div>
 </div>

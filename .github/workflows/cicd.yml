@@ -93,6 +93,9 @@ jobs:
             echo "Current branch: $(git branch --show-current)"
             docker-compose -f docker-compose.prod.yml up -d --build
 
+            echo "Running assets:precompile..."
+            docker-compose exec web bundle exec rails assets:precompile RAILS_ENV=production
+
       - name: Remove IP from EC2 security group
         if: always()
         run: |

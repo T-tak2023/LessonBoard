@@ -19,7 +19,7 @@ class Students::RegistrationsController < Devise::RegistrationsController
     yield resource if block_given?
     if resource.persisted?
       if resource.active_for_authentication?
-        set_flash_message! :notice, :signed_up
+        set_flash_message! :notice, :"students.signed_up"
         redirect_to root_path
       else
         set_flash_message! :notice, :"signed_up_but_#{resource.inactive_message}"

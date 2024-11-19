@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
-  devise_for :instructors, path_names: {
+  devise_for :instructors, controllers: {
+    registrations: 'instructors/registrations'
+  }, path_names: {
     edit: 'account/edit'
   }
 
@@ -8,6 +10,14 @@ Rails.application.routes.draw do
   }, path_names: {
     edit: 'account/edit'
   }
+
+  devise_scope :instructor do
+    post 'instructors/guest_sign_in', to: 'instructors/sessions#guest_sign_in'
+  end
+
+  devise_scope :student do
+    post 'students/guest_sign_in', to: 'students/sessions#guest_sign_in'
+  end
 
   namespace :instructors do
     resources :students, path: 'my-students', only: [:index, :show, :edit, :update, :destroy]

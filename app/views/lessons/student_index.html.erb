@@ -1,13 +1,31 @@
-<h1>My Lessons</h1>
-
-<div class="lesson-cards">
-  <% @lessons.each_with_index do |lesson, index| %>
-    <div class="lesson-card <%= 'next-lesson' if index == 0 %>">
-      <h2><strong>日程:</strong> <%= lesson.start_time.strftime("%Y-%m-%d") %></h2>
-      <p><strong>時間:</strong> <%= lesson.start_time.strftime("%H:%M") %> 〜 <%= lesson.end_time.strftime("%H:%M") %></p>
-      <p><strong>講師:</strong> <%= lesson.instructor_name %>先生</p>
-      <p><strong>ステータス:</strong> <%= lesson.status %></p>
-      <p><strong>レッスンID:</strong> <%= lesson.id %></p>
-    </div>
-  <% end %>
+<h2 class="text-center mt-4">マイレッスン</h2>
+<div class="mt-3 mx-4">
+  <div class="row mt-4">
+    <% if @lessons.any? %>
+      <% @lessons.each_with_index do |lesson, index| %>
+        <div class="col-lg-3 col-md-4 col-sm-6 my-3">
+          <div class="card">
+            <h4 class="card-header"><i class="bi bi-calendar"></i> <%= lesson.start_time.strftime("%Y年 %m月 %d日") %></h4>
+            <div class="card-body">
+              <p class="card-text"><i class="bi bi-person"></i> 講師: <%= lesson.instructor_name %></p>
+              <p class="card-text"><i class="bi bi-clock"></i> 時間: <%= lesson.start_time.strftime("%H:%M") %> 〜 <%= lesson.end_time.strftime("%H:%M") %></p>
+              <p class="card-text">
+                <i class="bi bi-check-circle"></i> ステータス:
+                <% if lesson.status == "確定" %>
+                  <span class="badge bg-success rounded-pill">確定</span>
+                <% elsif lesson.status == "保留" %>
+                  <span class="badge bg-warning rounded-pill">保留</span>
+                <% elsif lesson.status == "キャンセル" %>
+                  <span class="badge bg-danger rounded-pill">キャンセル</span>
+                <% end %>
+              </p>
+              <p class="card-text"><i class="bi bi-tag"></i> レッスンID: <%= lesson.id %></p>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    <% else %>
+      <p class="text-center">現在、レッスンが登録されていません。</p>
+    <% end %>
+  </div>
 </div>

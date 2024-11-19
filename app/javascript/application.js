@@ -2,6 +2,8 @@
 import "@hotwired/turbo-rails"
 import "controllers"
 
+Turbo.session.drive = false
+
 $(document).ready(function(){
   $('.tabs li a').on('click', function(e){
     e.preventDefault();

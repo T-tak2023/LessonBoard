@@ -1,65 +1,104 @@
-<h1>生徒詳細</h1>
-<p>
-  <% if @student.icon_image.present? %>
-    <%= image_tag @student.icon_image.url, size: "100x100" %>
-  <% else %>
-    <%= image_tag '/assets/default_icon.png', alt: 'ユーザーアイコン', size: "100x100" %>
-  <% end %>
-</p>
-<%= link_to '編集', edit_instructors_student_path(@student) %>
-<%= link_to '削除', instructors_student_path(@student), data: { turbo: "true", turbo_method: :delete, turbo_confirm: '本当に削除しますか？' } %>
+<h2 class="mt-4 text-center">生徒詳細</h2>
+<div class="container" style="max-width: 800px;">
+  <div class="row my-4">
+    <div class="col-md-4 text-center">
+      <% if @student.icon_image.present? %>
+        <%= image_tag @student.icon_image.url, alt: 'ユーザーアイコン', size: "100x100", class: "rounded-circle" %>
+      <% else %>
+        <%= image_tag 'default_icon.svg', alt: 'デフォルトユーザーアイコン', size: "100x100", class: "rounded-circle" %>
+      <% end %>
+      <h3 class="my-3"><%= @student.student_name %> さん</h3>
+    </div>
+    <div class="col-md-8 mx-auto" style="max-width: 400px;">
+      <table class="table table-bordered mb-1">
+        <tr>
+          <th class="bg-light">ID</th>
+          <td><%= @student.id %></td>
+        </tr>
+        <tr>
+          <th class="bg-light">メールアドレス</th>
+          <td><%= @student.email %></td>
+        </tr>
+        <tr>
+          <th class="bg-light">コース</th>
+          <td><%= @student.course %></td>
+        </tr>
+        <tr>
+          <th class="bg-light">入会日</th>
+          <td><%= @student.enrollment_date %></td>
+        </tr>
+      </table>
+      <div class="text-end">
+        <%= link_to '<i class="bi bi-pencil"></i> 編集'.html_safe, edit_instructors_student_path(@student), class: "btn btn-light" %>
+      </div>
+    </div>
+  </div>
+</div>
 
-<p><strong>名前:</strong> <%= @student.student_name %> さん</p>
-<p><strong>ID:</strong> <%= @student.id %></p>
-<p><strong>メールアドレス:</strong> <%= @student.email %></p>
-<p><strong>コース:</strong> <%= @student.course %></p>
-<p><strong>入会日:</strong> <%= @student.enrollment_date %></p>
-
-<!-- タブのヘッダー -->
-<ul class="tabs">
-  <li class="active"><a href="#lessons" data-toggle="tab">今後のレッスン</a></li>
-  <li><a href="#lesson_notes" data-toggle="tab">レッスンノート</a></li>
+<ul class="nav nav-tabs mt-5 mb-4 justify-content-center">
+  <li class="nav-item">
+    <a href="#lessons" class="nav-link active" data-bs-toggle="tab">今後のレッスン</a>
+  </li>
+  <li class="nav-item">
+    <a href="#lesson_notes" class="nav-link" data-bs-toggle="tab">レッスンノート</a>
+  </li>
 </ul>
 
-<!-- タブのコンテンツ -->
-<div class="tab-content">
-  <div id="lessons" class="tab-pane active">
-    <h2>今後のレッスン</h2>
-    <div class="lesson-cards">
+<div class="tab-content mx-4">
+  <div id="lessons" class="tab-pane fade show active">
+    <h2 class="text-center">今後のレッスン</h2>
+    <div class="row">
       <% if @lessons.any? %>
         <% @lessons.each_with_index do |lesson, index| %>
-          <div class="lesson-card <%= 'next-lesson' if index == 0 %>">
-            <p><strong>日程:</strong> <%= lesson.start_time.strftime("%Y-%m-%d") %></p>
-            <p><strong>時間:</strong> <%= lesson.start_time.strftime("%H:%M") %> 〜 <%= lesson.end_time.strftime("%H:%M") %></p>
-            <p><strong>講師:</strong> <%= lesson.instructor_name %>先生</p>
-            <p><strong>ステータス:</strong> <%= lesson.status %></p>
-            <p><strong>レッスンID:</strong> <%= lesson.id %></p>
-            <%= link_to 'レッスンカレンダーで編集', lessons_path %>
+          <div class="col-lg-3 col-md-4 col-sm-6 my-3">
+            <div class="card">
+              <h4 class="card-header"><i class="bi bi-calendar"></i> <%= lesson.start_time.strftime("%Y年 %m月 %d日") %></h4>
+              <div class="card-body">
+                <p class="card-text"><i class="bi bi-clock"></i> 時間: <%= lesson.start_time.strftime("%H:%M") %> 〜 <%= lesson.end_time.strftime("%H:%M") %></p>
+                <p class="card-text"><i class="bi bi-check-circle"></i> ステータス: <%= lesson.status %></p>
+                <p class="card-text"><i class="bi bi-tag"></i> レッスンID: <%= lesson.id %></p>
+              </div>
+            </div>
           </div>
         <% end %>
       <% else %>
-        <p>この生徒にはまだレッスンが登録されていません。</p>
+        <p class="text-center">この生徒にはまだレッスンが登録されていません。</p>
       <% end %>
+    </div>
+    <div class="text-center mt-2">
+      <%= link_to 'レッスンカレンダーへ', lessons_path, class: "btn btn-outline-dark" %>
     </div>
   </div>
 
-  <div id="lesson_notes" class="tab-pane">
-    <h2>レッスンノート</h2>
-    <div class="lesson-cards">
-      <% @lesson_notes.each do |lesson_note| %>
-        <div class="lesson-card">
-          <p><strong>日程:</strong> <%= lesson_note.lesson_date.strftime("%Y年%m月%d日 %H:%M") %></p>
-          <p><strong>内容:</strong> <%= lesson_note.content %></p>
-          <p><strong>ステータス:</strong> <%= lesson_note.log_status %></p>
-          <div class="lesson-note-actions">
-            <%= link_to '詳細', instructors_lesson_note_path(lesson_note) %> |
-            <%= link_to '編集', edit_instructors_lesson_note_path(lesson_note) %>
+  <div id="lesson_notes" class="tab-pane fade">
+    <h2 class="text-center">レッスンノート</h2>
+    <div class="row">
+      <% if @lesson_notes.any? %>
+        <% @lesson_notes.each do |lesson_note| %>
+          <div class="col-lg-3 col-md-4 col-sm-6 my-3">
+            <div class="card">
+              <h4 class="card-header bg-light"><i class="bi bi-calendar"></i> <%= lesson_note.lesson_date.strftime("%Y年 %m月 %d日") %></h4>
+              <div class="card-body">
+                <p class="card-text"><i class="bi bi-clock"></i> 時間: <%= lesson_note.lesson_date.strftime("%H:%M") %> 〜</p>
+                <p class="card-text text-truncate"><i class="bi bi-file-earmark-text"></i> 内容: <%= lesson_note.content %></p>
+                <p class="card-text"><i class="bi bi-check-circle"></i> ステータス: <%= lesson_note.log_status %></p>
+                <div class="text-center">
+                  <%= link_to '詳細', instructors_lesson_note_path(lesson_note), class: "btn btn-outline-info btn-sm w-100" %>
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
+        <% end %>
+      <% else %>
+        <p class="text-center">この生徒にはまだレッスンノートが登録されていません。</p>
       <% end %>
     </div>
-
-    <%= link_to '新しいレッスンノートを作成', new_instructors_lesson_note_path(student_id: @student.id) %>
+    <div class="text-center mt-2">
+      <%= link_to 'レッスンノートを作成', new_instructors_lesson_note_path(student_id: @student.id), class: "btn btn-outline-dark" %>
+    </div>
   </div>
 </div>
-<%= link_to '生徒一覧へ', instructors_students_path %>
+
+<div class="text-center my-4">
+  <%= link_to '生徒一覧へ', instructors_students_path, class: "btn btn-primary rounded-pill" %>
+</div>

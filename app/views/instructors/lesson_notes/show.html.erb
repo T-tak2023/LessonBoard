@@ -1,53 +1,98 @@
-<h1>レッスンノート詳細</h1>
-
-<p>
-  <strong>生徒:</strong>
-  <%= @lesson_note.student.student_name %>さん
-  <%= link_to '生徒詳細へ', instructors_student_path(@lesson_note.student_id) %>
-</p>
-
-<p>
-  <strong>レッスン日時:</strong>
-  <%= @lesson_note.lesson_date.strftime("%Y年%m月%d日 %H:%M") %>
-</p>
-
-<p>
-  <strong>レッスン内容:</strong>
-  <%= @lesson_note.content %>
-</p>
-
-<p>
-  <strong>生徒用メモ:</strong>
-  <%= @lesson_note.student_memo %>
-</p>
-
-<p>
-  <strong>講師用メモ:</strong>
-  <%= @lesson_note.instructor_memo %>
-</p>
-
-<p>
-  <strong>画像資料:</strong>
-  <% if @lesson_note.image_material? %>
-    <%= image_tag @lesson_note.image_material.url, style: "max-width: 200px; height: auto;" %>
-  <% end %>
-</p>
-
-<p>
-  <strong>動画資料:</strong>
-  <% if @lesson_note.video_material.present? %>
-    <div class="video-container">
-      <iframe width="560" height="315" src="<%= @embed_url %>" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<div class="mt-4 mx-2">
+  <div class="card border-primary mb-3 mx-auto" style="max-width: 80rem;">
+    <div class="card-header text-white bg-primary">
+      <h2 class="mb-0">レッスンノート詳細</h2>
     </div>
-  <% else %>
-    <p>動画資料はありません。</p>
-  <% end %>
-</p>
+    <div class="card-body">
 
-<p>
-  <strong>ステータス:</strong>
-  <%= @lesson_note.log_status %>
-</p>
+      <div class="row g-2">
+        <div class="col-md-4">
+          <div class="bg-light p-3 h-100">
+            <h4 class="card-title">
+              <i class="bi bi-person"></i> 生徒
+            </h4>
+            <p class="mb-0"><%= @lesson_note.student&.student_name || '生徒情報がありません。' %></p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="bg-light p-3 h-100">
+            <h4 class="card-title">
+              <i class="bi bi-calendar"></i> 日時
+            </h4>
+            <p class="mb-0"><%= @lesson_note.lesson_date.strftime("%Y年%m月%d日 %H:%M") %></p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="bg-light p-3 h-100">
+            <h4 class="card-title">
+              <i class="bi bi-check-circle"></i> ステータス
+            </h4>
+            <p class="mb-0"><%= @lesson_note.log_status %></p>
+          </div>
+        </div>
+      </div>
 
-<%= link_to '編集', edit_instructors_lesson_note_path(@lesson_note) %>
-<%= link_to '戻る', :back %>
+      <div class="row g-2 pt-3">
+        <div class="col-md-4">
+          <div class="bg-light p-3 h-100">
+            <h4 class="card-title">
+              <i class="bi bi-file-earmark-text"></i> 内容
+            </h4>
+            <p class="mb-0"><%= simple_format@lesson_note.content %></p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="bg-light p-3 h-100">
+            <h4 class="card-title">
+              <i class="bi bi-sticky-fill"></i> 講師用メモ
+            </h4>
+            <p class="mb-0"><%= simple_format@lesson_note.instructor_memo %></p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="bg-light p-3 h-100">
+            <h4 class="card-title">
+              <i class="bi bi-sticky"></i> 生徒用メモ
+            </h4>
+            <p class="mb-0"><%= simple_format@lesson_note.student_memo %></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="row g-2 py-3">
+        <div class="col-md-4">
+          <div class="bg-light p-3 h-100">
+            <h4 class="card-title">
+              <i class="bi bi-image"></i> 画像資料
+            </h4>
+            <% if @lesson_note.image_material.present? %>
+              <%= image_tag @lesson_note.image_material.url, class: "img-fluid" %>
+            <% else %>
+              <p>画像資料はありません。</p>
+            <% end %>
+          </div>
+        </div>
+        <div class="col-md-8">
+          <div class="bg-light p-3 h-100">
+            <h4 class="card-title">
+              <i class="bi bi-youtube"></i> 動画資料 (YouTube URL)
+            </h4>
+            <% if @lesson_note.video_material.present? %>
+              <div class="ratio ratio-16x9">
+                <iframe src="<%= @embed_url %>" allowfullscreen ></iframe>
+              </div>
+            <% else %>
+              <p>動画資料はありません。</p>
+            <% end %>
+          </div>
+        </div>
+      </div>
+
+      <div class="text-center mt-4">
+        <%= link_to '編集', edit_instructors_lesson_note_path(@lesson_note), class: "btn btn-primary me-2" %>
+        <%= link_to '削除', instructors_lesson_note_path(@lesson_note), data: { turbo: "true", turbo_method: :delete, turbo_confirm: '本当に削除しますか？' }, class: "btn btn-danger me-2" %>
+        <%= link_to '一覧に戻る', instructors_lesson_notes_path, class: "btn btn-secondary" %>
+      </div>
+    </div>
+  </div>
+</div>

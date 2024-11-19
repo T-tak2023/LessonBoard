@@ -84,6 +84,8 @@ document.addEventListener('turbo:load', function() {
     eventClassNames: function(arg) {
       if (arg.event.extendedProps.status === '保留') {
         return ['pending-status'];
+      } else if (arg.event.extendedProps.status === 'キャンセル') {
+        return ['cancel-status'];
       }
       return [];
     },

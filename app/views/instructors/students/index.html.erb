@@ -1,35 +1,26 @@
-<h1>生徒一覧</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>ID</th>
-      <th>アイコン画像</th>
-      <th>名前</th>
-      <th>メールアドレス</th>
-      <th>コース</th>
-      <th>入会日</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @students.each do |student| %>
-      <tr>
-        <td><%= student.id %></td>
-        <td>
+<div class="container" style="max-width: 600px;">
+  <h2 class="mt-4 text-center">生徒一覧</h2>
+  <div class="text-end">
+    <%= link_to '生徒を登録する', new_student_registration_path, class: "btn btn-primary mb-3" %>
+  </div>
+  <% if @students.empty? %>
+      <p class="text-center">まだ生徒が登録されていません。</p>
+  <% else %>
+    <div class="list-group">
+      <% @students.each do |student| %>
+        <%= link_to instructors_student_path(student), class: "list-group-item list-group-item-action d-flex align-items-center" do %>
           <% if student.icon_image.present? %>
-            <%= image_tag student.icon_image.url, size: "100x100" %>
+            <%= image_tag student.icon_image.url, alt: 'ユーザーアイコン', class: "rounded-circle me-3", size: "50x50" %>
           <% else %>
-            <%= image_tag 'default_icon.png', alt: 'ユーザーアイコン', size: "100x100" %>
+            <%= image_tag 'default_icon.svg', alt: 'デフォルトユーザーアイコン', class: "rounded-circle me-3", size: "50x50" %>
           <% end %>
-        </td>
-        <td><%= student.student_name %></td>
-        <td><%= student.email %></td>
-        <td><%= student.course %></td>
-        <td><%= student.enrollment_date %></td>
-        <td><%= link_to '詳細', instructors_student_path(student) %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<p><%= link_to 'ホームに戻る', root_path %></p>
+          <div>
+            <h4 class="mb-1"><%= student.student_name %></h4>
+            <p class="mb-0">メール: <%= student.email %></p>
+            <p class="mb-0">コース: <%= student.course %></p>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+  <% end %>
+</div>
