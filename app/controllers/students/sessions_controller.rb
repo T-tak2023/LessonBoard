@@ -18,6 +18,12 @@ class Students::SessionsController < Devise::SessionsController
   #   super
   # end
 
+  def guest_sign_in
+    student = Student.guest
+    sign_in student
+    redirect_to root_path, notice: 'ゲスト生徒ユーザーとしてログインしました。'
+  end
+
   # protected
 
   # If you have extra params to permit, append them to the sanitizer.
