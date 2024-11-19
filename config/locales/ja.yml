@@ -1,13 +1,21 @@
 ja:
   activerecord:
     attributes:
+      instructor:
+        icon_image: "アイコン画像"
+        course: "担当コース"
       lesson:
         start_time: "開始時間"
         end_time: "終了時間"
       lesson_note:
         lesson_date: "レッスン日時"
+        content: "レッスン内容"
+        instructor_memo: "講師用メモ"
+        student_memo: "生徒用メモ"
         video_material: "動画資料"
         image_material: "画像資料"
+      student:
+        icon_image: "アイコン画像"
     errors:
       models:
         lesson_note:
@@ -22,5 +30,6 @@ ja:
       extension_whitelist_error: "としてアップロードできるファイルタイプは[%{allowed_types}]です。"
       extension_blacklist_error: "%{extension}ファイルのアップロードは許可されていません。アップロードできないファイルタイプ: %{prohibited_types}"
       rmagick_processing_error: "rmagickがファイルを処理できませんでした。画像を確認してください。エラーメッセージ: %{e}"
+      max_size_error: "ファイルサイズが大きすぎます。最大2MBまで許可されています。"
       mime_types_processing_error: "MIME::Typesのファイルを処理できませんでした。Content-Typeを確認してください。エラーメッセージ: %{e}"
       mini_magick_processing_error: "MiniMagickがファイルを処理できませんでした。画像を確認してください。エラーメッセージ: %{e}"

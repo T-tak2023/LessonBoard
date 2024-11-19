@@ -62,16 +62,22 @@ class Instructors::LessonNotesController < ApplicationController
   def generate_embed_url(material)
     return nil if material.blank?
 
-    if material.include?("youtube.com")
-      begin
-        youtube_id = material.split("v=").last.split("&").first
-      rescue NoMethodError, IndexError
-        nil
-      end
-      return "https://www.youtube.com/embed/#{youtube_id}" if youtube_id
-    elsif material.include?("youtu.be")
-      youtube_id = material.split("/").last
-      return "https://www.youtube.com/embed/#{youtube_id}" if youtube_id.present?
+    video_id = extract_youtube_id(material)
+    video_id.present? ? "https://www.youtube.com/embed/#{video_id}" : nil
+  end
+
+  def extract_youtube_id(url)
+    return nil if url.blank?
+
+    patterns = [
+      /youtube\.com\/watch\?v=([a-zA-Z0-9_-]{11})/,
+      /youtu\.be\/([a-zA-Z0-9_-]{11})/,
+      /m\.youtube\.com\/watch\?v=([a-zA-Z0-9_-]{11})/,
+    ]
+
+    patterns.each do |pattern|
+      match = url.match(pattern)
+      return match[1] if match
     end
 
     nil
