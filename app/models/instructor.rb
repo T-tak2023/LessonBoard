@@ -15,4 +15,8 @@ class Instructor < ApplicationRecord
       instructor.instructor_name = 'ゲスト講師'
     end
   end
+
+  def guest_user?
+    email == 'guest_instructor@example.com'
+  end
 end

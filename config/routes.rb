@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
-  devise_for :instructors, path_names: {
+  devise_for :instructors, controllers: {
+    registrations: 'instructors/registrations'
+  }, path_names: {
     edit: 'account/edit'
   }
 
