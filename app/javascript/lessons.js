@@ -28,7 +28,6 @@ document.addEventListener('turbo:load', function() {
       meridiem: false
     },
     navLinks: true,
-    weekNumbers: true,
     selectable: true,
     select: function(info) {
       var detailModal = document.getElementById('eventDetailModal');
@@ -53,6 +52,8 @@ document.addEventListener('turbo:load', function() {
         // 選択された時間範囲をフォームに設定
         document.getElementById('start_time').value = formatDateToLocal(startDate);
         document.getElementById('end_time').value = formatDateToLocal(endDate);
+
+        document.getElementById('start_time').focus();
       }
     },
     events: function(fetchInfo, successCallback, failureCallback) {

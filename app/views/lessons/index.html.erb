@@ -1,68 +1,89 @@
-<h1>レッスンカレンダー</h1>
+<div class="container">
+  <h2 class="text-center">レッスンカレンダー</h2>
 
-<div id='calendar'></div>
+  <div id='calendar' class="mt-0"></div>
 
-<div id="eventModal" class="modal" style="display: none;">
-  <h2>新規登録</h2>
-  <form id="eventForm">
-    <label for="start_time">開始時間：</label>
-    <input type="datetime-local" id="start_time" name="start_time" required><br>
-    <label for="end_time">終了時間：</label>
-    <input type="datetime-local" id="end_time" name="end_time" required><br>
-    <label for="student_id">生徒：</label>
-    <select name="student_id" id="student_id" required>
-      <% current_instructor.students.each do |student| %>
-        <option value="<%= student.id %>"><%= student.student_name %></option>
-      <% end %>
-    </select><br>
-    <label for="status">ステータス：</label>
-    <select name="status" id="status" required>
-      <option value="確定">確定</option>
-      <option value="保留">保留</option>
-      <option value="キャンセル">キャンセル</option>
-    </select><br>
-    <input type="hidden" id="instructor_id" name="instructor_id" value="<%= current_instructor.id %>"><br>
-    <button type="submit">Save</button>
-    <button type="button" id="cancelBtn">Cancel</button>
-  </form>
-</div>
+  <div id="eventModal" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content shadow-lg">
+        <div class="modal-header bg-primary">
+          <h5 class="modal-title text-white">新規登録</h5>
+        </div>
+        <div class="modal-body">
+          <form id="eventForm">
+            <div class="mb-3">
+              <label for="start_time" class="form-label">開始時間：</label>
+              <input type="datetime-local" id="start_time" name="start_time" class="form-control" required>
+            </div>
+            <div class="mb-3">
+              <label for="end_time" class="form-label">終了時間：</label>
+              <input type="datetime-local" id="end_time" name="end_time" class="form-control" required>
+            </div>
+            <div class="mb-3">
+              <label for="student_id" class="form-label">生徒：</label>
+              <select name="student_id" id="student_id" class="form-select" required>
+                <% current_instructor.students.each do |student| %>
+                  <option value="<%= student.id %>"><%= student.student_name %></option>
+                <% end %>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label for="status" class="form-label">ステータス：</label>
+              <select name="status" id="status" class="form-select" required>
+                <option value="確定">確定</option>
+                <option value="保留">保留</option>
+                <option value="キャンセル">キャンセル</option>
+              </select>
+            </div>
+            <input type="hidden" id="instructor_id" name="instructor_id" value="<%= current_instructor.id %>">
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" form="eventForm" class="btn btn-primary">登録する</button>
+          <button type="button" id="cancelBtn" class="btn btn-secondary">キャンセル</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
-<div id="eventDetailModal" class="modal" style="display: none;">
-  <h2 id="eventTitle"></h2>
-  <p>開始時間：<span id="eventStartTime"></span></p>
-  <p>終了時間：<span id="eventEndTime"></span></p>
-  <p>ステータス: <span id="eventStatus"></span></p>
-  <p>講師： <span id="eventInstructor"></span></p>
-  <p>生徒： <span id="eventStudent"></span></p>
-  <button id="editEventBtn">編集</button>
-  <button id="deleteEventBtn">削除</button>
-  <button id="closeDetailBtn">閉じる</button>
-</div>
 
-<div id="eventEditModal" class="modal" style="display: none;">
-  <h2>編集</h2>
-  <form id="eventEditForm">
-    <label for="edit_start_time">開始時間：</label>
-    <input type="datetime-local" id="edit_start_time" name="start_time" required><br>
-    <label for="edit_end_time">終了時間：</label>
-    <input type="datetime-local" id="edit_end_time" name="end_time" required><br>
-    <label for="edit_student_id">生徒：</label>
-    <select name="student_id" id="edit_student_id" required>
-      <% current_instructor.students.each do |student| %>
-        <option value="<%= student.id %>"><%= student.student_name %></option>
-      <% end %>
-    </select><br>
-    <label for="edit_status">ステータス：</label>
-    <select name="status" id="edit_status" required>
-      <option value="確定">確定</option>
-      <option value="保留">保留</option>
-      <option value="キャンセル">キャンセル</option>
-    </select>
-    <input type="hidden" id="edit_instructor_id" name="instructor_id" value="<%= current_instructor.id %>"><br>
-    <input type="hidden" id="edit_event_id" name="event_id"><br>
-    <button type="submit">保存</button>
-    <button type="button" id="cancelEditBtn">キャンセル</button>
-  </form>
+  <div id="eventDetailModal" class="modal" style="display: none;">
+    <h2 id="eventTitle"></h2>
+    <p>開始時間：<span id="eventStartTime"></span></p>
+    <p>終了時間：<span id="eventEndTime"></span></p>
+    <p>ステータス: <span id="eventStatus"></span></p>
+    <p>講師： <span id="eventInstructor"></span></p>
+    <p>生徒： <span id="eventStudent"></span></p>
+    <button id="editEventBtn">編集</button>
+    <button id="deleteEventBtn">削除</button>
+    <button id="closeDetailBtn">閉じる</button>
+  </div>
+
+  <div id="eventEditModal" class="modal" style="display: none;">
+    <h2>編集</h2>
+    <form id="eventEditForm">
+      <label for="edit_start_time">開始時間：</label>
+      <input type="datetime-local" id="edit_start_time" name="start_time" required><br>
+      <label for="edit_end_time">終了時間：</label>
+      <input type="datetime-local" id="edit_end_time" name="end_time" required><br>
+      <label for="edit_student_id">生徒：</label>
+      <select name="student_id" id="edit_student_id" required>
+        <% current_instructor.students.each do |student| %>
+          <option value="<%= student.id %>"><%= student.student_name %></option>
+        <% end %>
+      </select><br>
+      <label for="edit_status">ステータス：</label>
+      <select name="status" id="edit_status" required>
+        <option value="確定">確定</option>
+        <option value="保留">保留</option>
+        <option value="キャンセル">キャンセル</option>
+      </select>
+      <input type="hidden" id="edit_instructor_id" name="instructor_id" value="<%= current_instructor.id %>"><br>
+      <input type="hidden" id="edit_event_id" name="event_id"><br>
+      <button type="submit">保存</button>
+      <button type="button" id="cancelEditBtn">キャンセル</button>
+    </form>
+  </div>
 </div>
 
 <%= javascript_include_tag 'lessons' %>
