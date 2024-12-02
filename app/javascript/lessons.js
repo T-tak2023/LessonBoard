@@ -100,9 +100,20 @@ document.addEventListener('turbo:load', function() {
       if (createModal.style.display === 'none' && editModal.style.display === 'none'){
         currentEvent = info.event;
 
-        document.getElementById('eventTitle').textContent = info.event.title;
-        document.getElementById('eventStartTime').textContent = info.event.start.toLocaleString();
-        document.getElementById('eventEndTime').textContent = info.event.end.toLocaleString();
+        document.getElementById('eventStartTime').textContent = info.event.start.toLocaleString('ja-JP', {
+          year: 'numeric',
+          month: '2-digit',
+          day: '2-digit',
+          hour: '2-digit',
+          minute: '2-digit'
+        });
+        document.getElementById('eventEndTime').textContent = info.event.end.toLocaleString('ja-JP', {
+          year: 'numeric',
+          month: '2-digit',
+          day: '2-digit',
+          hour: '2-digit',
+          minute: '2-digit'
+        });
         document.getElementById('eventStatus').textContent = info.event.extendedProps.status;
         document.getElementById('eventInstructor').textContent = info.event.extendedProps.instructor_name;
         document.getElementById('eventStudent').textContent = info.event.extendedProps.student_name;

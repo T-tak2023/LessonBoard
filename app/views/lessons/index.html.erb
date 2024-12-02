@@ -3,7 +3,7 @@
 
   <div id='calendar' class="mt-0"></div>
 
-  <div id="eventModal" class="modal" tabindex="-1" role="dialog">
+  <div id="eventModal" class="modal" style="display: none;" role="dialog">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content shadow-lg">
         <div class="modal-header bg-primary">
@@ -46,18 +46,64 @@
     </div>
   </div>
 
-
   <div id="eventDetailModal" class="modal" style="display: none;">
-    <h2 id="eventTitle"></h2>
-    <p>開始時間：<span id="eventStartTime"></span></p>
-    <p>終了時間：<span id="eventEndTime"></span></p>
-    <p>ステータス: <span id="eventStatus"></span></p>
-    <p>講師： <span id="eventInstructor"></span></p>
-    <p>生徒： <span id="eventStudent"></span></p>
-    <button id="editEventBtn">編集</button>
-    <button id="deleteEventBtn">削除</button>
-    <button id="closeDetailBtn">閉じる</button>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content border-0 shadow-lg">
+      <div class="modal-header bg-primary py-3">
+        <h5 class="modal-title text-white">レッスン詳細</h5>
+        <button type="button" class="btn-close btn-close-white" id="closeDetailBtn" aria-label="Close"></button>
+      </div>
+      <div class="modal-body bg-light">
+        <div class="row g-3">
+          <div class="col-12 col-md-6">
+            <div class="card border-primary mb-2">
+              <div class="card-body py-2">
+                <h6 class="card-subtitle mb-1 text-muted">開始時間</h6>
+                <p class="card-text text-primary" id="eventStartTime"></p>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-md-6">
+            <div class="card border-primary mb-2">
+              <div class="card-body py-2">
+                <h6 class="card-subtitle mb-1 text-muted">終了時間</h6>
+                <p class="card-text text-primary" id="eventEndTime"></p>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-md-6">
+            <div class="card border-primary mb-2">
+              <div class="card-body py-2">
+                <h6 class="card-subtitle mb-1 text-muted">講師</h6>
+                <p class="card-text text-primary" id="eventInstructor"></p>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-md-6">
+            <div class="card border-primary mb-2">
+              <div class="card-body py-2">
+                <h6 class="card-subtitle mb-1 text-muted">生徒</h6>
+                <p class="card-text text-primary" id="eventStudent"></p>
+              </div>
+            </div>
+          </div>
+          <div class="col-12">
+            <div class="card border-primary">
+              <div class="card-body py-2">
+                <h6 class="card-subtitle mb-1 text-muted">ステータス</h6>
+                <p class="card-text text-primary" id="eventStatus"></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer bg-light">
+        <button id="editEventBtn" class="btn btn-primary">編集</button>
+        <button id="deleteEventBtn" class="btn btn-danger">削除</button>
+      </div>
+    </div>
   </div>
+</div>
 
   <div id="eventEditModal" class="modal" style="display: none;">
     <h2>編集</h2>
