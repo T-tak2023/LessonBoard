@@ -21,6 +21,7 @@ document.addEventListener('turbo:load', function() {
       startTime: '00:00',
       endTime: '24:00',
     },
+    eventColor: '#56cc9d',
     eventDisplay: 'block',
     eventTimeFormat: {
       hour: 'numeric',

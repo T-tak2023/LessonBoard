@@ -64,11 +64,13 @@ html, body {
 } */
 
 .pending-status {
-  background-color: rgb(252, 176, 96) !important;
+  background-color: #ffce67 !important;
+  border-color: #ffce67 !important;
 }
 
 .cancel-status {
-  background-color: red !important;
+  background-color: gray !important;
+  border-color: gray !important;
   opacity: 50%;
 }
 
