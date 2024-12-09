@@ -85,9 +85,9 @@ document.addEventListener('turbo:load', function() {
 
     eventClassNames: function(arg) {
       if (arg.event.extendedProps.status === '保留') {
-        return ['pending-status'];
+        return ['calendar-event-pending'];
       } else if (arg.event.extendedProps.status === 'キャンセル') {
-        return ['cancel-status'];
+        return ['calendar-event-cancelled'];
       }
       return [];
     },
@@ -118,6 +118,17 @@ document.addEventListener('turbo:load', function() {
         document.getElementById('eventStatus').textContent = info.event.extendedProps.status;
         document.getElementById('eventInstructor').textContent = info.event.extendedProps.instructor_name;
         document.getElementById('eventStudent').textContent = info.event.extendedProps.student_name;
+
+        var eventStatus = document.getElementById('eventStatus');
+        eventStatus.classList.remove('modal-confirmed-status', 'modal-pending-status', 'modal-cancelled-status');
+
+        if (info.event.extendedProps.status === '確定') {
+            eventStatus.classList.add('modal-confirmed-status');
+        } else if (info.event.extendedProps.status === '保留') {
+            eventStatus.classList.add('modal-pending-status');
+        } else if (info.event.extendedProps.status === 'キャンセル') {
+            eventStatus.classList.add('modal-cancelled-status');
+        }
 
         document.getElementById('eventDetailModal').style.display = 'block';
       }

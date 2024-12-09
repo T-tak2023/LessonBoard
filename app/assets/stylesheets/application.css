@@ -63,12 +63,27 @@ html, body {
   margin-bottom: 10px;
 } */
 
-.pending-status {
+.modal-confirmed-status {
+  color: #56cc9d !important;
+  font-weight: bold;
+}
+
+.modal-pending-status {
+  color: #ffce67 !important;
+  font-weight: bold;
+}
+
+.modal-cancelled-status {
+  color: gray !important;
+  font-weight: bold;
+}
+
+.calendar-event-pending {
   background-color: #ffce67 !important;
   border-color: #ffce67 !important;
 }
 
-.cancel-status {
+.calendar-event-cancelled {
   background-color: gray !important;
   border-color: gray !important;
   opacity: 50%;
