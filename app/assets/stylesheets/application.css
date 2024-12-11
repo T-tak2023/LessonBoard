@@ -56,6 +56,13 @@ html, body {
   text-decoration: none;
 }
 
+.fc-toolbar-chunk {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
 .fc .fc-button {
   background-color: #78c2ad;
   color: #ffffff;

@@ -11,9 +11,9 @@ document.addEventListener('turbo:load', function() {
   var calendar = new FullCalendar.Calendar(calendarEl, {
     initialView: 'dayGridMonth',
       headerToolbar: {
-      left: 'prev',
-      center: 'title',
-      right: 'dayGridMonth,timeGridWeek,timeGridDay next'
+      left: '',
+      center: 'prev title next',
+      right: 'dayGridMonth,timeGridWeek,timeGridDay'
     },
     locale: 'ja',
     timeZone: 'local',
