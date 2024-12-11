@@ -11,15 +11,38 @@ document.addEventListener('turbo:load', function() {
   var calendar = new FullCalendar.Calendar(calendarEl, {
     initialView: 'dayGridMonth',
       headerToolbar: {
-      left: 'prev,next today',
+      left: 'prev',
       center: 'title',
-      right: 'dayGridMonth,timeGridWeek,timeGridDay'
+      right: 'dayGridMonth,timeGridWeek,timeGridDay next'
     },
     locale: 'ja',
     timeZone: 'local',
+    buttonText: {
+      month: '月',
+      week: '週',
+      day: '日'
+    },
     businessHours: {
       startTime: '00:00',
       endTime: '24:00',
+    },
+    allDaySlot: false,
+    titleFormat: { month: 'long' },
+    slotLabelFormat: {
+      hour: 'numeric',
+      minute: '2-digit',
+    },
+    scrollTime: '10:00:00',
+    views: {
+      dayGridMonth: {
+        dayMaxEventRows: 3
+      },
+      timeGridWeek: {
+        dayHeaderFormat: { day: 'numeric' },
+      },
+      timeGridDay: {
+        titleFormat: { month: 'short', day: 'numeric' },
+      }
     },
     eventColor: '#56cc9d',
     eventDisplay: 'block',

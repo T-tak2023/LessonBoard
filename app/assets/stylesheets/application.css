@@ -32,36 +32,43 @@ html, body {
 }
 
 #calendar {
-  max-width: 1100px;
-  margin: 40px auto;
+  max-width: 100%;
 }
 
-/* .modal {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background: white;
-  padding: 20px;
-  border: 1px solid black;
-  z-index: 1000;
+.fc-view-harness {
+  height: 80vh !important;
 }
 
-.modal h2 {
-  margin-top: 0;
+.fc-timeGridWeek-view .fc-view-harness,
+.fc-timeGridDay-view .fc-view-harness {
+  height: 100vh !important;
 }
 
-.modal form {
-  display: flex;
-  flex-direction: column;
+.fc-dayGridMonth-view .fc-col-header-cell-cushion {
+  pointer-events: none;
+  color: inherit;
+  text-decoration: none;
 }
 
-.modal label,
-.modal input,
-.modal button,
-.modal select {
-  margin-bottom: 10px;
-} */
+.fc-timeGridDay-view .fc-col-header-cell-cushion {
+  pointer-events: none;
+  color: inherit;
+  text-decoration: none;
+}
+
+.fc .fc-button {
+  background-color: #78c2ad;
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  padding: 8px 12px;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+}
+
+.fc .fc-button:hover {
+  background-color: #56cc9d;
+}
 
 .modal-confirmed-status {
   color: #56cc9d !important;
