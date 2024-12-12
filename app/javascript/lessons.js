@@ -77,7 +77,9 @@ document.addEventListener('turbo:load', function() {
         document.getElementById('start_time').value = formatDateToLocal(startDate);
         document.getElementById('end_time').value = formatDateToLocal(endDate);
 
-        document.getElementById('start_time').focus();
+        if (window.innerWidth > 768) {
+          document.getElementById('start_time').focus();
+        }
       }
     },
     events: function(fetchInfo, successCallback, failureCallback) {
