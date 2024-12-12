@@ -81,7 +81,6 @@
               <div class="card-body">
                 <p class="card-text"><i class="bi bi-clock"></i> 時間: <%= lesson_note.lesson_date.strftime("%H:%M") %> 〜</p>
                 <p class="card-text text-truncate"><i class="bi bi-file-earmark-text"></i> 内容: <%= lesson_note.content %></p>
-                <p class="card-text"><i class="bi bi-check-circle"></i> ステータス: <%= lesson_note.log_status %></p>
                 <div class="text-center">
                   <%= link_to '詳細', instructors_lesson_note_path(lesson_note), class: "btn btn-outline-info btn-sm w-100" %>
                 </div>

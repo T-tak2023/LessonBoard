@@ -5,7 +5,7 @@
     </div>
     <div class="card-body">
       <div class="row g-2">
-        <div class="col-md-4">
+        <div class="col-md-6">
           <div class="bg-light p-3 h-100">
             <h4 class="card-title">
               <i class="bi bi-person"></i> 講師
@@ -13,20 +13,12 @@
             <p class="mb-0"><%= @lesson_note.instructor.instructor_name %> 先生</p>
           </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-6">
           <div class="bg-light p-3 h-100">
             <h4 class="card-title">
               <i class="bi bi-calendar"></i> 日時
             </h4>
             <p class="mb-0"><%= @lesson_note.lesson_date.strftime("%Y年%m月%d日 %H:%M") %></p>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="bg-light p-3 h-100">
-            <h4 class="card-title">
-              <i class="bi bi-check-circle"></i> ステータス
-            </h4>
-            <p class="mb-0"><%= @lesson_note.log_status %></p>
           </div>
         </div>
       </div>

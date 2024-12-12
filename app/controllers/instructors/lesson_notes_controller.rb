@@ -92,7 +92,6 @@ class Instructors::LessonNotesController < ApplicationController
       :instructor_memo,
       :image_material,
       :video_material,
-      :log_status
     )
   end
 end
