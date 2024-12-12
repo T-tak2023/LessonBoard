@@ -61,7 +61,7 @@ document.addEventListener('turbo:load', function() {
       if ((detailModal && detailModal.style.display === 'none') &&
           (editModal && editModal.style.display === 'none')) {
       // フォームを表示
-        document.getElementById('eventModal').style.display = 'block';
+        document.getElementById('newEventModal').style.display = 'block';
 
         var startDate = info.start;
         var endDate = info.end;
@@ -120,7 +120,7 @@ document.addEventListener('turbo:load', function() {
     eventClick: function(info) {
       console.log('Event clicked:', info.event.extendedProps);
       // モーダルが表示されていない場合のみ、詳細モーダルを表示
-      var createModal = document.getElementById('eventModal');
+      var createModal = document.getElementById('newEventModal');
       var editModal = document.getElementById('eventEditModal');
 
       if (createModal.style.display === 'none' && editModal.style.display === 'none'){
@@ -326,7 +326,7 @@ document.addEventListener('turbo:load', function() {
     .catch(error => console.error('Error:', error));
 
     // フォームを非表示にする
-    document.getElementById('eventModal').style.display = 'none';
+    document.getElementById('newEventModal').style.display = 'none';
   });
 
   // モーダルを閉じる処理
@@ -344,6 +344,6 @@ document.addEventListener('turbo:load', function() {
 
   // キャンセルボタンの処理
   document.getElementById('cancelBtn').addEventListener('click', function() {
-    document.getElementById('eventModal').style.display = 'none';
+    document.getElementById('newEventModal').style.display = 'none';
   });
 });
