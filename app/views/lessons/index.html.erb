@@ -3,7 +3,7 @@
 <div id="eventModal" class="modal" style="display: none;" role="dialog">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content shadow-lg">
-      <div class="modal-header bg-primary">
+      <div class="modal-header bg-dark">
         <h5 class="modal-title text-white">新規レッスン登録</h5>
       </div>
       <div class="modal-body">
@@ -36,7 +36,7 @@
         </form>
       </div>
       <div class="modal-footer">
-        <button type="submit" form="eventForm" class="btn btn-primary">登録</button>
+        <button type="submit" form="eventForm" class="btn btn-success">登録</button>
         <button type="button" id="cancelBtn" class="btn btn-secondary">キャンセル</button>
       </div>
     </div>
@@ -46,33 +46,33 @@
 <div id="eventDetailModal" class="modal" style="display: none;">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content border-0 shadow-lg">
-      <div class="modal-header bg-primary py-3">
+      <div class="modal-header bg-dark py-3">
         <h5 class="modal-title text-white">レッスン詳細</h5>
         <button type="button" class="btn-close btn-close-white" id="closeDetailBtn" aria-label="Close"></button>
       </div>
       <div class="modal-body bg-light">
         <div class="row g-3">
           <div class="col-12 col-md-6">
-            <div class="card border-primary mb-2">
+            <div class="card mb-2">
               <div class="card-body py-2">
                 <h6 class="card-subtitle mb-1 text-muted">開始時間</h6>
-                <p class="card-text text-primary" id="eventStartTime"></p>
+                <p class="card-text" id="eventStartTime"></p>
               </div>
             </div>
           </div>
           <div class="col-12 col-md-6">
-            <div class="card border-primary mb-2">
+            <div class="card mb-2">
               <div class="card-body py-2">
                 <h6 class="card-subtitle mb-1 text-muted">終了時間</h6>
-                <p class="card-text text-primary" id="eventEndTime"></p>
+                <p class="card-text" id="eventEndTime"></p>
               </div>
             </div>
           </div>
           <div class="col-12 col-md-6">
-            <div class="card border-primary mb-2">
+            <div class="card mb-2">
               <div class="card-body py-2">
                 <h6 class="card-subtitle mb-1 text-muted">講師</h6>
-                <p class="card-text text-primary" id="eventInstructor"></p>
+                <p class="card-text" id="eventInstructor"></p>
               </div>
             </div>
           </div>
@@ -80,12 +80,12 @@
             <div class="card border-primary mb-2">
               <div class="card-body py-2">
                 <h6 class="card-subtitle mb-1 text-muted">生徒</h6>
-                <p class="card-text text-primary" id="eventStudent"></p>
+                <p class="card-text" id="eventStudent"></p>
               </div>
             </div>
           </div>
           <div class="col-12">
-            <div class="card border-primary">
+            <div class="card">
               <div class="card-body py-2">
                 <h6 class="card-subtitle mb-1 text-muted">ステータス</h6>
                 <p class="card-text" id="eventStatus"></p>
@@ -95,7 +95,7 @@
         </div>
       </div>
       <div class="modal-footer bg-light">
-        <button id="editEventBtn" class="btn btn-primary">編集</button>
+        <button id="editEventBtn" class="btn btn-info">編集</button>
         <button id="deleteEventBtn" class="btn btn-danger">削除</button>
       </div>
     </div>
@@ -105,7 +105,7 @@
 <div id="eventEditModal" class="modal" style="display: none;" role="dialog">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content shadow-lg">
-      <div class="modal-header bg-info">
+      <div class="modal-header bg-dark">
         <h5 class="modal-title text-white">レッスン編集</h5>
       </div>
       <div class="modal-body">
@@ -139,7 +139,7 @@
         </form>
       </div>
       <div class="modal-footer">
-        <button type="submit" form="eventEditForm" class="btn btn-info">保存</button>
+        <button type="submit" form="eventEditForm" class="btn btn-success">保存</button>
         <button type="button" id="cancelEditBtn" class="btn btn-secondary">キャンセル</button>
       </div>
     </div>
