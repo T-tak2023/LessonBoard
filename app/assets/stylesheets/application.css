@@ -78,18 +78,30 @@ html, body {
 }
 
 .modal-confirmed-status {
-  color: #56cc9d !important;
+  background-color: #56cc9d !important;
+  color: white !important;
   font-weight: bold;
+  padding: 0.2em 0.5em;
+  border-radius: 0.5em;
+  display: inline-flex;
 }
 
 .modal-pending-status {
-  color: #ffce67 !important;
+  background-color: #ffce67 !important;
+  color: black !important;
   font-weight: bold;
+  padding: 0.2em 0.5em;
+  border-radius: 0.5em;
+  display: inline-flex;
 }
 
 .modal-cancelled-status {
-  color: gray !important;
+  background-color: gray !important;
+  color: white !important;
   font-weight: bold;
+  padding: 0.2em 0.5em;
+  border-radius: 0.5em;
+  display: inline-flex;
 }
 
 .calendar-event-pending {
