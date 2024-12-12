@@ -327,9 +327,17 @@ document.addEventListener('turbo:load', function() {
     document.getElementById('eventModal').style.display = 'none';
   });
 
-  // モーダルのクローズボタン処理
-  document.getElementById('closeDetailBtn').addEventListener('click', function() {
-    document.getElementById('eventDetailModal').style.display = 'none';
+  // モーダルを閉じる処理
+  function closeModal(event) {
+    const targetModalId = event.target.getAttribute('data-target');
+    if (targetModalId) {
+      document.getElementById(targetModalId).style.display = 'none';
+    }
+  }
+
+  // 閉じるボタンに共通のイベントリスナーを一括登録
+  document.querySelectorAll('.close-modal-btn').forEach(button => {
+    button.addEventListener('click', closeModal);
   });
 
   // キャンセルボタンの処理
