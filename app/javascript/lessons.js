@@ -225,14 +225,14 @@ document.addEventListener('turbo:load', function() {
 
         // モーダルを非表示にする
         document.getElementById('eventEditModal').style.display = 'none';
-        alert('Event updated successfully!');
+        alert('レッスンが正常に更新されました！');
       } else {
-        alert('Failed to update event: ' + responseData.errors.join(', '));
+        alert('レッスンの更新に失敗しました: ' + responseData.errors.join(', '));
       }
     })
     .catch(error => {
       console.error('Error:', error);
-      alert('Failed to update event. Please try again.');
+      alert('レッスンの更新に失敗しました。もう一度試してください。');
     });
   });
 
@@ -270,7 +270,7 @@ document.addEventListener('turbo:load', function() {
         })
         .catch(error => {
           console.error('Error:', error);
-          alert('Failed to delete event. Please try again.');
+          alert('レッスンの削除に失敗しました。もう一度試してください。');
         });
       }
     } else {
@@ -318,9 +318,9 @@ document.addEventListener('turbo:load', function() {
             student_name: data.lesson.student_name
           }
         });
-        alert('Event added successfully!');
+        alert('レッスンが登録されました！');
       } else {
-        alert('Failed to add event: ' + data.errors.join(', '));
+        alert('レッスンの登録に失敗しました: ' + data.errors.join(', '));
       }
     })
     .catch(error => console.error('Error:', error));
