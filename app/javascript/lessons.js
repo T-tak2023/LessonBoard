@@ -11,16 +11,40 @@ document.addEventListener('turbo:load', function() {
   var calendar = new FullCalendar.Calendar(calendarEl, {
     initialView: 'dayGridMonth',
       headerToolbar: {
-      left: 'prev,next today',
-      center: 'title',
+      left: '',
+      center: 'prev title next',
       right: 'dayGridMonth,timeGridWeek,timeGridDay'
     },
     locale: 'ja',
     timeZone: 'local',
+    buttonText: {
+      month: '月',
+      week: '週',
+      day: '日'
+    },
     businessHours: {
       startTime: '00:00',
       endTime: '24:00',
     },
+    allDaySlot: false,
+    titleFormat: { month: 'long' },
+    slotLabelFormat: {
+      hour: 'numeric',
+      minute: '2-digit',
+    },
+    scrollTime: '10:00:00',
+    views: {
+      dayGridMonth: {
+        dayMaxEventRows: 3
+      },
+      timeGridWeek: {
+        dayHeaderFormat: { day: 'numeric' },
+      },
+      timeGridDay: {
+        titleFormat: { month: 'short', day: 'numeric' },
+      }
+    },
+    eventColor: '#56cc9d',
     eventDisplay: 'block',
     eventTimeFormat: {
       hour: 'numeric',
@@ -28,7 +52,6 @@ document.addEventListener('turbo:load', function() {
       meridiem: false
     },
     navLinks: true,
-    weekNumbers: true,
     selectable: true,
     select: function(info) {
       var detailModal = document.getElementById('eventDetailModal');
@@ -38,7 +61,7 @@ document.addEventListener('turbo:load', function() {
       if ((detailModal && detailModal.style.display === 'none') &&
           (editModal && editModal.style.display === 'none')) {
       // フォームを表示
-        document.getElementById('eventModal').style.display = 'block';
+        document.getElementById('newEventModal').style.display = 'block';
 
         var startDate = info.start;
         var endDate = info.end;
@@ -53,6 +76,10 @@ document.addEventListener('turbo:load', function() {
         // 選択された時間範囲をフォームに設定
         document.getElementById('start_time').value = formatDateToLocal(startDate);
         document.getElementById('end_time').value = formatDateToLocal(endDate);
+
+        if (window.innerWidth > 768) {
+          document.getElementById('start_time').focus();
+        }
       }
     },
     events: function(fetchInfo, successCallback, failureCallback) {
@@ -83,9 +110,9 @@ document.addEventListener('turbo:load', function() {
 
     eventClassNames: function(arg) {
       if (arg.event.extendedProps.status === '保留') {
-        return ['pending-status'];
+        return ['calendar-event-pending'];
       } else if (arg.event.extendedProps.status === 'キャンセル') {
-        return ['cancel-status'];
+        return ['calendar-event-cancelled'];
       }
       return [];
     },
@@ -93,18 +120,40 @@ document.addEventListener('turbo:load', function() {
     eventClick: function(info) {
       console.log('Event clicked:', info.event.extendedProps);
       // モーダルが表示されていない場合のみ、詳細モーダルを表示
-      var createModal = document.getElementById('eventModal');
+      var createModal = document.getElementById('newEventModal');
       var editModal = document.getElementById('eventEditModal');
 
       if (createModal.style.display === 'none' && editModal.style.display === 'none'){
         currentEvent = info.event;
 
-        document.getElementById('eventTitle').textContent = info.event.title;
-        document.getElementById('eventStartTime').textContent = info.event.start.toLocaleString();
-        document.getElementById('eventEndTime').textContent = info.event.end.toLocaleString();
+        document.getElementById('eventStartTime').textContent = info.event.start.toLocaleString('ja-JP', {
+          year: 'numeric',
+          month: '2-digit',
+          day: '2-digit',
+          hour: '2-digit',
+          minute: '2-digit'
+        });
+        document.getElementById('eventEndTime').textContent = info.event.end.toLocaleString('ja-JP', {
+          year: 'numeric',
+          month: '2-digit',
+          day: '2-digit',
+          hour: '2-digit',
+          minute: '2-digit'
+        });
         document.getElementById('eventStatus').textContent = info.event.extendedProps.status;
         document.getElementById('eventInstructor').textContent = info.event.extendedProps.instructor_name;
         document.getElementById('eventStudent').textContent = info.event.extendedProps.student_name;
+
+        var eventStatus = document.getElementById('eventStatus');
+        eventStatus.classList.remove('modal-confirmed-status', 'modal-pending-status', 'modal-cancelled-status');
+
+        if (info.event.extendedProps.status === '確定') {
+            eventStatus.classList.add('modal-confirmed-status');
+        } else if (info.event.extendedProps.status === '保留') {
+            eventStatus.classList.add('modal-pending-status');
+        } else if (info.event.extendedProps.status === 'キャンセル') {
+            eventStatus.classList.add('modal-cancelled-status');
+        }
 
         document.getElementById('eventDetailModal').style.display = 'block';
       }
@@ -176,14 +225,14 @@ document.addEventListener('turbo:load', function() {
 
         // モーダルを非表示にする
         document.getElementById('eventEditModal').style.display = 'none';
-        alert('Event updated successfully!');
+        alert('レッスンが正常に更新されました！');
       } else {
-        alert('Failed to update event: ' + responseData.errors.join(', '));
+        alert('レッスンの更新に失敗しました: ' + responseData.errors.join(', '));
       }
     })
     .catch(error => {
       console.error('Error:', error);
-      alert('Failed to update event. Please try again.');
+      alert('レッスンの更新に失敗しました。もう一度試してください。');
     });
   });
 
@@ -221,7 +270,7 @@ document.addEventListener('turbo:load', function() {
         })
         .catch(error => {
           console.error('Error:', error);
-          alert('Failed to delete event. Please try again.');
+          alert('レッスンの削除に失敗しました。もう一度試してください。');
         });
       }
     } else {
@@ -269,24 +318,32 @@ document.addEventListener('turbo:load', function() {
             student_name: data.lesson.student_name
           }
         });
-        alert('Event added successfully!');
+        alert('レッスンが登録されました！');
       } else {
-        alert('Failed to add event: ' + data.errors.join(', '));
+        alert('レッスンの登録に失敗しました: ' + data.errors.join(', '));
       }
     })
     .catch(error => console.error('Error:', error));
 
     // フォームを非表示にする
-    document.getElementById('eventModal').style.display = 'none';
+    document.getElementById('newEventModal').style.display = 'none';
   });
 
-  // モーダルのクローズボタン処理
-  document.getElementById('closeDetailBtn').addEventListener('click', function() {
-    document.getElementById('eventDetailModal').style.display = 'none';
+  // モーダルを閉じる処理
+  function closeModal(event) {
+    const targetModalId = event.target.getAttribute('data-target');
+    if (targetModalId) {
+      document.getElementById(targetModalId).style.display = 'none';
+    }
+  }
+
+  // 閉じるボタンに共通のイベントリスナーを一括登録
+  document.querySelectorAll('.close-modal-btn').forEach(button => {
+    button.addEventListener('click', closeModal);
   });
 
   // キャンセルボタンの処理
   document.getElementById('cancelBtn').addEventListener('click', function() {
-    document.getElementById('eventModal').style.display = 'none';
+    document.getElementById('newEventModal').style.display = 'none';
   });
 });
