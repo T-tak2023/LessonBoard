@@ -3,7 +3,7 @@ class Students::LessonNotesController < ApplicationController
   before_action :set_lesson_note, only: [:show, :edit, :update]
 
   def index
-    @lesson_notes = LessonNote.where(student_id: current_student.id).order(lesson_date: :desc)
+    @lesson_notes = LessonNote.where(student_id: current_student.id).order(start_time: :desc)
   end
 
   def show

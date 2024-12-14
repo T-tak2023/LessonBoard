@@ -11,7 +11,7 @@
             <h4 class="card-title">
               <i class="bi bi-person"></i> 生徒
             </h4>
-            <p class="mb-0"><%= @lesson_note.student&.student_name || '生徒情報がありません。' %></p>
+            <p class="mb-0"><%= @lesson_note.student&.student_name || '<span class="text-muted">情報なし</span>'.html_safe %></p>
           </div>
         </div>
         <div class="col-md-6">
@@ -19,7 +19,14 @@
             <h4 class="card-title">
               <i class="bi bi-calendar"></i> 日時
             </h4>
-            <p class="mb-0"><%= @lesson_note.lesson_date.strftime("%Y年%m月%d日 %H:%M") %></p>
+            <p class="mb-0">
+              <% if @lesson_note.start_time.present? && @lesson_note.end_time.present? %>
+                <%= @lesson_note.start_time.strftime("%Y年%m月%d日 %H:%M") %> 〜
+                <%= @lesson_note.start_time.to_date != @lesson_note.end_time.to_date ? @lesson_note.end_time.strftime("%d日 %H:%M") : @lesson_note.end_time.strftime("%H:%M") %>
+              <% else %>
+                <span class="text-muted ">情報なし</span>
+              <% end %>
+            </p>
           </div>
         </div>
       </div>
@@ -60,7 +67,7 @@
             <% if @lesson_note.image_material.present? %>
               <%= image_tag @lesson_note.image_material.url, class: "img-fluid" %>
             <% else %>
-              <p>画像資料はありません。</p>
+              <p class="text-muted">画像資料はありません。</p>
             <% end %>
           </div>
         </div>
@@ -74,7 +81,7 @@
                 <iframe src="<%= @embed_url %>" allowfullscreen ></iframe>
               </div>
             <% else %>
-              <p>動画資料はありません。</p>
+              <p class="text-muted">動画資料はありません。</p>
             <% end %>
           </div>
         </div>

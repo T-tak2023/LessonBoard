@@ -22,13 +22,12 @@ html, body {
   font-size: 14px;
 }
 
-.devise-alert {
-  color: red;
+.x-small {
+  font-size: x-small;
 }
 
-.text-muted {
-  color: gray;
-  font-size: x-small;
+.devise-alert {
+  color: red;
 }
 
 #calendar {

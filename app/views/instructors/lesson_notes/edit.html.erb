@@ -8,7 +8,7 @@
         <%= render 'shared/error_messages', object: form.object %>
 
         <div class="row g-3 mb-3">
-          <div class="col-md-6">
+          <div class="col-md-4">
             <div class="p-3 bg-light h-100">
               <h4 class="card-title">
                 <i class="bi bi-person"></i> 生徒選択
@@ -17,12 +17,22 @@
             </div>
           </div>
 
-          <div class="col-md-6">
+          <div class="col-md-8">
             <div class="p-3 bg-light h-100">
               <h4 class="card-title">
                 <i class="bi bi-calendar"></i> 日時
               </h4>
-              <%= form.datetime_field :lesson_date, class: "form-control" %>
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <%= form.label :start_time, "開始時間", class: "form-label" %>
+                  <%= form.datetime_local_field :start_time, class: "form-control" %>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                  <%= form.label :end_time, "終了時間", class: "form-label" %>
+                  <%= form.datetime_local_field :end_time, class: "form-control" %>
+                </div>
+              </div>
             </div>
           </div>
         </div>

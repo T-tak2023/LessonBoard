@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_12_12_143414) do
+ActiveRecord::Schema[7.1].define(version: 2024_12_14_015038) do
   create_table "active_storage_attachments", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -57,7 +57,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_12_143414) do
   create_table "lesson_notes", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "instructor_id"
     t.bigint "student_id"
-    t.datetime "lesson_date"
     t.text "content"
     t.text "instructor_memo"
     t.string "image_material"
@@ -65,6 +64,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_12_143414) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.text "student_memo"
+    t.datetime "start_time"
+    t.datetime "end_time"
     t.index ["instructor_id"], name: "index_lesson_notes_on_instructor_id"
     t.index ["student_id"], name: "index_lesson_notes_on_student_id"
   end

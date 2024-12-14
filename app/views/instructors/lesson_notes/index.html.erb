@@ -17,12 +17,16 @@
         <tbody>
           <% @lesson_notes.each do |lesson_note| %>
             <tr>
-              <td class="lesson-note-index-name <%= 'text-muted' if lesson_note.student_name == '情報なし' %>">
+              <td class="lesson-note-index-name <%= 'text-muted x-small' if lesson_note.student_name == '情報なし' %>">
                 <%= lesson_note.student_name %>
               </td>
               <td>
-                <%= lesson_note.lesson_date.strftime('%Y-') %><br>
-                <%= lesson_note.lesson_date.strftime('%m-%d') %>
+                <% if lesson_note.start_time.present? %>
+                  <%= lesson_note.start_time.strftime('%Y-') %><br>
+                  <%= lesson_note.start_time.strftime('%m-%d') %>
+                <% else %>
+                  <span class="text-muted x-small">情報なし</span>
+                <% end %>
               </td>
               <td class="lesson-note-table-content"><%= lesson_note.content %></td>
               <td>

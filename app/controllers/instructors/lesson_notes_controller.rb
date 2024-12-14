@@ -3,7 +3,7 @@ class Instructors::LessonNotesController < ApplicationController
   before_action :set_lesson_note, only: [:show, :edit, :update, :destroy]
 
   def index
-    @lesson_notes = LessonNote.where(instructor_id: current_instructor.id).order(lesson_date: :desc)
+    @lesson_notes = LessonNote.where(instructor_id: current_instructor.id).order(start_time: :desc)
   end
 
   def new
@@ -87,7 +87,8 @@ class Instructors::LessonNotesController < ApplicationController
     params.require(:lesson_note).permit(
       :instructor_id,
       :student_id,
-      :lesson_date,
+      :start_time,
+      :end_time,
       :content,
       :instructor_memo,
       :image_material,

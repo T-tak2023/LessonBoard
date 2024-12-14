@@ -5,7 +5,7 @@
     </div>
     <div class="card-body">
       <div class="row g-2">
-        <div class="col-md-6">
+        <div class="col-md-4">
           <div class="bg-light p-3 h-100">
             <h4 class="card-title">
               <i class="bi bi-person"></i> 講師
@@ -13,12 +13,19 @@
             <p class="mb-0"><%= @lesson_note.instructor.instructor_name %> 先生</p>
           </div>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-8">
           <div class="bg-light p-3 h-100">
             <h4 class="card-title">
               <i class="bi bi-calendar"></i> 日時
             </h4>
-            <p class="mb-0"><%= @lesson_note.lesson_date.strftime("%Y年%m月%d日 %H:%M") %></p>
+            <p class="mb-0">
+              <% if @lesson_note.start_time.present? && @lesson_note.end_time.present? %>
+                <%= @lesson_note.start_time.strftime("%Y年%m月%d日 %H:%M") %> 〜
+                <%= @lesson_note.start_time.to_date != @lesson_note.end_time.to_date ? @lesson_note.end_time.strftime("%d日 %H:%M") : @lesson_note.end_time.strftime("%H:%M") %>
+              <% else %>
+                <span class="text-muted ">情報なし</span>
+              <% end %>
+            </p>
           </div>
         </div>
       </div>
@@ -57,7 +64,7 @@
             <% if @lesson_note.image_material.present? %>
               <%= image_tag @lesson_note.image_material.url, class: "img-fluid" %>
             <% else %>
-              <p>画像資料はありません。</p>
+              <p class="text-muted">画像資料はありません。</p>
             <% end %>
           </div>
         </div>
@@ -71,7 +78,7 @@
                 <iframe src="https://www.youtube.com/embed/<%= @lesson_note.video_material.split('v=')[1] %>" allowfullscreen></iframe>
               </div>
             <% else %>
-              <p>動画資料はありません。</p>
+              <p class="text-muted">動画資料はありません。</p>
             <% end %>
           </div>
         </div>
