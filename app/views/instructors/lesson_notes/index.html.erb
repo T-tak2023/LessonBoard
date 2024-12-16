@@ -2,6 +2,11 @@
 
 <div class="container">
   <div style="max-width: 800px; margin: auto;">
+    <%= link_to new_instructors_lesson_note_path,
+      class: "btn btn-success position-fixed bottom-0 end-0 m-4 shadow-lg",
+      style: "width: 120px;" do %>
+    <i class="bi bi-plus-lg me-2"></i>新規作成
+    <% end %>
     <% if @lesson_notes.empty? %>
       <p class="text-center">現在、レッスンノートはありません。</p>
     <% else %>
@@ -37,9 +42,5 @@
         </tbody>
       </table>
     <% end %>
-  </div>
-
-  <div class="text-center my-4">
-    <%= link_to 'レッスンノートを作成', new_instructors_lesson_note_path, class: "btn btn-primary" %>
   </div>
 </div>
