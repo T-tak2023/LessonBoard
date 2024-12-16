@@ -23,16 +23,20 @@
                 <i class="bi bi-calendar"></i> 日時
               </h4>
               <div class="row mb-3">
-              <div class="col-md-6">
-                <label class="form-label">開始時間：</label>
-                <%= form.datetime_local_field :start_time, placeholder: "タップして選択", class: "form-control" %>
-              </div>
+                <div class="col-md-6">
+                  <label class="form-label">開始時間：</label>
+                  <%= form.datetime_local_field :start_time,
+                    class: "form-control",
+                    value: Time.current.change(hour: 10, min: 0).strftime("%Y-%m-%dT%H:%M") %>
+                </div>
 
-              <div class="col-md-6">
-                <label class="form-label">終了時間：</label>
-                <%= form.datetime_local_field :end_time, placeholder: "タップして選択", class: "form-control" %>
+                <div class="col-md-6">
+                  <label class="form-label">終了時間：</label>
+                  <%= form.datetime_local_field :end_time,
+                    class: "form-control",
+                    value: Time.current.change(hour: 11, min: 0).strftime("%Y-%m-%dT%H:%M") %>
+                </div>
               </div>
-            </div>
             </div>
           </div>
         </div>
