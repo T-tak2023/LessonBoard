@@ -87,10 +87,19 @@
         </div>
       </div>
 
-      <div class="text-center mt-4">
-        <%= link_to '編集', edit_instructors_lesson_note_path(@lesson_note), class: "btn btn-primary me-2" %>
-        <%= link_to '削除', instructors_lesson_note_path(@lesson_note), data: { turbo: "true", turbo_method: :delete, turbo_confirm: '本当に削除しますか？' }, class: "btn btn-danger me-2" %>
-        <%= link_to '一覧に戻る', instructors_lesson_notes_path, class: "btn btn-secondary" %>
+      <div class="text-center mt-3">
+        <div class="d-flex justify-content-center mb-3">
+          <%= link_to '編集', edit_instructors_lesson_note_path(@lesson_note), class: "btn btn-primary me-2" %>
+          <%= link_to '削除', instructors_lesson_note_path(@lesson_note),
+            data: { turbo: "true", turbo_method: :delete, turbo_confirm: "本当に削除しますか？" },
+            class: "btn btn-danger" %>
+        </div>
+        <div class="d-flex justify-content-center">
+          <%= link_to 'ノート一覧へ', instructors_lesson_notes_path, class: "btn btn-light rounded-pill" %>
+          <% if @lesson_note.student.present? %>
+            <%= link_to '生徒詳細へ', instructors_student_path(@lesson_note.student), class: "btn btn-dark rounded-pill ms-2" %>
+          <% end %>
+        </div>
       </div>
     </div>
   </div>
