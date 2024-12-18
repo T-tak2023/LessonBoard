@@ -10,7 +10,7 @@ class LessonsController < ApplicationController
       format.html
       format.json do
         render json: @lessons.as_json(
-          only: [:id, :start_time, :end_time, :status, :instructor_id, :student_id],
+          only: [:id, :start_time, :end_time, :location, :status, :instructor_id, :student_id],
           methods: [:student_name, :instructor_name]
         )
       end
@@ -37,7 +37,7 @@ class LessonsController < ApplicationController
       render json: {
         success: true,
         lesson: @lesson.as_json(
-          only: [:id, :start_time, :end_time, :status, :instructor_id, :student_id],
+          only: [:id, :start_time, :end_time, :location, :status, :instructor_id, :student_id],
           methods: [:student_name, :instructor_name]
         ),
       }
@@ -54,7 +54,7 @@ class LessonsController < ApplicationController
       render json: {
         success: true,
         lesson: @lesson.as_json(
-          only: [:id, :start_time, :end_time, :status, :instructor_id, :student_id],
+          only: [:id, :start_time, :end_time, :location, :status, :instructor_id, :student_id],
           methods: [:student_name]
         ),
       }
@@ -78,6 +78,6 @@ class LessonsController < ApplicationController
   end
 
   def lesson_params
-    params.require(:lesson).permit(:start_time, :end_time, :instructor_id, :student_id, :status)
+    params.require(:lesson).permit(:start_time, :end_time, :location, :status, :instructor_id, :student_id )
   end
 end

@@ -55,7 +55,17 @@
               <h4 class="card-header"><i class="bi bi-calendar"></i> <%= lesson.start_time.strftime("%Y年 %m月 %d日") %></h4>
               <div class="card-body">
                 <p class="card-text"><i class="bi bi-clock"></i> 時間: <%= lesson.start_time.strftime("%H:%M") %> 〜 <%= lesson.end_time.strftime("%H:%M") %></p>
-                <p class="card-text"><i class="bi bi-check-circle"></i> ステータス: <%= lesson.status %></p>
+                <p class="card-text"><i class="bi bi-geo-alt"></i> 開催場所: <%= lesson.location %></p>
+                <p class="card-text">
+                  <i class="bi bi-check-circle"></i> ステータス:
+                  <% if lesson.status == "確定" %>
+                    <span class="badge bg-success">確定</span>
+                  <% elsif lesson.status == "保留" %>
+                    <span class="badge bg-warning">保留</span>
+                  <% elsif lesson.status == "キャンセル" %>
+                    <span class="badge bg-dark">キャンセル</span>
+                  <% end %>
+                </p>
                 <p class="card-text"><i class="bi bi-tag"></i> レッスンID: <%= lesson.id %></p>
               </div>
             </div>

@@ -13,7 +13,7 @@
             <p class="mb-0"><%= @lesson_note.instructor.instructor_name %> 先生</p>
           </div>
         </div>
-        <div class="col-md-8">
+        <div class="col-md-4">
           <div class="bg-light p-3 h-100">
             <h4 class="card-title">
               <i class="bi bi-calendar"></i> 日時
@@ -26,6 +26,14 @@
                 <span class="text-muted ">情報なし</span>
               <% end %>
             </p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="bg-light p-3 h-100">
+            <h4 class="card-title">
+              <i class="bi bi-geo-alt"></i> 開催場所
+            </h4>
+            <p class="mb-0"><%= @lesson_note.location || '未設定' %></p>
           </div>
         </div>
       </div>

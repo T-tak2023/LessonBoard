@@ -83,6 +83,7 @@ html, body {
   padding: 0.2em 0.5em;
   border-radius: 0.5em;
   display: inline-flex;
+  font-size: 0.8em;
 }
 
 .modal-pending-status {
@@ -92,6 +93,7 @@ html, body {
   padding: 0.2em 0.5em;
   border-radius: 0.5em;
   display: inline-flex;
+  font-size: 0.8em;
 }
 
 .modal-cancelled-status {
@@ -101,6 +103,7 @@ html, body {
   padding: 0.2em 0.5em;
   border-radius: 0.5em;
   display: inline-flex;
+  font-size: 0.8em;
 }
 
 .calendar-event-pending {
