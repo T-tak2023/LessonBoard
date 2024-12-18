@@ -8,7 +8,8 @@ ja:
         start_time: "開始時間"
         end_time: "終了時間"
       lesson_note:
-        lesson_date: "レッスン日時"
+        start_time: "開始時間"
+        end_time: "終了時間"
         content: "レッスン内容"
         instructor_memo: "講師用メモ"
         student_memo: "生徒用メモ"

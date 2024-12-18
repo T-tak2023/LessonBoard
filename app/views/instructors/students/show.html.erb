@@ -77,11 +77,28 @@
         <% @lesson_notes.each do |lesson_note| %>
           <div class="col-lg-3 col-md-4 col-sm-6 my-3">
             <div class="card">
-              <h4 class="card-header bg-light"><i class="bi bi-calendar"></i> <%= lesson_note.lesson_date.strftime("%Y年 %m月 %d日") %></h4>
+              <h4 class="card-header bg-light">
+                <i class="bi bi-calendar"></i>
+                <% if lesson_note.start_time.present? %>
+                  <%= lesson_note.start_time.strftime("%Y年 %m月 %d日") %>
+                <% else %>
+                  <span class="text-muted small">日時情報なし</span>
+                <% end %>
+              </h4>
               <div class="card-body">
-                <p class="card-text"><i class="bi bi-clock"></i> 時間: <%= lesson_note.lesson_date.strftime("%H:%M") %> 〜</p>
-                <p class="card-text text-truncate"><i class="bi bi-file-earmark-text"></i> 内容: <%= lesson_note.content %></p>
-                <p class="card-text"><i class="bi bi-check-circle"></i> ステータス: <%= lesson_note.log_status %></p>
+                <p class="card-text">
+                  <i class="bi bi-clock"></i> 時間:
+                  <% if lesson_note.start_time.present? && lesson_note.end_time.present? %>
+                    <%= lesson_note.start_time.strftime("%H:%M") %> 〜
+                    <%= lesson_note.start_time.to_date != lesson_note.end_time.to_date ? lesson_note.end_time.strftime("%d日 %H:%M") : lesson_note.end_time.strftime("%H:%M") %>
+                  <% else %>
+                    <span class="text-muted x-small">情報なし</span>
+                  <% end %>
+                </p>
+                <p class="card-text text-truncate">
+                  <i class="bi bi-file-earmark-text"></i> 内容:
+                  <%= lesson_note.content %>
+                </p>
                 <div class="text-center">
                   <%= link_to '詳細', instructors_lesson_note_path(lesson_note), class: "btn btn-outline-info btn-sm w-100" %>
                 </div>

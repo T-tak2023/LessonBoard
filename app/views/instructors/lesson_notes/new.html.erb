@@ -17,21 +17,26 @@
             </div>
           </div>
 
-          <div class="col-md-4">
+          <div class="col-md-8">
             <div class="p-3 bg-light h-100">
               <h4 class="card-title">
                 <i class="bi bi-calendar"></i> 日時
               </h4>
-              <%= form.datetime_field :lesson_date, class: "form-control" %>
-            </div>
-          </div>
+              <div class="row mb-3">
+                <div class="col-md-6">
+                  <label class="form-label">開始時間：</label>
+                  <%= form.datetime_local_field :start_time,
+                    class: "form-control",
+                    value: Time.current.change(hour: 10, min: 0).strftime("%Y-%m-%dT%H:%M") %>
+                </div>
 
-          <div class="col-md-4">
-            <div class="p-3 bg-light h-100">
-              <h4 class="card-title">
-                <i class="bi bi-check-circle"></i> ステータス
-              </h4>
-              <%= form.select :log_status, ['完了', 'キャンセル'], {}, class: "form-select" %>
+                <div class="col-md-6">
+                  <label class="form-label">終了時間：</label>
+                  <%= form.datetime_local_field :end_time,
+                    class: "form-control",
+                    value: Time.current.change(hour: 11, min: 0).strftime("%Y-%m-%dT%H:%M") %>
+                </div>
+              </div>
             </div>
           </div>
         </div>

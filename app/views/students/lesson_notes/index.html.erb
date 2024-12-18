@@ -5,17 +5,12 @@
     <% if @lesson_notes.empty? %>
       <p class="text-center">現在、レッスンノートはありません。</p>
     <% else %>
-      <div class="text-end mb-2">
-        <span class="text-success"><i class="bi bi-check-circle"></i> 完了</span>
-        <span class="text-danger"><i class="bi bi-x-circle"></i> キャンセル</span>
-      </div>
       <table class="table table-striped table-bordered lesson-note-table">
         <thead class="thead-light text-center">
           <tr>
             <th style="width: 4.5em;">講師名</th>
             <th style="width: 4em;">日付</th>
             <th>レッスン内容</th>
-            <th style="width: 4em;">状態</th>
             <th style="width: 4em;">操作</th>
           </tr>
         </thead>
@@ -24,19 +19,14 @@
             <tr>
               <td class="lesson-note-index-name"><%= lesson_note.instructor_name %></td>
               <td>
-                <%= lesson_note.lesson_date.strftime('%Y-') %><br>
-                <%= lesson_note.lesson_date.strftime('%m-%d') %>
-              </td>
-              <td class="lesson-note-table-content"><%= lesson_note.content %></td>
-              <td class="text-center">
-                <% if lesson_note.log_status == "完了" %>
-                  <i class="bi bi-check-circle text-success" title="完了"></i>
-                <% elsif lesson_note.log_status == "キャンセル" %>
-                  <i class="bi bi-x-circle text-danger" title="キャンセル"></i>
+                <% if lesson_note.start_time.present? %>
+                  <%= lesson_note.start_time.strftime('%Y-') %><br>
+                  <%= lesson_note.start_time.strftime('%m-%d') %>
                 <% else %>
-                  <i class="bi bi-question-circle text-secondary" title="<%= lesson_note.log_status %>"></i>
+                  <span class="text-muted x-small">情報なし</span>
                 <% end %>
               </td>
+              <td class="lesson-note-table-content"><%= lesson_note.content %></td>
               <td>
                 <%= link_to '詳細', students_lesson_note_path(lesson_note), class: "btn btn-info" %>
               </td>
