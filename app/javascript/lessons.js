@@ -94,6 +94,7 @@ document.addEventListener('turbo:load', function() {
             end: lesson.end_time,
             allDay: false,
             extendedProps: {
+              location: lesson.location,
               status: lesson.status,
               instructor_id: lesson.instructor_id,
               student_id: lesson.student_id,
@@ -116,7 +117,7 @@ document.addEventListener('turbo:load', function() {
       }
       return [];
     },
-
+      // 詳細表示
     eventClick: function(info) {
       console.log('Event clicked:', info.event.extendedProps);
       // モーダルが表示されていない場合のみ、詳細モーダルを表示
@@ -140,9 +141,13 @@ document.addEventListener('turbo:load', function() {
           hour: '2-digit',
           minute: '2-digit'
         });
-        document.getElementById('eventStatus').textContent = info.event.extendedProps.status;
         document.getElementById('eventInstructor').textContent = info.event.extendedProps.instructor_name;
         document.getElementById('eventStudent').textContent = info.event.extendedProps.student_name;
+
+        const eventLocation = info.event.extendedProps.location || "未設定";
+        document.getElementById('eventLocation').textContent = eventLocation;
+
+        document.getElementById('eventStatus').textContent = info.event.extendedProps.status;
 
         var eventStatus = document.getElementById('eventStatus');
         eventStatus.classList.remove('modal-confirmed-status', 'modal-pending-status', 'modal-cancelled-status');
@@ -169,11 +174,12 @@ document.addEventListener('turbo:load', function() {
   document.getElementById('editEventBtn').addEventListener('click', function() {
     console.log('Edit button clicked');
     if (currentEvent) {
+      document.getElementById('edit_event_id').value = currentEvent.id;
       document.getElementById('edit_start_time').value = formatDateToLocal(currentEvent.start);
       document.getElementById('edit_end_time').value = formatDateToLocal(currentEvent.end);
+      document.getElementById('edit_location').value = currentEvent.extendedProps.location;
       document.getElementById('edit_status').value = currentEvent.extendedProps.status;
       document.getElementById('edit_student_id').value = currentEvent.extendedProps.student_id;
-      document.getElementById('edit_event_id').value = currentEvent.id;
 
       document.getElementById('eventDetailModal').style.display = 'none';
       document.getElementById('eventEditModal').style.display = 'block';
@@ -189,12 +195,13 @@ document.addEventListener('turbo:load', function() {
 
     var formData = new FormData(event.target);
     var data = {
+      event_id: formData.get('event_id'),
       start_time: formData.get('start_time'),
       end_time: formData.get('end_time'),
-      student_id: formData.get('student_id'),
+      location: formData.get('location'),
       status: formData.get('status'),
-      instructor_id: formData.get('instructor_id'),
-      event_id: formData.get('event_id')
+      student_id: formData.get('student_id'),
+      instructor_id: formData.get('instructor_id')
     };
 
     fetch('/lessons/' + data.event_id, {
@@ -219,6 +226,7 @@ document.addEventListener('turbo:load', function() {
           event.setProp('title', responseData.lesson.student_name);
           event.setStart(responseData.lesson.start_time);
           event.setEnd(responseData.lesson.end_time);
+          event.setExtendedProp('location', responseData.lesson.location);
           event.setExtendedProp('status', responseData.lesson.status);
           event.setExtendedProp('student_id', responseData.lesson.student_id);
         }
@@ -279,16 +287,17 @@ document.addEventListener('turbo:load', function() {
     }
   });
 
-  // フォーム送信時の処理
+  // 新規登録時の処理
   document.getElementById('eventForm').addEventListener('submit', function(event) {
     event.preventDefault();
     var formData = new FormData(event.target);
     var data = {
       start_time: formData.get('start_time'),
       end_time: formData.get('end_time'),
-      student_id: formData.get('student_id'),
+      location: formData.get('location'),
       status: formData.get('status'),
-      instructor_id: formData.get('instructor_id')
+      instructor_id: formData.get('instructor_id'),
+      student_id: formData.get('student_id'),
     };
     fetch('/lessons', {
       method: 'POST',
@@ -309,9 +318,10 @@ document.addEventListener('turbo:load', function() {
           start: data.lesson.start_time,
           end: data.lesson.end_time,
           extendedProps: {
-            status: data.lesson.status,
             start_time: data.lesson.start_time,
             end_time: data.lesson.end_time,
+            location: data.lesson.location,
+            status: data.lesson.status,
             instructor_id: data.lesson.instructor_id,
             student_id: data.lesson.student_id,
             instructor_name: data.lesson.instructor_name,

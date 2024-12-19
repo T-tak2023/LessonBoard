@@ -3,6 +3,7 @@ class Lesson < ApplicationRecord
   belongs_to :student
 
   validates :start_time, :end_time, :instructor, :student, :status, presence: true
+  validates :location, length: { maximum: 255 }
   validate :end_time_after_start_time
 
   def student_name

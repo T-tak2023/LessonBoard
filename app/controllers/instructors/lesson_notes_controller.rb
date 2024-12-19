@@ -89,6 +89,7 @@ class Instructors::LessonNotesController < ApplicationController
       :student_id,
       :start_time,
       :end_time,
+      :location,
       :content,
       :instructor_memo,
       :image_material,

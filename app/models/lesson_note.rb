@@ -4,6 +4,7 @@ class LessonNote < ApplicationRecord
   belongs_to :student, optional: true
 
   validates :start_time, :end_time, presence: true
+  validates :location, length: { maximum: 255 }
   validates :content, length: { maximum: 500 }
   validates :instructor_memo, length: { maximum: 500 }
   validates :student_memo, length: { maximum: 500 }, allow_blank: true
