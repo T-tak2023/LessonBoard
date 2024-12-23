@@ -2,7 +2,6 @@ require 'rails_helper'
 
 RSpec.describe "Instructors::Sessions", type: :request do
   describe "GET /instructors/sign_in" do
-
     context "未ログイン状態" do
       it "ログインページが200ステータスを返す" do
         get new_instructor_session_path
