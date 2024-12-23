@@ -1,6 +1,6 @@
 class InstructorsController < ApplicationController
   before_action :authenticate_instructor!, only: %i(profile profile_edit profile_update)
-  before_action :ensure_normal_user, only: %i[profile_edit profile_update]
+  before_action :ensure_normal_user, only: %i(profile_edit profile_update)
 
   def profile
     @instructor = current_instructor
