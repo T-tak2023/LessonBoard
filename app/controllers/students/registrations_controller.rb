@@ -3,7 +3,7 @@
 class Students::RegistrationsController < Devise::RegistrationsController
   # before_action :configure_sign_up_params, only: [:create]
   # before_action :configure_account_update_params, only: [:update]
-  before_action :authenticate_instructor!, only: [:new, :create]
+  prepend_before_action :authenticate_instructor!, only: [:new, :create]
 
   # GET /resource/sign_up
   def new
@@ -60,8 +60,10 @@ class Students::RegistrationsController < Devise::RegistrationsController
   private
 
   def authenticate_instructor!
-    unless instructor_signed_in?
-      redirect_to new_instructor_session_path, alert: 'Only instructors can create students.'
+    if student_signed_in?
+      redirect_to root_path, alert: '生徒アカウントでは生徒登録ページにアクセスできません。'
+    elsif !instructor_signed_in?
+      redirect_to new_instructor_session_path, alert: '生徒登録するには講師アカウントでログインしてください。'
     end
   end
 

@@ -5,11 +5,7 @@ Rails.application.routes.draw do
     edit: 'account/edit'
   }
 
-  devise_for :students, controllers: {
-    registrations: 'students/registrations'
-  }, path_names: {
-    edit: 'account/edit'
-  }
+  devise_for :students, skip: [:registrations]
 
   devise_scope :instructor do
     post 'instructors/guest_sign_in', to: 'instructors/sessions#guest_sign_in'
@@ -17,6 +13,11 @@ Rails.application.routes.draw do
 
   devise_scope :student do
     post 'students/guest_sign_in', to: 'students/sessions#guest_sign_in'
+    get 'instructors/students/new', to: 'students/registrations#new', as: :new_student_registration
+    post 'instructors/students', to: 'students/registrations#create', as: :student_registration
+    get 'students/account/edit', to: 'students/registrations#edit', as: :edit_student_registration
+    patch 'students/account', to: 'students/registrations#update', as: :update_student_registration
+    put 'students/account', to: 'students/registrations#update'
   end
 
   namespace :instructors do
