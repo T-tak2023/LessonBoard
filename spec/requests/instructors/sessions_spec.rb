@@ -40,8 +40,16 @@ RSpec.describe "Instructors::Sessions", type: :request do
     end
 
     context "無効な資格情報を送信した場合" do
-      it "エラーメッセージを含んだレスポンスが返される" do
+      it "ログインに失敗し、エラーメッセージが返される" do
         post instructor_session_path, params: { instructor: { email: "wrong@example.com", password: "wrongpassword" } }
+        expect(response).to have_http_status(:unprocessable_entity)
+        expect(response.body).to include("メールアドレスまたはパスワードが違います。")
+      end
+    end
+
+    context "空の資格情報を送信した場合" do
+      it "ログインに失敗し、エラーメッセージが返される" do
+        post instructor_session_path, params: { instructor: { email: "", password: "" } }
         expect(response).to have_http_status(:unprocessable_entity)
         expect(response.body).to include("メールアドレスまたはパスワードが違います。")
       end
