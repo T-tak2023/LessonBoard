@@ -49,8 +49,8 @@ gem "devise"
 gem "rails-i18n"
 gem "devise-i18n"
 gem "devise-i18n-views"
-gem 'carrierwave', '~> 2.0'
-gem 'mini_magick'
+gem "carrierwave", "~> 2.0"
+gem "mini_magick"
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
@@ -76,8 +76,9 @@ group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem "capybara"
   gem "selenium-webdriver"
+  gem "shoulda-matchers"
 end
 
 group :production do
-  gem 'fog-aws'
+  gem "fog-aws"
 end
