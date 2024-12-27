@@ -6,6 +6,7 @@ RSpec.describe "Instructors::Sessions", type: :request do
       it "ログインページが200ステータスを返す" do
         get new_instructor_session_path
         expect(response).to have_http_status(200)
+        expect(response.body).to include("講師ログイン")
       end
     end
 
