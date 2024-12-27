@@ -23,7 +23,7 @@ RSpec.describe "Students::Sessions", type: :request do
       end
 
       it "プロフィールページにアクセスできる" do
-        get students_profile_path
+        get student_profile_path
         expect(response).to have_http_status(:success)
       end
     end
