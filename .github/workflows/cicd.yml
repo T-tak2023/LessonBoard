@@ -74,7 +74,7 @@ jobs:
           echo "Branch name after assignment: ${branch_name}"
           echo "branch_name=${branch_name}" >> $GITHUB_OUTPUT
 
-      - name: Deploy to EC2
+      - name: Deploy to EC2 (Build and Up)
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.EC2_HOST }}
@@ -93,6 +93,14 @@ jobs:
             echo "Current branch: $(git branch --show-current)"
             docker-compose -f docker-compose.prod.yml up -d --build
 
+      - name: Run assets precompile on EC2
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_SSH_PRIVATE_KEY }}
+          script: |
+            cd ~/LessonBoard
             echo "Running assets:precompile..."
             docker-compose exec web bundle exec rails assets:precompile RAILS_ENV=production
 
