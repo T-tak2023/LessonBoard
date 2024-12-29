@@ -17,6 +17,10 @@ class Lesson < ApplicationRecord
   private
 
   def end_time_after_start_time
+    if start_time.nil? || end_time.nil?
+      return
+    end
+
     if end_time <= start_time
       errors.add(:end_time, "は開始時間より後の時刻を選択してください")
     end

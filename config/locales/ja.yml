@@ -7,6 +7,9 @@ ja:
       lesson:
         start_time: "開始時間"
         end_time: "終了時間"
+        location: "開催場所"
+        student: "生徒"
+        status: "ステータス"
       lesson_note:
         start_time: "開始時間"
         end_time: "終了時間"

@@ -1,5 +1,48 @@
 require 'rails_helper'
 
 RSpec.describe Lesson, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  context 'バリデーション' do
+    it { should validate_presence_of(:start_time) }
+    it { should validate_presence_of(:end_time) }
+    it { should validate_presence_of(:instructor) }
+    it { should validate_presence_of(:student) }
+    it { should validate_presence_of(:status) }
+    it { should validate_length_of(:location).is_at_most(255) }
+
+    it 'end_timeはstart_timeより後の時刻でなければ無効' do
+      lesson = build(:lesson, start_time: Time.now, end_time: Time.now - 1.hour)
+      lesson.valid?
+      expect(lesson.errors[:end_time]).to include("は開始時間より後の時刻を選択してください")
+    end
+
+    it 'end_timeがstart_timeより後であれば有効' do
+      lesson = build(:lesson, start_time: Time.now, end_time: Time.now + 1.hour)
+      expect(lesson).to be_valid
+    end
+  end
+
+  context 'アソシエーション' do
+    it { should belong_to(:instructor) }
+    it { should belong_to(:student) }
+
+    it 'instructorが削除されると関連するlessonも削除される' do
+      instructor = create(:instructor)
+      create(:lesson, instructor: instructor)  # lessonを作成するだけで変数に代入しない
+      expect { instructor.destroy }.to change { Lesson.count }.by(-1)
+    end
+  end
+
+  context 'インスタンスメソッド' do
+    it 'studnt_nameメソッドが生徒名を返す' do
+      student = create(:student, student_name: 'John Doe')
+      lesson = create(:lesson, student: student)
+      expect(lesson.student_name).to eq('John Doe')
+    end
+
+    it 'instructor_nameメソッドが講師名を返す' do
+      instructor = create(:instructor, instructor_name: 'Jane Doe')
+      lesson = create(:lesson, instructor: instructor)
+      expect(lesson.instructor_name).to eq('Jane Doe')
+    end
+  end
 end
