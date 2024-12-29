@@ -15,6 +15,13 @@ RSpec.describe Lesson, type: :model do
       expect(lesson.errors[:end_time]).to include("は開始時間より後の時刻を選択してください")
     end
 
+    it 'start_timeとend_timeが同じ時刻なら無効' do
+      time = Time.now
+      lesson = build(:lesson, start_time: time, end_time: time)
+      lesson.valid?
+      expect(lesson.errors[:end_time]).to include('は開始時間より後の時刻を選択してください')
+    end
+
     it 'end_timeがstart_timeより後であれば有効' do
       lesson = build(:lesson, start_time: Time.now, end_time: Time.now + 1.hour)
       expect(lesson).to be_valid
@@ -29,6 +36,12 @@ RSpec.describe Lesson, type: :model do
       instructor = create(:instructor)
       create(:lesson, instructor: instructor)  # lessonを作成するだけで変数に代入しない
       expect { instructor.destroy }.to change { Lesson.count }.by(-1)
+    end
+
+    it 'studentが削除されると関連するlessonも削除される' do
+      student = create(:student)
+      create(:lesson, student: student)  # lessonを作成するだけで変数に代入しない
+      expect { student.destroy }.to change { Lesson.count }.by(-1)
     end
   end
 
