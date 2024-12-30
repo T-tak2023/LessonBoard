@@ -5,6 +5,6 @@ FactoryBot.define do
     student
     instructor
     location { "Classroom" }
-    status { "Confirmed" }
+    status { "確定" }
   end
 end

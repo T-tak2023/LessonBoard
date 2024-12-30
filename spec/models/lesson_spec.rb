@@ -26,6 +26,20 @@ RSpec.describe Lesson, type: :model do
       lesson = build(:lesson, start_time: Time.now, end_time: Time.now + 1.hour)
       expect(lesson).to be_valid
     end
+
+    it 'statusが無効な値であれば無効' do
+      lesson = build(:lesson, status: "無効な値")
+      expect(lesson).to be_invalid
+      expect(lesson.errors[:status]).to include('は一覧にありません')
+    end
+
+    it 'statusが有効な値であれば有効' do
+      valid_statuses = %w(確定 保留 キャンセル)
+      valid_statuses.each do |status|
+        lesson = build(:lesson, status: status)
+        expect(lesson).to be_valid
+      end
+    end
   end
 
   context 'アソシエーション' do

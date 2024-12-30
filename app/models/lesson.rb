@@ -2,7 +2,10 @@ class Lesson < ApplicationRecord
   belongs_to :instructor
   belongs_to :student
 
-  validates :start_time, :end_time, :instructor, :student, :status, presence: true
+  STATUS_OPTIONS = ["確定", "保留", "キャンセル"].freeze
+
+  validates :start_time, :end_time, :instructor, :student, presence: true
+  validates :status, presence: true, inclusion: { in: STATUS_OPTIONS }
   validates :location, length: { maximum: 255 }
   validate :end_time_after_start_time
 
