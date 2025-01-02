@@ -2,7 +2,7 @@ class Student < ApplicationRecord
   mount_uploader :icon_image, IconImageUploader
   belongs_to :instructor
   has_many :lessons, dependent: :destroy
-  has_many :lesson_notes
+  has_many :lesson_notes, dependent: :nullify
   before_create :set_enrollment_date
 
   # Include default devise modules. Others available are:

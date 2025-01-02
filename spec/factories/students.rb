@@ -6,6 +6,6 @@ FactoryBot.define do
     student_name { "Test Student" }
     course { "Sample Course" }
     enrollment_date { Date.today }
-    association :instructor
+    instructor
   end
 end

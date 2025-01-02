@@ -12,7 +12,7 @@ RSpec.describe Lesson, type: :model do
     it 'end_timeはstart_timeより後の時刻でなければ無効' do
       lesson = build(:lesson, start_time: Time.now, end_time: Time.now - 1.hour)
       lesson.valid?
-      expect(lesson.errors[:end_time]).to include("は開始時間より後の時刻を選択してください")
+      expect(lesson.errors[:end_time]).to include('は開始時間より後の時刻を選択してください')
     end
 
     it 'start_timeとend_timeが同じ時刻なら無効' do
@@ -28,7 +28,7 @@ RSpec.describe Lesson, type: :model do
     end
 
     it 'statusが無効な値であれば無効' do
-      lesson = build(:lesson, status: "無効な値")
+      lesson = build(:lesson, status: '無効な値')
       expect(lesson).to be_invalid
       expect(lesson.errors[:status]).to include('は一覧にありません')
     end
@@ -60,7 +60,7 @@ RSpec.describe Lesson, type: :model do
   end
 
   context 'インスタンスメソッド' do
-    it 'studnt_nameメソッドが生徒名を返す' do
+    it 'student_nameメソッドが生徒名を返す' do
       student = create(:student, student_name: 'John Doe')
       lesson = create(:lesson, student: student)
       expect(lesson.student_name).to eq('John Doe')
