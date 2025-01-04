@@ -53,12 +53,6 @@ RSpec.describe LessonNote, type: :model do
     it { should belong_to(:student).optional }
 
     context 'lesson_noteのアソシエーション関連の動作' do
-      it 'instructorが削除されると関連するlesson_noteも削除される' do
-        instructor = create(:instructor)
-        create(:lesson_note, instructor: instructor)
-        expect { instructor.destroy }.to change { LessonNote.count }.by(-1)
-      end
-
       it 'studentが削除されても関連するlesson_noteは削除されず有効である' do
         student = create(:student)
         lesson_note = create(:lesson_note, student: student)

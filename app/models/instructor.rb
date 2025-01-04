@@ -1,6 +1,6 @@
 class Instructor < ApplicationRecord
   mount_uploader :icon_image, IconImageUploader
-  has_many :students
+  has_many :students, dependent: :destroy
   has_many :lessons, dependent: :destroy
   has_many :lesson_notes, dependent: :destroy
 
