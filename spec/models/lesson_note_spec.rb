@@ -65,7 +65,7 @@ RSpec.describe LessonNote, type: :model do
     context '関連する student が削除された場合' do
       it 'lesson_note は削除されないこと' do
         student = create(:student)
-        lesson_note = create(:lesson_note, student: student)
+        create(:lesson_note, student: student)
 
         expect { student.destroy }.not_to change { LessonNote.count }
       end
