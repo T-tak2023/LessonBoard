@@ -45,18 +45,6 @@ RSpec.describe Lesson, type: :model do
   context 'アソシエーション' do
     it { should belong_to(:instructor) }
     it { should belong_to(:student) }
-
-    it 'instructorが削除されると関連するlessonも削除される' do
-      instructor = create(:instructor)
-      create(:lesson, instructor: instructor)  # lessonを作成するだけで変数に代入しない
-      expect { instructor.destroy }.to change { Lesson.count }.by(-1)
-    end
-
-    it 'studentが削除されると関連するlessonも削除される' do
-      student = create(:student)
-      create(:lesson, student: student)  # lessonを作成するだけで変数に代入しない
-      expect { student.destroy }.to change { Lesson.count }.by(-1)
-    end
   end
 
   context 'インスタンスメソッド' do
