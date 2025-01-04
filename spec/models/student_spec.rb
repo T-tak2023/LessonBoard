@@ -12,8 +12,8 @@ RSpec.describe Student, type: :model do
     it { should have_many(:lessons).dependent(:destroy) }
     it { should have_many(:lesson_notes) }
 
-    context 'studentを削除した時の動作' do
-      it 'studentが削除されると関連するlessonも削除される' do
+    context 'student を削除した時' do
+      it '関連する lesson も削除されること' do
         student = create(:student)
         create(:lesson, student: student)
         expect { student.destroy }.to change { Lesson.count }.by(-1)

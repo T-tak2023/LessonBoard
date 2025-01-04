@@ -11,20 +11,20 @@ RSpec.describe Instructor, type: :model do
     it { should have_many(:students) }
     it { should have_many(:lessons) }
 
-    context 'instructorを削除した時の動作' do
-      it 'instructorが削除されると関連するstudentsも削除される' do
+    context 'instructor を削除した時' do
+      it '関連する students も削除されること' do
         instructor = create(:instructor)
         create(:student, instructor: instructor)
         expect { instructor.destroy }.to change { Student.count }.by(-1)
       end
 
-      it 'instructorが削除されると関連するlessonsも削除される' do
+      it '関連する lessons も削除されること' do
         instructor = create(:instructor)
         create(:lesson, instructor: instructor)
         expect { instructor.destroy }.to change { Lesson.count }.by(-1)
       end
 
-      it 'instructorが削除されると関連するlesson_notesも削除される' do
+      it '関連する lesson_notes も削除されること' do
         instructor = create(:instructor)
         create(:lesson_note, instructor: instructor)
         expect { instructor.destroy }.to change { LessonNote.count }.by(-1)
