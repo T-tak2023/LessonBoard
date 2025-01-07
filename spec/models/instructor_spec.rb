@@ -8,24 +8,24 @@ RSpec.describe Instructor, type: :model do
   end
 
   describe 'アソシエーション' do
-    it { should have_many(:students) }
-    it { should have_many(:lessons) }
+    it { should have_many(:students).dependent(:destroy) }
+    it { should have_many(:lessons).dependent(:destroy) }
+    it { should have_many(:lesson_notes).dependent(:destroy) }
 
     context 'instructor を削除した時' do
+      let(:instructor) { create(:instructor) }
+
       it '関連する students も削除されること' do
-        instructor = create(:instructor)
         create(:student, instructor: instructor)
         expect { instructor.destroy }.to change { Student.count }.by(-1)
       end
 
       it '関連する lessons も削除されること' do
-        instructor = create(:instructor)
         create(:lesson, instructor: instructor)
         expect { instructor.destroy }.to change { Lesson.count }.by(-1)
       end
 
       it '関連する lesson_notes も削除されること' do
-        instructor = create(:instructor)
         create(:lesson_note, instructor: instructor)
         expect { instructor.destroy }.to change { LessonNote.count }.by(-1)
       end
