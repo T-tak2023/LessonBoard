@@ -39,7 +39,7 @@ RSpec.describe LessonNote, type: :model do
       end
     end
 
-    context 'video_materialのバリデーション' do
+    context 'video_material のバリデーション' do
       let(:lesson_note) { build(:lesson_note) }
 
       context 'YouTube以外のURLの場合' do
@@ -82,6 +82,36 @@ RSpec.describe LessonNote, type: :model do
         lesson_note.reload
         expect(lesson_note).to be_valid
       end
+    end
+  end
+
+  describe '#student_name' do
+    let(:student) { create(:student, student_name: 'John Doe') }
+
+    context '生徒が存在する場合' do
+      let(:lesson_note) { create(:lesson_note, student: student) }
+
+      it '生徒名を返すこと' do
+        expect(lesson_note.student_name).to eq('John Doe')
+      end
+    end
+
+    context '生徒が存在しない場合' do
+      let(:instructor) { create(:instructor) }
+      let(:lesson_note) { create(:lesson_note, student: nil, instructor: instructor) }
+
+      it '「情報なし」を返すこと' do
+        expect(lesson_note.student_name).to eq('情報なし')
+      end
+    end
+  end
+
+  describe '#instructor_name' do
+    let(:instructor) { create(:instructor, instructor_name: 'Jane Doe') }
+    let(:lesson_note) { create(:lesson_note, instructor: instructor) }
+
+    it '講師名を返すこと' do
+      expect(lesson_note.instructor_name).to eq('Jane Doe')
     end
   end
 end
