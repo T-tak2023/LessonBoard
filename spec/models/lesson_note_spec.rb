@@ -42,19 +42,99 @@ RSpec.describe LessonNote, type: :model do
     context 'video_material のバリデーション' do
       let(:lesson_note) { build(:lesson_note) }
 
-      context 'YouTube以外のURLの場合' do
-        it '無効であること' do
-          lesson_note.video_material = "https://example.com/invalid"
-          expect(lesson_note).to_not be_valid
-          expect(lesson_note.errors[:video_material]).to include('は有効なYouTubeのURLを入力してください。')
+      context '正常系' do
+        context 'YouTubeのURL' do
+          it '基本形式（youtube.com/watch?=v）が有効であること' do
+            lesson_note.video_material = "https://www.youtube.com/watch?v=ABC_123-xyz"
+            expect(lesson_note).to be_valid
+          end
+
+          it '短縮形式（youtu.be）が有効であること' do
+            lesson_note.video_material = "https://youtu.be/ABC_123-xyz"
+            expect(lesson_note).to be_valid
+          end
+
+          it 'モバイル形式（m.youtube.com）が有効であること' do
+            lesson_note.video_material = "https://m.youtube.com/watch?v=ABC_123-xyz"
+            expect(lesson_note).to be_valid
+          end
+
+          it 'クエリパラメータ付きのURLが有効であること' do
+            lesson_note.video_material = "https://www.youtube.com/watch?v=ABC_123-xyz?feature=shared"
+            expect(lesson_note).to be_valid
+          end
+
+          it 'wwwなしのURLが有効であること' do
+            lesson_note.video_material = "https://youtube.com/watch?v=ABC_123-xyz"
+            expect(lesson_note).to be_valid
+          end
+
+          it 'プロトコルなしのURLが有効であること' do
+            lesson_note.video_material = "www.youtube.com/watch?v=ABC_123-xyz"
+            expect(lesson_note).to be_valid
+          end
+        end
+
+        context '空値' do
+          it '空文字が有効であること' do
+            lesson_note.video_material = ""
+            expect(lesson_note).to be_valid
+          end
+
+          it 'nilが有効であること' do
+            lesson_note.video_material = nil
+            expect(lesson_note).to be_valid
+          end
         end
       end
 
-      context '正しいYouTube URLの場合' do
-        it '有効であること' do
-          lesson_note.video_material = "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
-          expect(lesson_note).to be_valid
+      context '異常系' do
+        context 'URL形式の基本的なエラー' do
+          it 'URLではない文字列は無効であること' do
+            lesson_note.video_material = "これはURLではありません"
+            expect(lesson_note).to_not be_valid
+          end
+
+          it 'マルチバイト文字を含むURLは無効であること' do
+            lesson_note.video_material = "https://www.youtube.com/watch?v=あいうえお12345"
+            expect(lesson_note).to_not be_valid
+          end
         end
+
+        context 'YouTube以外のURL' do
+          it '他のドメインのURLは無効であること' do
+            lesson_note.video_material = "https://example.com/watch?v=ABC_123-xyz"
+            expect(lesson_note).to_not be_valid
+          end
+
+          it 'YouTubeに似たドメインのURLは無効であること' do
+            lesson_note.video_material = "https://youtube.fake.com/watch?v=ABC_123-xyz"
+            expect(lesson_note).to_not be_valid
+          end
+        end
+
+        context 'YouTube URLの形式エラー' do
+          it '動画IDが11文字未満の場合は無効であること' do
+            lesson_note.video_material = "https://www.youtube.com/watch?v=ABC_123"
+            expect(lesson_note).to_not be_valid
+          end
+
+          it '動画IDに不正な文字が含まれる場合は無効であること' do
+            lesson_note.video_material = "https://www.youtube.com/watch?v=ABC_123#xyz"
+            expect(lesson_note).to_not be_valid
+          end
+
+          it 'watch?v=がないURLは無効であること' do
+            lesson_note.video_material = "https://www.youtube.com/ABC_123-xyz"
+            expect(lesson_note).to_not be_valid
+          end
+        end
+      end
+
+      it 'エラー時には適切なメッセージが設定されること' do
+        lesson_note.video_material = "https://example.com/invalid"
+        lesson_note.valid?
+        expect(lesson_note.errors[:video_material]).to include('は有効なYouTubeのURLを入力してください。')
       end
     end
   end
