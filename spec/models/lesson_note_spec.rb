@@ -55,14 +55,18 @@ RSpec.describe LessonNote, type: :model do
 
       context '無効な画像の場合' do
         it '2MBを超える画像は無効であること' do
-          large_image = Rack::Test::UploadedFile.new(Rails.root.join('spec/fixtures/files/image_materials/large_image.jpg'), 'image/jpeg')
+          large_image = Rack::Test::UploadedFile.new(
+            Rails.root.join('spec/fixtures/files/image_materials/large_image.jpg'), 'image/jpeg'
+          )
           lesson_note.image_material = large_image
           expect(lesson_note).to be_invalid
           expect(lesson_note.errors[:image_material]).to include('ファイルサイズが大きすぎます。最大2MBまで許可されています。')
         end
 
         it '許可されていない拡張子のファイルは無効であること' do
-          lesson_note.image_material = Rack::Test::UploadedFile.new(Rails.root.join('spec/fixtures/files/image_materials/sample.txt'), 'text/plain')
+          lesson_note.image_material = Rack::Test::UploadedFile.new(
+            Rails.root.join('spec/fixtures/files/image_materials/sample.txt'), 'text/plain'
+          )
           expect(lesson_note).to be_invalid
           expect(lesson_note.errors[:image_material]).to include('としてアップロードできるファイルタイプは[jpg, jpeg, png]です。')
         end
