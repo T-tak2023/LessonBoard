@@ -39,7 +39,7 @@ RSpec.describe Lesson, type: :model do
       end
     end
 
-    context 'statusのバリデーション' do
+    context 'status のバリデーション' do
       context '無効な値の場合' do
         let(:lesson) { build(:lesson, status: '無効な値') }
 

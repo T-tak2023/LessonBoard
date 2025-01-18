@@ -39,6 +39,36 @@ RSpec.describe LessonNote, type: :model do
       end
     end
 
+    context 'image_material のアップロード' do
+      let(:lesson_note) { build(:lesson_note) }
+
+      context '有効な画像の場合' do
+        %w(jpg jpeg png).each do |format|
+          it "#{format}形式の画像をアップロードできること" do
+            lesson_note.image_material = Rack::Test::UploadedFile.new(
+              Rails.root.join("spec/fixtures/files/image_materials/valid_image.#{format}"), "image/#{format}"
+            )
+            expect(lesson_note).to be_valid
+          end
+        end
+      end
+
+      context '無効な画像の場合' do
+        it '2MBを超える画像は無効であること' do
+          large_image = Rack::Test::UploadedFile.new(Rails.root.join('spec/fixtures/files/image_materials/large_image.jpg'), 'image/jpeg')
+          lesson_note.image_material = large_image
+          expect(lesson_note).to be_invalid
+          expect(lesson_note.errors[:image_material]).to include('ファイルサイズが大きすぎます。最大2MBまで許可されています。')
+        end
+
+        it '許可されていない拡張子のファイルは無効であること' do
+          lesson_note.image_material = Rack::Test::UploadedFile.new(Rails.root.join('spec/fixtures/files/image_materials/sample.txt'), 'text/plain')
+          expect(lesson_note).to be_invalid
+          expect(lesson_note.errors[:image_material]).to include('としてアップロードできるファイルタイプは[jpg, jpeg, png]です。')
+        end
+      end
+    end
+
     context 'video_material のバリデーション' do
       let(:lesson_note) { build(:lesson_note) }
 

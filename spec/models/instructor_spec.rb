@@ -32,14 +32,14 @@ RSpec.describe Instructor, type: :model do
     end
   end
 
-  describe '画像アップロード' do
+  describe 'icon_image のアップロード' do
     let(:instructor) { build(:instructor) }
 
     context '有効な画像の場合' do
       %w(jpg jpeg png).each do |format|
         it "#{format}形式の画像をアップロードできること" do
           instructor.icon_image = Rack::Test::UploadedFile.new(
-            Rails.root.join("spec/fixtures/files/valid_image.#{format}"), "image/#{format}"
+            Rails.root.join("spec/fixtures/files/icon_images/valid_image.#{format}"), "image/#{format}"
           )
           expect(instructor).to be_valid
         end
@@ -47,7 +47,7 @@ RSpec.describe Instructor, type: :model do
 
       it 'アップロードされた画像が200x200にリサイズされること' do
         instructor.icon_image = Rack::Test::UploadedFile.new(
-          Rails.root.join('spec/fixtures/files/valid_image.jpg'), 'image/jpeg'
+          Rails.root.join('spec/fixtures/files/icon_images/valid_image.jpg'), 'image/jpeg'
         )
         instructor.save
         expect(instructor.icon_image).to be_present
@@ -61,14 +61,14 @@ RSpec.describe Instructor, type: :model do
 
     context '無効な画像の場合' do
       it '2MBを超える画像は無効であること' do
-        large_image = Rack::Test::UploadedFile.new(Rails.root.join('spec/fixtures/files/large_image.jpg'), 'image/jpeg')
+        large_image = Rack::Test::UploadedFile.new(Rails.root.join('spec/fixtures/files/icon_images/large_image.jpg'), 'image/jpeg')
         instructor.icon_image = large_image
         expect(instructor).to be_invalid
         expect(instructor.errors[:icon_image]).to include('ファイルサイズが大きすぎます。最大2MBまで許可されています。')
       end
 
       it '許可されていない拡張子のファイルは無効であること' do
-        instructor.icon_image = Rack::Test::UploadedFile.new(Rails.root.join('spec/fixtures/files/sample.txt'), 'text/plain')
+        instructor.icon_image = Rack::Test::UploadedFile.new(Rails.root.join('spec/fixtures/files/icon_images/sample.txt'), 'text/plain')
         expect(instructor).to be_invalid
         expect(instructor.errors[:icon_image]).to include('としてアップロードできるファイルタイプは[jpg, jpeg, png]です。')
       end
