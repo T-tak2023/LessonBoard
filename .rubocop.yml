@@ -19,6 +19,10 @@ AllCops:
     - '.git/**/*'
   NewCops: enable
 
+Style/BlockDelimiters:
+  Exclude:
+    - 'spec/**/*'
+
 Rails/ActiveRecordCallbacksOrder: # new in 2.7
   Enabled: true
 Rails/AfterCommitOverride: # new in 2.8

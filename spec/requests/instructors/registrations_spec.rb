@@ -104,7 +104,9 @@ RSpec.describe 'Instructor::Registrations', type: :request do
       end
 
       context 'パスワード（確認用）とパスワードの入力が一致しない場合' do
-        let(:mismatched_password_params) { { instructor: attributes_for(:instructor, password: 'password123', password_confirmation: 'different123') } }
+        let(:mismatched_password_params) do
+          { instructor: attributes_for(:instructor, password: 'password123', password_confirmation: 'different123') }
+        end
 
         it '講師アカウントが作成されないこと' do
           expect {
