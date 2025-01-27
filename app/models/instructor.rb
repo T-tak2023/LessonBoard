@@ -15,7 +15,7 @@ class Instructor < ApplicationRecord
   def self.guest
     find_or_create_by!(email: 'guest_instructor@example.com') do |instructor|
       instructor.password = SecureRandom.urlsafe_base64
-      instructor.instructor_name = 'ゲスト講師'
+      instructor.instructor_name = 'ゲスト 講師'
     end
   end
 

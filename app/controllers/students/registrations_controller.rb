@@ -4,6 +4,7 @@ class Students::RegistrationsController < Devise::RegistrationsController
   # before_action :configure_sign_up_params, only: [:create]
   # before_action :configure_account_update_params, only: [:update]
   prepend_before_action :authenticate_instructor!, only: [:new, :create]
+  before_action :ensure_normal_user, only: :update
 
   # GET /resource/sign_up
   def new
@@ -64,6 +65,13 @@ class Students::RegistrationsController < Devise::RegistrationsController
       redirect_to root_path, alert: '生徒アカウントでは生徒登録ページにアクセスできません。'
     elsif !instructor_signed_in?
       redirect_to new_instructor_session_path, alert: '生徒登録するには講師アカウントでログインしてください。'
+    end
+  end
+
+  def ensure_normal_user
+    if resource.guest_user?
+      flash[:alert] = 'ゲストユーザーは編集できません。'
+      redirect_to edit_student_registration_path
     end
   end
 
