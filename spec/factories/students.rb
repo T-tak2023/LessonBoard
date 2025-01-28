@@ -1,10 +1,11 @@
 FactoryBot.define do
   factory :student do
-    sequence(:student_name) { |n| "Student #{n}" }
     sequence(:email) { |n| "student#{n}@example.com" }
     password { "password" }
-    course { "Course" }
+    password_confirmation { "password" }
+    student_name { "Test Student" }
+    course { "Sample Course" }
     enrollment_date { Date.today }
-    association :instructor
+    instructor
   end
 end

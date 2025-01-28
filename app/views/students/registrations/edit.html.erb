@@ -4,7 +4,7 @@
       <h2 class="mb-0"><i class="bi bi-pencil-square"></i> <%= t('.title', resource: devise_i18n_fix_model_name_case(resource.model_name.human, i18n_key: 'registrations.edit.title')) %></h2>
     </div>
     <div class="card-body">
-      <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+      <%= form_for(resource, as: resource_name, url: update_student_registration_path, html: { method: :patch }) do |f| %>
         <%= render "devise/shared/error_messages", resource: resource %>
 
         <div class="mb-5">

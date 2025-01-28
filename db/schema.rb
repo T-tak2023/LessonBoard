@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_12_18_071918) do
+ActiveRecord::Schema[7.1].define(version: 2024_12_28_042709) do
   create_table "active_storage_attachments", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -47,7 +47,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_18_071918) do
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "instructor_name"
+    t.string "instructor_name", null: false
     t.string "course"
     t.string "icon_image"
     t.index ["email"], name: "index_instructors_on_email", unique: true
@@ -92,7 +92,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_18_071918) do
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "student_name"
+    t.string "student_name", null: false
     t.string "course"
     t.string "icon_image"
     t.integer "instructor_id"

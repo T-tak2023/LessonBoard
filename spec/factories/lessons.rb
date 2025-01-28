@@ -4,6 +4,7 @@ FactoryBot.define do
     end_time { Time.now + 1.hour }
     student
     instructor
-    status { "Scheduled" }
+    location { "Classroom" }
+    status { "確定" }
   end
 end

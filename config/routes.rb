@@ -5,11 +5,7 @@ Rails.application.routes.draw do
     edit: 'account/edit'
   }
 
-  devise_for :students, controllers: {
-    registrations: 'students/registrations'
-  }, path_names: {
-    edit: 'account/edit'
-  }
+  devise_for :students, skip: [:registrations]
 
   devise_scope :instructor do
     post 'instructors/guest_sign_in', to: 'instructors/sessions#guest_sign_in'
@@ -17,21 +13,25 @@ Rails.application.routes.draw do
 
   devise_scope :student do
     post 'students/guest_sign_in', to: 'students/sessions#guest_sign_in'
+
+    get 'instructors/students/new', to: 'students/registrations#new', as: :new_student_registration
+    post 'instructors/students', to: 'students/registrations#create', as: :student_registration
+    get 'students/account/edit', to: 'students/registrations#edit', as: :edit_student_registration
+    patch 'students/account', to: 'students/registrations#update', as: :update_student_registration
+    put 'students/account', to: 'students/registrations#update'
   end
+
+  get 'instructors/profile', to: 'instructors#profile', as: :instructor_profile
+  get 'instructors/profile/edit', to: 'instructors#profile_edit', as: :instructor_profile_edit
+  patch 'instructors/profile/edit', to: 'instructors#profile_update'
+
+  get 'students/profile', to: 'students/profiles#profile', as: :student_profile
+  get 'students/profile/edit', to: 'students/profiles#profile_edit', as: :student_profile_edit
+  patch 'students/profile/edit', to: 'students/profiles#profile_update'
 
   namespace :instructors do
     resources :students, path: 'my-students', only: [:index, :show, :edit, :update, :destroy]
   end
-
-  namespace :students do
-    get 'profile', to: 'profiles#profile', as: :profile
-    get 'profile/edit', to: 'profiles#profile_edit', as: :profile_edit
-    patch 'profile/edit', to: 'profiles#profile_update'
-  end
-
-  get "instructors/profile" => "instructors#profile", as: :instructor_profile
-  get "instructors/profile/edit" => "instructors#profile_edit", as: :instructor_profile_edit
-  patch "instructors/profile/edit" => "instructors#profile_update"
 
   resources :lessons do
     collection do

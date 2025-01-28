@@ -11,11 +11,11 @@
         <form id="eventForm">
           <div class="mb-3">
             <label for="start_time" class="form-label">開始時間：</label>
-            <input type="datetime-local" id="start_time" name="start_time" class="form-control" required>
+            <input type="datetime-local" id="start_time" name="start_time" class="form-control">
           </div>
           <div class="mb-3">
             <label for="end_time" class="form-label">終了時間：</label>
-            <input type="datetime-local" id="end_time" name="end_time" class="form-control" required>
+            <input type="datetime-local" id="end_time" name="end_time" class="form-control">
           </div>
           <div class="mb-3">
             <label for="location" class="form-label">開催場所：</label>
@@ -23,7 +23,7 @@
           </div>
           <div class="mb-3">
             <label for="student_id" class="form-label">生徒：</label>
-            <select name="student_id" id="student_id" class="form-select" required>
+            <select name="student_id" id="student_id" class="form-select">
               <% current_instructor.students.each do |student| %>
                 <option value="<%= student.id %>"><%= student.student_name %></option>
               <% end %>
@@ -31,7 +31,7 @@
           </div>
           <div class="mb-3">
             <label for="status" class="form-label">ステータス：</label>
-            <select name="status" id="status" class="form-select" required>
+            <select name="status" id="status" class="form-select">
               <option value="確定">確定</option>
               <option value="保留">保留</option>
               <option value="キャンセル">キャンセル</option>
@@ -126,15 +126,15 @@
         <form id="eventEditForm">
           <div class="mb-3">
             <label for="edit_start_time" class="form-label">開始時間：</label>
-            <input type="datetime-local" id="edit_start_time" name="start_time" class="form-control" required>
+            <input type="datetime-local" id="edit_start_time" name="start_time" class="form-control">
           </div>
           <div class="mb-3">
             <label for="edit_end_time" class="form-label">終了時間：</label>
-            <input type="datetime-local" id="edit_end_time" name="end_time" class="form-control" required>
+            <input type="datetime-local" id="edit_end_time" name="end_time" class="form-control">
           </div>
           <div class="mb-3">
             <label for="edit_student_id" class="form-label">生徒：</label>
-            <select id="edit_student_id" name="student_id" class="form-select" required>
+            <select id="edit_student_id" name="student_id" class="form-select">
               <% current_instructor.students.each do |student| %>
                 <option value="<%= student.id %>"><%= student.student_name %></option>
               <% end %>
@@ -146,7 +146,7 @@
           </div>
           <div class="mb-3">
             <label for="edit_status" class="form-label">ステータス：</label>
-            <select id="edit_status" name="status" class="form-select" required>
+            <select id="edit_status" name="status" class="form-select">
               <option value="確定">確定</option>
               <option value="保留">保留</option>
               <option value="キャンセル">キャンセル</option>

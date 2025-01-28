@@ -2,7 +2,7 @@ class Student < ApplicationRecord
   mount_uploader :icon_image, IconImageUploader
   belongs_to :instructor
   has_many :lessons, dependent: :destroy
-  has_many :lesson_notes
+  has_many :lesson_notes, dependent: :nullify
   before_create :set_enrollment_date
 
   # Include default devise modules. Others available are:
@@ -14,11 +14,10 @@ class Student < ApplicationRecord
   validates :course, length: { maximum: 50 }
 
   def self.guest
+    instructor = Instructor.guest
     find_or_create_by!(email: 'guest_student@example.com') do |student|
       student.password = SecureRandom.urlsafe_base64
-      student.student_name = 'ゲスト生徒'
-
-      instructor = Instructor.first || Instructor.create!(instructor_name: 'ゲスト講師', email: 'guest_instructor@example.com')
+      student.student_name = 'ゲスト 生徒'
       student.instructor = instructor
     end
   end
