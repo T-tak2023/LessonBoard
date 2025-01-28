@@ -7,7 +7,9 @@ class Instructors::StudentsController < ApplicationController
   end
 
   def show
-    @lessons = @student.lessons.where('start_time >= ?', Time.current.beginning_of_day)
+    @lessons = @student.lessons.
+      where('start_time >= ?', Time.current.beginning_of_day).
+      order(start_time: :asc)
     @lesson_notes = @student.lesson_notes.order(start_time: :desc)
   end
 
