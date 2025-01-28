@@ -96,8 +96,8 @@ jobs:
             echo "Running assets:precompile..."
             docker-compose exec web bundle exec rails assets:precompile RAILS_ENV=production
 
-            echo "Running db:seed..."
-            docker-compose exec web bundle exec rails db:seed RAILS_ENV=production
+          # echo "Running db:seed..."
+          # docker-compose exec web bundle exec rails db:seed RAILS_ENV=production
 
       - name: Remove IP from EC2 security group
         if: always()
