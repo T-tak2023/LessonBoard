@@ -14,11 +14,11 @@ class Student < ApplicationRecord
   validates :course, length: { maximum: 50 }
 
   def self.guest
-    instructor = Instructor.guest
+    guest_instructor = Instructor.guest
     find_or_create_by!(email: 'guest_student@example.com') do |student|
       student.password = SecureRandom.urlsafe_base64
       student.student_name = 'ゲスト 生徒'
-      student.instructor = instructor
+      student.instructor = guest_instructor
     end
   end
 
