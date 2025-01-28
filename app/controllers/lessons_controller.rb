@@ -19,7 +19,8 @@ class LessonsController < ApplicationController
 
   def student_index
     @lessons = Lesson.where(student_id: current_student.id).
-      where('start_time >= ?', Time.current.beginning_of_day)
+      where('start_time >= ?', Time.current.beginning_of_day).
+      order(start_time: :desc)
   end
 
   def show
