@@ -74,11 +74,11 @@ git clone https://github.com/T-tak2023/LessonBoard.git
 cd LessonBoard
 ```
 
-#### **2. Docker イメージのビルド**
+#### **2. サーバーの起動**
 
-次に Docker イメージをビルドします：
+サーバーを起動します：
 ```
-docker compose build  
+docker-compose up  
 ```
 #### **3. データベースの作成とマイグレーション**
 
@@ -95,13 +95,9 @@ docker compose run web rails db:migrate
 ```
 docker compose run web rails db:seed  
 ```
-#### **5. サーバーの起動**
 
-サーバーを起動します：
-```
-docker-compose up  
-```
-サーバーが正常に立ち上がったら、ブラウザで以下のURLにアクセスしてください：
+#### **5. ローカルホストにアクセス**
+ブラウザで以下のURLにアクセスしてください：
 
 http://localhost:3000  
 
