@@ -47,6 +47,9 @@
 | **Bootstrap 5**     | スタイリングとレスポンシブデザイン   |
 
 ---
+## ER図
+![ER Diagram](er_diagram.png)
+---
 
 ## セットアップ手順
 
