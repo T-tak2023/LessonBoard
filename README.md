@@ -78,7 +78,7 @@ cd LessonBoard
 
 サーバーを起動します：
 ```
-docker-compose up  
+docker compose up  
 ```
 #### **3. データベースの作成とマイグレーション**
 
